@@ -29,22 +29,7 @@ export default function Header({ navLinks }: Props) {
 						<Navbar.Collapse id="navbar-nav-main">
 							<Nav className="me-auto">
 								<Nav.Link href="/">Home</Nav.Link>
-								<Nav.Link href="#link">Link</Nav.Link>
-								<NavDropdown title="Dropdown" id="basic-nav-dropdown">
-									<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-									<NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-									<NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-									<NavDropdown.Divider />
-									<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-								</NavDropdown>
-								{/* {session?.user?.roles.indexOf('admin') != -1 && <Nav.Link href="/admin">admin1</Nav.Link>}
-								{session?.user?.roles[0] == 'admin' && <Nav.Link href="/admin">admin2</Nav.Link>}
-								{true == true && <Nav.Link href="/admin">admin3</Nav.Link>}
-								{false && <Nav.Link href="/admin">admin4</Nav.Link>}
-								{session && <Nav.Link href="/admin">admin5</Nav.Link>} */}
-								{/* <NavLinkComponent {...navLinks} /> */}
 								<NavBuilder depth={0} navLinks={navLinks} />
-								{/* <>{secureNav(0, navLinks)}</> */}
 							</Nav>
 							<Nav>
 								<NavDropdown title="Dropdown" id="user-nav-dropdown">

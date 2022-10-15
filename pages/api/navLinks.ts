@@ -21,11 +21,49 @@ interface dropdown {
 export default async function navLinks(req: NextApiRequest, res: NextApiResponse) {
 	const session = await getSession({ req });
 	// console.log('navLinks session', session);
-	if (!session) {
-		return res.status(200).json([]);
-	}
 	let navJSON = [];
-	if (req.method === 'GET') {
+
+	const recursiveExample = {
+		type: 'dd',
+		title: 'Recursive Nav',
+		children: [
+			{
+				type: 'dd',
+				title: 'Example Nav 1a',
+				children: [
+					{
+						type: 'dd',
+						title: 'Example Nav 1b',
+						children: [
+							{
+								type: 'ddItem',
+								href: '/navbuilderrecursive',
+								title: 'Example with code',
+							},
+						],
+					},
+				],
+			},
+			{
+				type: 'dd',
+				title: 'Example Nav 2a',
+				children: [
+					{
+						type: 'ddItem',
+						href: '/navbuilderrecursive',
+						title: 'Example with code',
+					},
+				],
+			},
+		],
+	};
+	navJSON.push(recursiveExample);
+
+	// if (!session) {
+	// 	return res.status(200).json([]);
+	// }
+	// console.log('session', session);
+	if (session && req.method === 'GET') {
 		if (session?.user?.roles.indexOf('guest') != -1) {
 			navJSON.push({
 				type: 'dd',

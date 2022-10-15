@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 
 export default function IndexPage({ navLinks }: any) {
 	// const [navLinks, setNavLinks] = useState(navLinksObj);
-	// console.log('navLinks', navLinks);
+	console.log('navLinks', navLinks);
 	const { data: session, status } = useSession();
 	return (
 		<Layout navLinks={navLinks}>
@@ -19,20 +19,20 @@ export default function IndexPage({ navLinks }: any) {
 	);
 }
 
-export async function getServerSideProps({ req }: any) {
-	// console.log('header getServerSideProps context', context);
-	// console.log('header getServerSideProps server', server);
-	const response = await fetch(`${server}/api/navLinks`, {
-		headers: {
-			cookie: req.headers.cookie || '',
-		},
-	});
-	const data = await response.json();
-	// console.log('header getServerSideProps data', data);
+// export async function getServerSideProps({ req }: any) {
+// 	// console.log('header getServerSideProps context', context);
+// 	// console.log('header getServerSideProps server', server);
+// 	const response = await fetch(`${server}/api/navLinks`, {
+// 		headers: {
+// 			cookie: req.headers.cookie || '',
+// 		},
+// 	});
+// 	const data = await response.json();
+// 	// console.log('header getServerSideProps data', data);
 
-	return {
-		props: {
-			navLinks: data,
-		},
-	};
-}
+// 	return {
+// 		props: {
+// 			navLinks: data,
+// 		},
+// 	};
+// }
