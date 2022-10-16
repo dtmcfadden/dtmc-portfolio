@@ -2,14 +2,13 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 interface Props {
-	navLinks: any;
 	children: React.ReactNode;
 }
 
-export default function Layout({ navLinks, children }: Props) {
+export default function Layout({ children }: Props) {
 	return (
 		<>
-			<Header navLinks={navLinks} />
+			<Header />
 			<main>{children}</main>
 			<Footer />
 		</>

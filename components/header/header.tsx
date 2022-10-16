@@ -2,14 +2,11 @@ import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 import styles from './header.module.css';
+import { server } from '@/config/index';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import NavBuilder from './nav-builder/nav-builder';
 
-interface Props {
-	navLinks: any;
-}
-
-export default function Header({ navLinks }: Props) {
+export default function Header() {
 	// const [navLinks, setNavLinks] = useState(navLinksObj);
 	// console.log('Header navLinks', navLinks);
 	const { data: session, status } = useSession();
@@ -29,7 +26,7 @@ export default function Header({ navLinks }: Props) {
 						<Navbar.Collapse id="navbar-nav-main">
 							<Nav className="me-auto">
 								<Nav.Link href="/">Home</Nav.Link>
-								<NavBuilder depth={0} navLinks={navLinks} />
+								<NavBuilder navHref={`${server}/api/navLinks`} />
 							</Nav>
 							<Nav>
 								<NavDropdown title="Dropdown" id="user-nav-dropdown">
