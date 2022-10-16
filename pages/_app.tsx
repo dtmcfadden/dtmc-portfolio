@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/layout';
-import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@/styles/global.css';
 import { server } from '@/config/index';
 import type { AppProps } from 'next/app';
 import type { Session } from 'next-auth';

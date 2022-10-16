@@ -17,7 +17,7 @@ export default function Header() {
 	return (
 		<header>
 			{showNav && (
-				<Navbar bg="light" expand="lg">
+				<Navbar bg="primary" variant="dark" expand="lg">
 					<Container>
 						<Navbar.Brand href="/">
 							<div className="navbar-text p-0 mt-1">Welcome {session?.user?.name}</div>
