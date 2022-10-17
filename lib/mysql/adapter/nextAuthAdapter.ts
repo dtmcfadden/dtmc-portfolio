@@ -1,3 +1,4 @@
+export {};
 // import type { Adapter } from "next-auth/adapters"
 // import { User } from '../models';
 

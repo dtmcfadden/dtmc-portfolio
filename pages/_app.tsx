@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 // import { Component } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
-	// export default function App(props: AppProps) {
 	// console.log('App pageProps', pageProps);
 	// useEffect(() => {
 	// 	typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
