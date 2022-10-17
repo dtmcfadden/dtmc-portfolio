@@ -43,6 +43,7 @@
 			"@/types/*": ["types/*"],
 			"@/mysql/*": ["lib/mysql/*"],
 			"@/mongodb/*": ["lib/mongodb/*"],
+			"@/theme/*": ["lib/theme/*"],
 			"@/config/*": ["config/*"]
 		},
 		"lib": ["dom", "dom.iterable", "esnext"],

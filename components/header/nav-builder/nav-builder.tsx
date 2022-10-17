@@ -26,6 +26,7 @@ export default NavBuilder;
 const secureNav = (depth: number, navLinks: any) => {
 	return navLinks.map((navLink: any) => {
 		const tKey = depth + navLink.type + navLink.title + Math.random();
+
 		if (navLink.type === 'dd') {
 			return (
 				<NavDropdown title={navLink.title} key={tKey}>
