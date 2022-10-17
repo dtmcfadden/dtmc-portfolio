@@ -6,19 +6,30 @@ import type { AppProps } from 'next/app';
 import type { Session } from 'next-auth';
 import { SSRProvider } from '@react-aria/ssr';
 import { SessionProvider } from 'next-auth/react';
+import { Container } from 'react-bootstrap';
+import Head from 'next/head';
+import { useEffect } from 'react';
 // import { Component } from 'react';
 
-// export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
 export default function App({ Component, pageProps }: AppProps) {
 	// export default function App(props: AppProps) {
-	console.log('App pageProps', pageProps);
+	// console.log('App pageProps', pageProps);
+	// useEffect(() => {
+	// 	typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
+	// }, []);
+
 	return (
 		<SSRProvider>
 			{/* <SessionProvider session={session}> */}
 			<SessionProvider session={pageProps.session}>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
+				<Head>
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+				</Head>
+				<Container>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</Container>
 			</SessionProvider>
 		</SSRProvider>
 	);
