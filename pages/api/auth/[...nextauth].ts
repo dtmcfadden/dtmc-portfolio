@@ -16,44 +16,21 @@ import Auth0Provider from 'next-auth/providers/auth0';
 
 import SequelizeAdapter, { models } from '@next-auth/sequelize-adapter';
 import { DataTypes } from 'sequelize';
-import sequelizeConnection from '@/mysql/config';
-// import { UserAttributes } from '@/mysql/models/User';
-
-// interface SessionUser {
-// 	name: string;
-// 	email: string;
-// 	image: string;
-// 	roles: string[];
-// }
-
-// interface Session {
-// 	user: SessionUser;
-// 	expires: Date;
-// }
-
-// interface SessionReturn {
-// 	session: Session;
-// 	user: UserAttributes
-// }
-
-// sequelizeConnection.sync();
-
-// const sequelize = new Sequelize(sequelizeConnection)
+// import sequelizeConnection from '@/mysql/config';
+import sequelize from '@/mysql/models/index';
 
 export const authOptions: NextAuthOptions = {
 	// adapter: MongoDBAdapter(clientPromise),
-	// adapter: SequelizeAdapter(sequelizeConnection),
-	adapter: SequelizeAdapter(sequelizeConnection, {
+	adapter: SequelizeAdapter(sequelize, {
 		models: {
-			User: sequelizeConnection.define('user', {
+			User: sequelize.define('user', {
 				...models.User,
-				// roles: DataTypes.STRING,
 				roles: {
 					type: DataTypes.STRING,
 					defaultValue: 'guest',
 				},
 			}),
-			Session: sequelizeConnection.define('session', {
+			Session: sequelize.define('session', {
 				...models.Session,
 				// ip: DataTypes.STRING,
 				ip: {
@@ -186,8 +163,8 @@ export const authOptions: NextAuthOptions = {
 	events: {},
 
 	// Enable debug messages in the console if you are having problems
-	// debug: process.env.NODE_ENV === 'development',
-	debug: false,
+	debug: process.env.NODE_ENV === 'development',
+	// debug: false,
 };
 
 // export default async function auth(req: NextApiRequest, res: NextApiResponse) {

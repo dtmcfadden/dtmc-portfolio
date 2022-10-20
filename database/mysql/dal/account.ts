@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
 import { isEmpty } from 'lodash';
 
-import { Account } from '../models';
+import { Account } from '../modelsOld';
 import { GetAllAccountFilters } from './types';
-import { AccountInput, AccountOuput } from '../models/Account';
+import { AccountInput, AccountOuput } from '../modelsOld/Account';
 
 export const create = async (payload: AccountInput): Promise<AccountOuput> => {
 	const account = await Account.create(payload);

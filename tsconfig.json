@@ -26,8 +26,11 @@
 {
 	"compilerOptions": {
 		// "target": "es5",
-		"target": "es6",
-		"module": "esnext",
+		"target": "esnext",
+		// "target": "ES2020",
+		"module": "commonjs",
+		// "target": "es6",
+		// "module": "esnext",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
@@ -41,12 +44,14 @@
 			"@/styles/*": ["styles/*"],
 			"@/types": ["types/index"],
 			"@/types/*": ["types/*"],
-			"@/mysql/*": ["lib/mysql/*"],
-			"@/mongodb/*": ["lib/mongodb/*"],
+			"@/mysql/*": ["database/mysql/*"],
+			"@/mongodb/*": ["database/mongodb/*"],
 			"@/theme/*": ["lib/theme/*"],
 			"@/config/*": ["config/*"]
 		},
 		"lib": ["dom", "dom.iterable", "esnext"],
+		// "lib": ["ES2020"],
+		// "outDir": "dist",
 		"allowJs": true,
 		"noEmit": true,
 		"incremental": true,
@@ -58,6 +63,6 @@
 		"emitDecoratorMetadata": true
 	},
 	// "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"include": ["next-env.d.ts", "types/**/*.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "types/**/*.ts", "**/*.ts", "**/*.tsx", "database/mysql/config/config.js"],
 	"exclude": ["node_modules"]
 }
