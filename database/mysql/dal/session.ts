@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
 import { isEmpty } from 'lodash';
 
-import { Session } from '../models';
+import { Session } from '../modelsOld';
 import { GetAllSessionFilters } from './types';
-import { SessionInput, SessionOuput } from '../models/Session';
+import { SessionInput, SessionOuput } from '../modelsOld/Session';
 
 export const create = async (payload: SessionInput): Promise<SessionOuput> => {
 	const session = await Session.create(payload);

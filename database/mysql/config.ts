@@ -4,14 +4,15 @@ import { Dialect, Model, Sequelize } from 'sequelize';
 
 // import localCache from '../lib/local-cache'
 
-const isTest = process.env.NODE_ENV === 'test';
-const isDev = process.env.NODE_ENV === 'development';
+// const isTest = process.env.NODE_ENV === 'test';
+// const isDev = process.env.NODE_ENV === 'development';
 
-const dbName = isTest
-	? (process.env.MYSQL_TEST_DB_NAME as string)
-	: isDev
-	? (process.env.MYSQL_DEV_DB_NAME as string)
-	: (process.env.MYSQL_DB_NAME as string);
+// const dbName = isTest
+// 	? (process.env.MYSQL_TEST_DB_NAME as string)
+// 	: isDev
+// 	? (process.env.MYSQL_DEV_DB_NAME as string)
+// 	: (process.env.MYSQL_DB_NAME as string);
+const dbName = process.env.MYSQL_DB_NAME as string;
 const dbUser = process.env.MYSQL_DB_USER as string;
 const dbHost = process.env.MYSQL_DB_HOST;
 const dbPORT = Number(process.env.MYSQL_DB_PORT);
@@ -57,7 +58,7 @@ const dbPassword = process.env.MYSQL_DB_PASSWORD;
 const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
 	host: dbHost,
 	port: dbPORT,
-	dialect: dbDriver,
+	// dialect: dbDriver,
 	logging: false,
 	// define: {hooks}
 });

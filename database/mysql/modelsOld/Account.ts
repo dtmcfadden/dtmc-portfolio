@@ -1,7 +1,5 @@
-import { DataTypes, Model, ModelStatic, Optional } from 'sequelize';
-import sequelizeConnection from '../config';
-
-import { User } from './index';
+import { DataTypes, Model, Optional } from 'sequelize';
+import sequelize, { User } from '@/mysql/modelsOld/index';
 
 interface AccountAttributes {
 	id: string;
@@ -98,7 +96,7 @@ Account.init(
 		},
 	},
 	{
-		sequelize: sequelizeConnection,
+		sequelize: sequelize,
 		paranoid: true,
 	},
 );

@@ -1,5 +1,5 @@
 import { DataTypes, Model, ModelStatic, Optional } from 'sequelize';
-import sequelizeConnection from '../config';
+import sequelize from '@/mysql/modelsOld/index';
 
 interface VerificationTokenAttributes {
 	identifier: string;
@@ -38,7 +38,7 @@ VerificationToken.init(
 		},
 	},
 	{
-		sequelize: sequelizeConnection,
+		sequelize: sequelize,
 	},
 );
 

@@ -1,7 +1,5 @@
 import { DataTypes, Model, ModelStatic, Optional } from 'sequelize';
-import sequelizeConnection from '../config';
-
-import { User } from './index';
+import sequelize, { User } from '@/mysql/modelsOld/index';
 
 export interface SessionAttributes {
 	id: string;
@@ -62,7 +60,7 @@ Session.init(
 		},
 	},
 	{
-		sequelize: sequelizeConnection,
+		sequelize: sequelize,
 	},
 );
 

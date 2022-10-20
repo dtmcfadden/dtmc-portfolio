@@ -3,6 +3,14 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"db:up": "echo creating && npm run db:create && echo created && npm run db:migrate && echo migrated",
+		"db:reset": "npm run db:drop && npm run db:up",
+		"db:create": "sequelize db:create",
+		"db:drop": "[[ $NODE_ENV == production ]] && exit 1 || sequelize db:drop",
+		"db:migrate": "sequelize db:migrate",
+		"db:rollback": "sequelize db:migrate:undo",
+		"db:rollback:all": "sequelize db:migrate:undo:all",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
@@ -33,6 +41,7 @@
 		"reflect-metadata": "^0.1.13",
 		"request-ip": "^3.3.0",
 		"sequelize": "^6.24.0",
+		"sequelize-cli-typescript": "^3.2.0-c",
 		"sequelize-typescript": "^2.1.3",
 		"styled-components": "^5.3.6",
 		"swr": "^1.3.0"
@@ -47,6 +56,7 @@
 		"@types/validator": "^13.7.7",
 		"eslint": "8.24.0",
 		"eslint-config-next": "12.3.1",
+		"sequelize-cli": "^6.5.1",
 		"typescript": "4.8.4"
 	}
 }

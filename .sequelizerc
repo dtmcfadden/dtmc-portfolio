@@ -1,8 +1,15 @@
 const path = require('path');
 
 module.exports = {
-	config: path.resolve('database', 'config/config.ts'),
-	'models-path': path.resolve('database', 'models'),
-	'seeders-path': path.resolve('database', 'seeders'),
-	'migrations-path': path.resolve('database', 'migrations'),
+	config: path.resolve('database', 'mysql/config/config.js'),
+	'models-path': path.resolve('database', 'mysql/models'),
+	'seeders-path': path.resolve('database', 'mysql/seeders'),
+	'migrations-path': path.resolve('database', 'mysql/migrations'),
 };
+
+// module.exports = {
+// 	config: '@/mysql/config/config.js',
+// 	'models-path': '@/mysql/mysql/models',
+// 	'seeders-path': '@/mysql/seeders',
+// 	'migrations-path': '@/mysql/migrations',
+// };
