@@ -62,8 +62,8 @@ export const authOptions: NextAuthOptions = {
 			scope: 'read:user',
 		}),
 		// GoogleProvider({
-		//   clientId: process.env.GOOGLE_ID || '',
-		//   clientSecret: process.env.GOOGLE_SECRET || '',
+		// 	clientId: process.env.GOOGLE_ID || '',
+		// 	clientSecret: process.env.GOOGLE_SECRET || '',
 		// }),
 		// TwitterProvider({
 		//   clientId: process.env.TWITTER_ID || '',

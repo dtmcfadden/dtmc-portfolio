@@ -5,6 +5,7 @@ import styles from './header.module.css';
 import { server } from '@/config/index';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import NavBuilder from './nav-builder/nav-builder';
+import NavSigninSignout from './nav-signin-signout/nav-signin-signout';
 
 export default function Header() {
 	// const [navLinks, setNavLinks] = useState(navLinksObj);
@@ -29,36 +30,7 @@ export default function Header() {
 								<NavBuilder navHref={`${server}/api/navLinks`} />
 							</Nav>
 							<Nav>
-								<NavDropdown title="Dropdown" id="user-nav-dropdown">
-									{!session && (
-										<NavDropdown.Item
-											href={`/api/auth/signin`}
-											className={styles.buttonPrimary}
-											onClick={(e) => {
-												e.preventDefault();
-												signIn();
-											}}
-										>
-											Sign in
-										</NavDropdown.Item>
-									)}
-									{session?.user && (
-										<>
-											<NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-											<NavDropdown.Divider />
-											<NavDropdown.Item
-												href={`/api/auth/signout`}
-												className={styles.button}
-												onClick={(e) => {
-													e.preventDefault();
-													signOut();
-												}}
-											>
-												Sign out
-											</NavDropdown.Item>
-										</>
-									)}
-								</NavDropdown>
+								<NavSigninSignout />
 							</Nav>
 						</Navbar.Collapse>
 					</Container>
