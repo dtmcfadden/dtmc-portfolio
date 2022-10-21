@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash';
 
 import * as accountDal from '../dal/account';
 import { GetAllAccountFilters } from '../dal/types';
-import { AccountInput, AccountOuput } from '../modelsOld/Account';
+import { AccountInput, AccountOuput } from '../models/Account';
 
 export const create = async (payload: AccountInput): Promise<AccountOuput> => {
 	const accountExists = await accountCheck(payload.userId, payload.provider, payload.providerAccountId);

@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash';
 
 import * as userDal from '../dal/user';
 import { GetAllUsersFilters } from '../dal/types';
-import { UserInput, UserOuput } from '../modelsOld/User';
+import { UserInput, UserOuput } from '../models/User';
 
 export const create = async (payload: UserInput): Promise<UserOuput> => {
 	const emailExists = await emailCheck(payload.email);

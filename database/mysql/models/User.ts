@@ -24,7 +24,7 @@ import type { Session } from './Session';
 
 export interface UserAttributes {
 	id: CreationOptional<number>;
-	name: string;
+	name: string | null;
 	email: string;
 	emailVerified: CreationOptional<Date>;
 	image: string | null;
@@ -45,7 +45,7 @@ export interface UserOuput extends Required<UserAttributes> {}
 // > {
 export class User extends Model<UserAttributes, UserInput> implements UserAttributes {
 	declare id: CreationOptional<number>;
-	declare name: string;
+	declare name: string | null;
 	declare email: string;
 	declare emailVerified: CreationOptional<Date>;
 	declare image: string | null;

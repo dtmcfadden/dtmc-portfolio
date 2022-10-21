@@ -18,10 +18,10 @@ import type { User } from './User';
 
 interface AccountAttributes {
 	id: CreationOptional<number>;
-	userId: string | null;
-	type: string | null;
-	provider: string | null;
-	providerAccountId: string | null;
+	userId: string;
+	type: string;
+	provider: string;
+	providerAccountId: string;
 	refreshToken: string | null;
 	accessToken: string | null;
 	expiresAt: number | null;
@@ -43,10 +43,10 @@ export interface AccountOuput extends Required<AccountAttributes> {}
 // > {
 export class Account extends Model<AccountAttributes, AccountInput> implements AccountAttributes {
 	declare id: CreationOptional<number>;
-	declare userId: string | null;
-	declare type: string | null;
-	declare provider: string | null;
-	declare providerAccountId: string | null;
+	declare userId: string;
+	declare type: string;
+	declare provider: string;
+	declare providerAccountId: string;
 	declare refreshToken: string | null;
 	declare accessToken: string | null;
 	declare expiresAt: number | null;
