@@ -66,7 +66,6 @@ export class Session extends Model<SessionAttributes, SessionInput> implements S
 				},
 				expires: {
 					type: DataTypes.DATE,
-					allowNull: false,
 				},
 				sessionToken: {
 					type: DataTypes.STRING(40),

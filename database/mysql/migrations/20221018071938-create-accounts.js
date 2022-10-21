@@ -18,6 +18,7 @@ module.exports = {
 					userId: {
 						type: DataTypes.CHAR(36),
 						field: 'user_id',
+						allowNull: false,
 					},
 					type: {
 						type: DataTypes.STRING(15),
