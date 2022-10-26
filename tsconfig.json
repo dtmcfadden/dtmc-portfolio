@@ -51,6 +51,7 @@
 		"lib": ["dom", "dom.iterable", "esnext"],
 		// "lib": ["ES2020"],
 		// "outDir": "dist",
+		"types": ["node"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
