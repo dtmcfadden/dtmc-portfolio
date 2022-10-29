@@ -3,7 +3,7 @@ import type { NextApiRequest } from 'next';
 import clientIp from 'request-ip';
 import * as sessionDal from '../dal/session';
 import { GetAllSessionFilters } from '../dal/types';
-import { SessionInput, SessionOuput } from '../modelsOld/Session';
+import { SessionInput, SessionOuput } from '../models/Session';
 
 export const create = async (payload: SessionInput, req: NextApiRequest): Promise<SessionOuput> => {
 	console.log('sessionService create payload', payload);
