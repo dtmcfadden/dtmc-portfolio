@@ -18,17 +18,19 @@ import type { User } from './User';
 
 interface AccountAttributes {
 	id: CreationOptional<number>;
-	userId: string;
-	type: string;
-	provider: string;
-	providerAccountId: string;
+	userId: string | null;
+	type: string | null;
+	provider: string | null;
+	providerAccountId: string | null;
 	refreshToken: string | null;
 	accessToken: string | null;
-	expiresAt: number | null;
+	expireAt: number | null;
 	tokenType: string | null;
 	scope: string | null;
 	idToken: string | null;
 	sessionState: string | null;
+	oauthTokenSecret: string | null;
+	oauthToken: string | null;
 	createdAt: CreationOptional<Date>;
 	updatedAt: CreationOptional<Date>;
 }
@@ -43,17 +45,19 @@ export interface AccountOuput extends Required<AccountAttributes> {}
 // > {
 export class Account extends Model<AccountAttributes, AccountInput> implements AccountAttributes {
 	declare id: CreationOptional<number>;
-	declare userId: string;
-	declare type: string;
-	declare provider: string;
-	declare providerAccountId: string;
+	declare userId: string | null;
+	declare type: string | null;
+	declare provider: string | null;
+	declare providerAccountId: string | null;
 	declare refreshToken: string | null;
 	declare accessToken: string | null;
-	declare expiresAt: number | null;
+	declare expireAt: number | null;
 	declare tokenType: string | null;
 	declare scope: string | null;
 	declare idToken: string | null;
 	declare sessionState: string | null;
+	declare oauthTokenSecret: string | null;
+	declare oauthToken: string | null;
 	declare createdAt: CreationOptional<Date>;
 	declare updatedAt: CreationOptional<Date>;
 
@@ -71,26 +75,22 @@ export class Account extends Model<AccountAttributes, AccountInput> implements A
 		Account.init(
 			{
 				id: {
-					type: DataTypes.CHAR(36),
+					type: DataTypes.INTEGER.UNSIGNED,
 					primaryKey: true,
-					// autoIncrement: true,
+					autoIncrement: true,
 					allowNull: false,
 				},
 				userId: {
-					type: DataTypes.CHAR(36),
-					allowNull: false,
+					type: DataTypes.STRING(40),
 				},
 				type: {
 					type: DataTypes.STRING(15),
-					allowNull: false,
 				},
 				provider: {
 					type: DataTypes.STRING(15),
-					allowNull: false,
 				},
 				providerAccountId: {
 					type: DataTypes.STRING(50),
-					allowNull: false,
 				},
 				refreshToken: {
 					type: DataTypes.STRING(50),
@@ -98,7 +98,7 @@ export class Account extends Model<AccountAttributes, AccountInput> implements A
 				accessToken: {
 					type: DataTypes.STRING(50),
 				},
-				expiresAt: {
+				expireAt: {
 					type: DataTypes.INTEGER,
 				},
 				tokenType: {
@@ -113,6 +113,12 @@ export class Account extends Model<AccountAttributes, AccountInput> implements A
 				sessionState: {
 					type: DataTypes.STRING(100),
 				},
+				oauthTokenSecret: {
+					type: DataTypes.STRING(50),
+				},
+				oauthToken: {
+					type: DataTypes.STRING(50),
+				},
 				createdAt: {
 					type: DataTypes.DATE,
 				},
@@ -122,12 +128,6 @@ export class Account extends Model<AccountAttributes, AccountInput> implements A
 			},
 			{
 				sequelize,
-				indexes: [
-					{
-						name: 'accounts_user_id',
-						fields: [{ name: 'user_id', order: 'ASC' }],
-					},
-				],
 			},
 		);
 

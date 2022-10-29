@@ -59,9 +59,9 @@ export class Session extends Model<SessionAttributes, SessionInput> implements S
 		Session.init(
 			{
 				id: {
-					type: DataTypes.CHAR(36),
+					type: DataTypes.INTEGER.UNSIGNED,
 					primaryKey: true,
-					// autoIncrement: true,
+					autoIncrement: true,
 					allowNull: false,
 				},
 				expires: {
@@ -70,40 +70,26 @@ export class Session extends Model<SessionAttributes, SessionInput> implements S
 				sessionToken: {
 					type: DataTypes.STRING(40),
 					allowNull: false,
-					// unique: true,
+					unique: true,
 				},
 				userId: {
-					type: DataTypes.CHAR(36),
+					type: DataTypes.STRING(40),
 				},
 				ip: {
 					type: DataTypes.STRING(45),
 				},
 				userAgent: {
-					type: DataTypes.STRING,
+					type: DataTypes.TEXT,
 				},
 				createdAt: {
 					type: DataTypes.DATE,
-					allowNull: false,
 				},
 				updatedAt: {
 					type: DataTypes.DATE,
-					allowNull: false,
 				},
 			},
 			{
 				sequelize,
-				indexes: [
-					{
-						name: 'session_token',
-						type: 'UNIQUE',
-						unique: true,
-						fields: [{ name: 'session_token', order: 'ASC' }],
-					},
-					{
-						name: 'user_id',
-						fields: [{ name: 'user_id', order: 'ASC' }],
-					},
-				],
 			},
 		);
 

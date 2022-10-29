@@ -24,7 +24,7 @@ import type { Session } from './Session';
 
 export interface UserAttributes {
 	id: CreationOptional<number>;
-	name: string | null;
+	name: string;
 	email: string;
 	emailVerified: CreationOptional<Date>;
 	image: string | null;
@@ -45,7 +45,7 @@ export interface UserOuput extends Required<UserAttributes> {}
 // > {
 export class User extends Model<UserAttributes, UserInput> implements UserAttributes {
 	declare id: CreationOptional<number>;
-	declare name: string | null;
+	declare name: string;
 	declare email: string;
 	declare emailVerified: CreationOptional<Date>;
 	declare image: string | null;
@@ -88,13 +88,14 @@ export class User extends Model<UserAttributes, UserInput> implements UserAttrib
 		User.init(
 			{
 				id: {
-					type: DataTypes.CHAR(36),
+					type: DataTypes.INTEGER.UNSIGNED,
 					primaryKey: true,
-					// autoIncrement: true,
+					autoIncrement: true,
 					allowNull: false,
 				},
 				name: {
 					type: DataTypes.STRING(50),
+					allowNull: false,
 				},
 				email: {
 					type: DataTypes.STRING(50),
@@ -102,7 +103,7 @@ export class User extends Model<UserAttributes, UserInput> implements UserAttrib
 					unique: true,
 				},
 				emailVerified: {
-					type: DataTypes.DATE,
+					type: DataTypes.BOOLEAN,
 				},
 				image: {
 					type: DataTypes.STRING,
@@ -114,23 +115,13 @@ export class User extends Model<UserAttributes, UserInput> implements UserAttrib
 				},
 				createdAt: {
 					type: DataTypes.DATE,
-					allowNull: false,
 				},
 				updatedAt: {
 					type: DataTypes.DATE,
-					allowNull: false,
 				},
 			},
 			{
 				sequelize,
-				indexes: [
-					{
-						name: 'email',
-						type: 'UNIQUE',
-						unique: true,
-						fields: [{ name: 'email', order: 'ASC' }],
-					},
-				],
 			},
 		);
 

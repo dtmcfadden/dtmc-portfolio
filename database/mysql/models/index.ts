@@ -1,16 +1,16 @@
 import type { Sequelize as SequelizeModel } from 'sequelize';
 import { Dialect, Sequelize } from 'sequelize';
-import dbConfig from '@/mysql/config/config';
+import dbConfig from '@/mysql/config/config.js';
 import { User } from './User';
 import { Account } from './Account';
 import { Session } from './Session';
 import { VerificationToken } from './VerificationToken';
 
-// console.log('dbConfig', dbConfig);
+console.log('dbConfig', dbConfig);
 const env = process.env.NODE_ENV || 'development';
 const dbConfigEnv = dbConfig[env];
 const db: any = {};
-// console.log('dbConfigEnv', dbConfigEnv);
+console.log('dbConfigEnv', dbConfigEnv);
 const sequelize = new Sequelize(
 	dbConfigEnv.database as string,
 	dbConfigEnv.username as string,
@@ -18,7 +18,8 @@ const sequelize = new Sequelize(
 	{
 		host: dbConfigEnv.host,
 		port: Number(dbConfigEnv.port),
-		dialect: dbConfigEnv.dialect as Dialect,
+		// dialect: dbConfigEnv.dialect as Dialect,
+		// dialect: 'mysql',
 		logging: dbConfigEnv.logging,
 		define: {
 			underscored: true,
