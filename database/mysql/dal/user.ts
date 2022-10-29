@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
 import { isEmpty } from 'lodash';
 
-import { User } from '../models';
+import { User } from '../modelsOld';
 import { GetAllUsersFilters } from './types';
-import { UserInput, UserOuput } from '../models/User';
+import { UserInput, UserOuput } from '../modelsOld/User';
 
 export const create = async (payload: UserInput): Promise<UserOuput> => {
 	const user = await User.create(payload);

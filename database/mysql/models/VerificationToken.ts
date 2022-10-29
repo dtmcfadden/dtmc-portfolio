@@ -40,15 +40,12 @@ export class VerificationToken
 				token: {
 					type: DataTypes.STRING(50),
 					primaryKey: true,
-					allowNull: false,
 				},
 				identifier: {
 					type: DataTypes.STRING(50),
-					allowNull: false,
 				},
 				expires: {
 					type: DataTypes.DATE,
-					allowNull: false,
 				},
 				createdAt: {
 					type: DataTypes.DATE,

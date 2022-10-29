@@ -9,45 +9,48 @@ import Auth0Provider from 'next-auth/providers/auth0';
 // import type { NextRequest } from 'next/server'
 // import clientIp from 'request-ip';
 
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from '@/lib/prismadb';
+
 // import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 // import clientPromise from 'lib/mongodb';
 // import User, { UserSchema } from '@/lib/models/mongodb/User';
 // import User from '@/lib/models/mongodb/index';
 
-import SequelizeAdapter, { models } from '@next-auth/sequelize-adapter';
-import { DataTypes } from 'sequelize';
-// import sequelizeConnection from '@/mysql/config';
-import sequelize from '@/mysql/models/index';
+// import SequelizeAdapter, { models } from '@next-auth/sequelize-adapter';
+// import { DataTypes } from 'sequelize';
+// import sequelize from 'database/sequelize/mysql/models/index';
 
 export const authOptions: NextAuthOptions = {
+	adapter: PrismaAdapter(prisma),
 	// adapter: MongoDBAdapter(clientPromise),
-	adapter: SequelizeAdapter(sequelize, {
-		models: {
-			User: sequelize.define('user', {
-				...models.User,
-				roles: {
-					type: DataTypes.STRING,
-					defaultValue: 'guest',
-				},
-			}),
-			Session: sequelize.define('session', {
-				...models.Session,
-				// ip: DataTypes.STRING,
-				ip: {
-					type: DataTypes.STRING,
-					// defaultValue: reqClientIp,
-					// defaultValue: '',
-				},
-				// userAgent: DataTypes.STRING,
-				userAgent: {
-					type: DataTypes.STRING,
-					// defaultValue: 'testing',
-					// defaultValue: req.headers['user-agent'],
-					// defaultValue: '',
-				},
-			}),
-		},
-	}),
+	// adapter: SequelizeAdapter(sequelize, {
+	// 	models: {
+	// 		User: sequelize.define('user', {
+	// 			...models.User,
+	// 			roles: {
+	// 				type: DataTypes.STRING,
+	// 				defaultValue: 'guest',
+	// 			},
+	// 		}),
+	// 		Session: sequelize.define('session', {
+	// 			...models.Session,
+	// 			// ip: DataTypes.STRING,
+	// 			ip: {
+	// 				type: DataTypes.STRING,
+	// 				// defaultValue: reqClientIp,
+	// 				// defaultValue: '',
+	// 			},
+	// 			// userAgent: DataTypes.STRING,
+	// 			userAgent: {
+	// 				type: DataTypes.STRING,
+	// 				// defaultValue: 'testing',
+	// 				// defaultValue: req.headers['user-agent'],
+	// 				// defaultValue: '',
+	// 			},
+	// 		}),
+	// 	},
+	// }),
 	// https://next-auth.js.org/configuration/providers/oauth
 	providers: [
 		// FacebookProvider({
