@@ -25,16 +25,12 @@
 
 {
 	"compilerOptions": {
-		// "target": "es5",
-		"target": "esnext",
+		"target": "es5",
+		// "target": "esnext",
 		// "target": "ES2020",
-		"module": "commonjs",
+		// "module": "commonjs",
 		// "target": "es6",
-		// "module": "esnext",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"skipLibCheck": true,
+		"module": "esnext",
 		"baseUrl": ".",
 		"paths": {
 			"@/components/*": ["components/*"],
@@ -44,25 +40,37 @@
 			"@/styles/*": ["styles/*"],
 			"@/types": ["types/index"],
 			"@/types/*": ["types/*"],
-			"@/mysql/*": ["database/mysql/*"],
+			"@/sequelizeMysql/*": ["database/sequelize/mysql/*"],
 			"@/mongodb/*": ["database/mongodb/*"],
+			"@/databasePrisma/*": ["database/prisma/*"],
 			"@/theme/*": ["lib/theme/*"],
-			"@/config/*": ["config/*"]
+			"@/config/*": ["config/*"],
+			"@/controllers/*": ["controllers/*"],
+			"@/interfaces/*": ["interfaces/*"]
 		},
 		"lib": ["dom", "dom.iterable", "esnext"],
 		// "lib": ["ES2020"],
 		// "outDir": "dist",
 		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
-		"incremental": true,
+		"esModuleInterop": true,
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
+		"incremental": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
 	// "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"include": ["next-env.d.ts", "types/**/*.ts", "**/*.ts", "**/*.tsx", "database/mysql/config/config.js"],
-	"exclude": ["node_modules"]
+	"include": ["next-env.d.ts", "types/**/*.ts", "**/*.ts", "**/*.tsx", "database/sequelize/mysql/config/config.js"],
+	"exclude": ["node_modules"],
+	"ts-node": {
+		"compilerOptions": {
+			"module": "commonjs"
+		}
+	}
 }

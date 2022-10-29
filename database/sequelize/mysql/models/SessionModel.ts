@@ -12,11 +12,12 @@ import {
 	Sequelize,
 	Optional,
 } from 'sequelize';
-import type { User } from './User';
+import sessionConnection from './index';
+import type User from './UserModel';
 
 // type SessionAssociations = 'user';
 
-export interface SessionAttributes {
+interface SessionAttributes {
 	id: CreationOptional<number>;
 	expires: Date | null;
 	sessionToken: string;
@@ -35,7 +36,7 @@ export interface SessionOuput extends Required<SessionAttributes> {}
 // 	InferAttributes<Session, { omit: SessionAssociations }>,
 // 	InferCreationAttributes<Session, { omit: SessionAssociations }>
 // > {
-export class Session extends Model<SessionAttributes, SessionInput> implements SessionAttributes {
+class Session extends Model<SessionAttributes, SessionInput> implements SessionAttributes {
 	declare id: CreationOptional<number>;
 	declare expires: Date | null;
 	declare sessionToken: string;
@@ -54,45 +55,57 @@ export class Session extends Model<SessionAttributes, SessionInput> implements S
 	declare static associations: {
 		user: Association<Session, User>;
 	};
-
-	static initModel(sequelize: Sequelize): typeof Session {
-		Session.init(
-			{
-				id: {
-					type: DataTypes.INTEGER.UNSIGNED,
-					primaryKey: true,
-					autoIncrement: true,
-					allowNull: false,
-				},
-				expires: {
-					type: DataTypes.DATE,
-				},
-				sessionToken: {
-					type: DataTypes.STRING(40),
-					allowNull: false,
-					unique: true,
-				},
-				userId: {
-					type: DataTypes.STRING(40),
-				},
-				ip: {
-					type: DataTypes.STRING(45),
-				},
-				userAgent: {
-					type: DataTypes.TEXT,
-				},
-				createdAt: {
-					type: DataTypes.DATE,
-				},
-				updatedAt: {
-					type: DataTypes.DATE,
-				},
-			},
-			{
-				sequelize,
-			},
-		);
-
-		return Session;
-	}
 }
+
+Session.init(
+	{
+		id: {
+			type: DataTypes.CHAR(36),
+			primaryKey: true,
+			// autoIncrement: true,
+			allowNull: false,
+		},
+		expires: {
+			type: DataTypes.DATE,
+		},
+		sessionToken: {
+			type: DataTypes.STRING(40),
+			allowNull: false,
+			// unique: true,
+		},
+		userId: {
+			type: DataTypes.CHAR(36),
+		},
+		ip: {
+			type: DataTypes.STRING(45),
+		},
+		userAgent: {
+			type: DataTypes.STRING,
+		},
+		createdAt: {
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+	},
+	{
+		sequelize: sessionConnection,
+		indexes: [
+			{
+				name: 'session_token',
+				type: 'UNIQUE',
+				unique: true,
+				fields: [{ name: 'session_token', order: 'ASC' }],
+			},
+			{
+				name: 'user_id',
+				fields: [{ name: 'user_id', order: 'ASC' }],
+			},
+		],
+	},
+);
+
+export default Session;
