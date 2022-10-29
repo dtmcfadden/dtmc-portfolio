@@ -1,6 +1,6 @@
 import type { Sequelize as SequelizeModel } from 'sequelize';
 import { Dialect, Sequelize } from 'sequelize';
-import dbConfig from '@/mysql/config/config.js';
+import dbConfig from '@/sequelizeMysql/config/config.js';
 import { User } from './User';
 import { Account } from './Account';
 import { Session } from './Session';
