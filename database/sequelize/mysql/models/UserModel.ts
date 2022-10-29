@@ -19,12 +19,13 @@ import {
 	Sequelize,
 	Optional,
 } from 'sequelize';
-import type { Account } from './Account';
-import type { Session } from './Session';
+import sessionConnection from './index';
+import type Account from './AccountModel';
+import type Session from './SessionModel';
 
-export interface UserAttributes {
+interface UserAttributes {
 	id: CreationOptional<number>;
-	name: string;
+	name: string | null;
 	email: string;
 	emailVerified: CreationOptional<Date>;
 	image: string | null;
@@ -43,9 +44,9 @@ export interface UserOuput extends Required<UserAttributes> {}
 // 	InferAttributes<User, { omit: UserAssociations }>,
 // 	InferCreationAttributes<User, { omit: UserAssociations }>
 // > {
-export class User extends Model<UserAttributes, UserInput> implements UserAttributes {
+class User extends Model<UserAttributes, UserInput> implements UserAttributes {
 	declare id: CreationOptional<number>;
-	declare name: string;
+	declare name: string | null;
 	declare email: string;
 	declare emailVerified: CreationOptional<Date>;
 	declare image: string | null;
@@ -83,48 +84,55 @@ export class User extends Model<UserAttributes, UserInput> implements UserAttrib
 		sessions: Association<User, Session>;
 		accounts: Association<User, Account>;
 	};
-
-	static initModel(sequelize: Sequelize): typeof User {
-		User.init(
-			{
-				id: {
-					type: DataTypes.INTEGER.UNSIGNED,
-					primaryKey: true,
-					autoIncrement: true,
-					allowNull: false,
-				},
-				name: {
-					type: DataTypes.STRING(50),
-					allowNull: false,
-				},
-				email: {
-					type: DataTypes.STRING(50),
-					allowNull: false,
-					unique: true,
-				},
-				emailVerified: {
-					type: DataTypes.BOOLEAN,
-				},
-				image: {
-					type: DataTypes.STRING,
-				},
-				roles: {
-					type: DataTypes.STRING,
-					allowNull: false,
-					defaultValue: 'guest',
-				},
-				createdAt: {
-					type: DataTypes.DATE,
-				},
-				updatedAt: {
-					type: DataTypes.DATE,
-				},
-			},
-			{
-				sequelize,
-			},
-		);
-
-		return User;
-	}
 }
+
+User.init(
+	{
+		id: {
+			type: DataTypes.CHAR(36),
+			primaryKey: true,
+			// autoIncrement: true,
+			allowNull: false,
+		},
+		name: {
+			type: DataTypes.STRING(50),
+		},
+		email: {
+			type: DataTypes.STRING(50),
+			allowNull: false,
+			unique: true,
+		},
+		emailVerified: {
+			type: DataTypes.DATE,
+		},
+		image: {
+			type: DataTypes.STRING,
+		},
+		roles: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: 'guest',
+		},
+		createdAt: {
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+	},
+	{
+		sequelize: sessionConnection,
+		indexes: [
+			{
+				name: 'email',
+				type: 'UNIQUE',
+				unique: true,
+				fields: [{ name: 'email', order: 'ASC' }],
+			},
+		],
+	},
+);
+
+export default User;
