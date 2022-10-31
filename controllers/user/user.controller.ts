@@ -1,23 +1,80 @@
 import * as userService from 'database/services/UserService';
 // import { CreateIngredientDTO, UpdateIngredientDTO, FilterIngredientsDTO } from '../../dto/ingredient.dto';
-import { UserProfile } from '@/interfaces/index';
+import { UserFull, UserProfile } from '@/interfaces/index';
 import * as userMapper from './user.mapper';
 import prisma from '@/lib/prismadb';
 import { Prisma } from '@prisma/client';
+import { formName } from '@/lib/yup/schema/user.schema';
 
 // const userProfile = Prisma.validator<Prisma.UserSelect>()({
 //   name: true,
 // })
 
-export const getProfileBySessionToken = async (sessionToken: string): Promise<UserProfile | null> => {
-	// return userMapper.toProfile(await userService.getBySessionToken(sessionToken));
-	const profile = await prisma.user.findFirst({
+export const getUserByName = async (name: string): Promise<UserFull | null> => {
+	const userFull = await prisma.user.findFirst({
 		select: {
+			id: true,
 			name: true,
+			email: true,
+			emailVerified: true,
+			image: true,
+			roles: true,
+			createdAt: true,
+			updatedAt: true,
+		},
+		where: {
+			name: name,
 		},
 	});
 
+	return userFull;
+};
+
+export const getProfileBySessionToken = async (sessionToken: string): Promise<UserProfile | null> => {
+	const profile = await prisma.user.findFirst({
+		select: {
+			name: true,
+			roles: true,
+		},
+		where: {
+			sessions: {
+				some: {
+					sessionToken: sessionToken,
+				},
+			},
+		},
+	});
+	// console.log('profile', profile);
 	return profile;
+};
+
+export const updateNameBySessionToken = async (
+	sessionToken: string,
+	originalDisplayName: string,
+	displayname: string,
+): Promise<number> => {
+	// console.log('updateNameBySessionToken originalDisplayName', originalDisplayName, 'displayname', displayname);
+	const nameCheck = await formName.isValid({ formDisplayName: displayname });
+
+	if (nameCheck == false || originalDisplayName.toLowerCase() == displayname.toLowerCase()) {
+		return 0;
+	}
+	const updateCount = await prisma.user.updateMany({
+		data: {
+			name: displayname,
+		},
+		where: {
+			name: originalDisplayName,
+			sessions: {
+				some: {
+					sessionToken: sessionToken,
+				},
+			},
+		},
+	});
+
+	// console.log('updateCount', updateCount);
+	return updateCount.count;
 };
 
 // export const getProfileBySessionToken = async (sessionToken: string): Promise<UserProfile> => {
