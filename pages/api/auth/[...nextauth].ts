@@ -166,8 +166,8 @@ export const authOptions: NextAuthOptions = {
 	events: {},
 
 	// Enable debug messages in the console if you are having problems
-	debug: process.env.NODE_ENV === 'development',
-	// debug: false,
+	// debug: process.env.NODE_ENV === 'development',
+	debug: false,
 };
 
 // export default async function auth(req: NextApiRequest, res: NextApiResponse) {

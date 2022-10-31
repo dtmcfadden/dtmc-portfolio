@@ -1,3 +1,3 @@
-import { UserProfile } from './user.interface';
+import { UserFull, UserProfile } from './user.interface';
 
-export type { UserProfile };
+export type { UserFull, UserProfile };

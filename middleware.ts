@@ -7,8 +7,11 @@ export default withAuth({
 			// console.log('middleware authorized req.nextauth', req.nextUrl);
 			// console.log('middleware authorized token', token);
 			// `/admin` requires admin role
-			if (req.nextUrl.pathname === '/admin') {
-				return token?.userRole === 'admin';
+			// if (req.nextUrl.pathname === '/admin') {
+			// 	return token?.userRole === 'admin';
+			// }
+			if (req.nextUrl.pathname === '/api/user') {
+				return token?.userRole === 'guest';
 			}
 			// `/me` only requires the user to be logged in
 			// return true;
@@ -17,4 +20,4 @@ export default withAuth({
 	},
 });
 
-export const config = { matcher: ['/admin', '/me'] };
+export const config = { matcher: ['/api/user'] };
