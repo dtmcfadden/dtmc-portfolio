@@ -1,31 +1,30 @@
 import Link from 'next/link';
 import styles from './footer.module.css';
 import packageJSON from '../../package.json';
+import { Container, ListGroup } from 'react-bootstrap';
 
 export default function Footer() {
 	return (
-		<footer className={styles.footer}>
-			<hr />
-			<ul className={styles.navItems}>
-				<li className={styles.navItem}>
-					<Link href="/">David McFadden Portfolio</Link>
-				</li>
-				<li className={styles.navItem}>
-					<Link href="https://next-auth.js.org">Documentation</Link>
-				</li>
-				<li className={styles.navItem}>
-					<Link href="https://www.npmjs.com/package/next-auth">NPM</Link>
-				</li>
-				<li className={styles.navItem}>
-					<Link href="https://github.com/nextauthjs/next-auth-example">GitHub</Link>
-				</li>
-				<li className={styles.navItem}>
-					<Link href="/policy">Policy</Link>
-				</li>
-				<li className={styles.navItem}>
-					<em>next-auth@{packageJSON.dependencies['next-auth']}</em>
-				</li>
-			</ul>
-		</footer>
+		<>
+			<Container>
+				<ListGroup horizontal="md">
+					<ListGroup.Item className="flex-fill">
+						<Link href="https://www.linkedin.com/in/davidtmcfadden/">David McFadden Linkedin</Link>
+					</ListGroup.Item>
+					<ListGroup.Item className="flex-fill">
+						<Link href="https://github.com/dtmcfadden">GitHub</Link>
+					</ListGroup.Item>
+					<ListGroup.Item className="flex-fill">
+						<em>next@{packageJSON.dependencies['next']}</em>
+					</ListGroup.Item>
+					<ListGroup.Item className="flex-fill">
+						<em>react@{packageJSON.dependencies['react']}</em>
+					</ListGroup.Item>
+					<ListGroup.Item className="flex-fill">
+						<em>next-auth@{packageJSON.dependencies['next-auth']}</em>
+					</ListGroup.Item>
+				</ListGroup>
+			</Container>
+		</>
 	);
 }
