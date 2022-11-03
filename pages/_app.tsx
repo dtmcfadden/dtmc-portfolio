@@ -9,7 +9,7 @@ import { SessionProvider } from 'next-auth/react';
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import { RecoilRoot } from 'recoil';
 
 export default function App({ Component, pageProps }: AppProps) {
 	// console.log('App pageProps', pageProps);
@@ -25,11 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
 					<Head>
 						<meta name="viewport" content="width=device-width, initial-scale=1" />
 					</Head>
-					<Container>
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
-					</Container>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
 				</SessionProvider>
 			</SSRProvider>
 		</RecoilRoot>

@@ -6,6 +6,8 @@ import { Formik } from 'formik';
 import axios from 'axios';
 import { server } from '@/config/index';
 import { formName } from '@/lib/yup/schema/user.schema';
+import { useRecoilValue } from 'recoil';
+import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
 interface props {
 	name: string | null;
@@ -17,6 +19,7 @@ export default function ChangeUserName({ name }: props) {
 	const [validated, setValidated] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
+	const { variant: themeVariant, text: themeText } = useRecoilValue(getThemeSiteState);
 
 	useEffect(() => {
 		setUsername(name);
@@ -78,7 +81,7 @@ export default function ChangeUserName({ name }: props) {
 							/>
 							<Form.Control.Feedback type="invalid">{errors.formDisplayName}</Form.Control.Feedback>
 						</InputGroup>
-						<Form.Text id="nameHelpBlock" muted>
+						<Form.Text id="nameHelpBlock" className={themeText}>
 							Name displayed on the website.
 						</Form.Text>
 						{errorMessage && (
@@ -88,7 +91,7 @@ export default function ChangeUserName({ name }: props) {
 						)}
 					</Form.Group>
 					<Button
-						variant="primary"
+						variant={themeVariant}
 						type="submit"
 						disabled={!isValid || isSubmitting}
 						className={`border ${

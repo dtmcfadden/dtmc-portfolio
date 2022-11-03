@@ -46,7 +46,8 @@
 			"@/theme/*": ["lib/theme/*"],
 			"@/config/*": ["config/*"],
 			"@/controllers/*": ["controllers/*"],
-			"@/interfaces/*": ["interfaces/*"]
+			"@/interfaces/*": ["interfaces/*"],
+			"@/recoil/*": ["recoil/*"]
 		},
 		"lib": ["dom", "dom.iterable", "esnext"],
 		// "lib": ["ES2020"],

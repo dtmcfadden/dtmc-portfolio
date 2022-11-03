@@ -1,12 +1,15 @@
 // import type { NextApiRequest, NextApiResponse } from 'next';
 import { Card, Image } from 'react-bootstrap';
 import styles from './portfolioSummaryCard.module.css';
+import { useRecoilValue } from 'recoil';
+import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
 export default function PortfolioSummaryCard() {
+	const { bg: themeBg, border: themeBorder } = useRecoilValue(getThemeSiteState);
+
 	return (
 		<>
-			<Card className="h-100">
-				{/* <Card.Header>&nbsp;</Card.Header> */}
+			<Card bg={themeBg} className={`h-100 border ${themeBorder}`}>
 				<Card.Body className={`d-flex align-items-center ${styles.summary}`}>
 					<Card.Text className={styles.summaryText}>
 						Full Stack Software Engineer with 14+ years&apos; experience in Fraud Operations. Responsible for developing
