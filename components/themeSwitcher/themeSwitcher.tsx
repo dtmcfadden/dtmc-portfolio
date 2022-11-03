@@ -17,16 +17,14 @@ export default function ThemeSwitcher() {
 	};
 
 	return (
-		<Container>
-			<Form>
-				<Form.Check
-					type="switch"
-					className={styles.themeSwitch}
-					id="theme-switch"
-					onChange={changeTheme}
-					checked={isDark}
-				/>
-			</Form>
-		</Container>
+		<Form>
+			<Form.Check
+				type="switch"
+				className={styles.themeSwitch}
+				id="theme-switch"
+				onChange={changeTheme}
+				checked={isDark}
+			/>
+		</Form>
 	);
 }

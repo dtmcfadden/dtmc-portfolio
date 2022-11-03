@@ -35,7 +35,9 @@ export default function Header() {
 								<NavBuilder navHref={`${server}/api/navLinks`} />
 							</Nav>
 							<Nav>
-								<ThemeSwitcher />
+								<div className="py-3">
+									<ThemeSwitcher />
+								</div>
 								<NavSigninSignout />
 							</Nav>
 						</Navbar.Collapse>
