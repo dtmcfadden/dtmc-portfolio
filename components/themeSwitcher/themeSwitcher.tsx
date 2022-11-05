@@ -6,14 +6,16 @@ import { setIsDarkThemeState } from '@/recoil/atoms/themeSiteAtom';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { useSession } from 'next-auth/react';
 
 export default function ThemeSwitcher() {
 	const { isDark } = useRecoilValue(getThemeSiteState);
 	const setThemeSite = useSetRecoilState(setIsDarkThemeState);
+	const { data: session, status } = useSession();
 	const changeTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const themeSwitch = event.currentTarget.checked;
 		// console.log('themeSwitch', themeSwitch);
-		setThemeSite({ s: 'switcher', v: themeSwitch });
+		setThemeSite({ s: 'switcher', v: themeSwitch, session: status === 'authenticated' ? true : false });
 	};
 
 	return (

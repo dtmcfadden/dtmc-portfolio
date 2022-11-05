@@ -18,18 +18,18 @@ export default function App({ Component, pageProps }: AppProps) {
 	// }, []);
 
 	return (
-		<RecoilRoot>
-			<SSRProvider>
-				{/* <SessionProvider session={session}> */}
-				<SessionProvider session={pageProps.session}>
-					<Head>
-						<meta name="viewport" content="width=device-width, initial-scale=1" />
-					</Head>
+		<SSRProvider>
+			{/* <SessionProvider session={session}> */}
+			<SessionProvider session={pageProps.session}>
+				<Head>
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+				</Head>
+				<RecoilRoot>
 					<Layout>
 						<Component {...pageProps} />
 					</Layout>
-				</SessionProvider>
-			</SSRProvider>
-		</RecoilRoot>
+				</RecoilRoot>
+			</SessionProvider>
+		</SSRProvider>
 	);
 }

@@ -12,6 +12,7 @@ interface props {
 const NavBuilder: FC<props> = ({ navHref }) => {
 	const themeSite = useRecoilValue(getThemeSiteState);
 	const [navLinkData, setNavLinkData] = useState([]);
+
 	const getNavData = async (navHref: string) => {
 		const response = await fetch(navHref);
 		const data = await response.json();

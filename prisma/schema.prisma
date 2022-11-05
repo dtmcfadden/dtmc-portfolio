@@ -45,16 +45,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?   @db.VarChar(50)
-  email         String?   @unique @db.VarChar(100)
+  id            String      @id @default(cuid())
+  name          String?     @db.VarChar(50)
+  email         String?     @unique @db.VarChar(100)
   emailVerified DateTime?
   image         String?
-  roles         String    @default("guest")
-  createdAt     DateTime  @default(now())
+  roles         String      @default("guest")
+  createdAt     DateTime    @default(now())
   updatedAt     DateTime?
   accounts      Account[]
   sessions      Session[]
+  userPrefs     UserPrefs[]
 
   @@index([name])
   @@index([email])
@@ -70,4 +71,16 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model UserPrefs {
+  id        String    @id @default(cuid())
+  userId    String    @unique @db.Char(36)
+  theme     String?   @db.MediumText
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  user      User      @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@index([userId])
+  @@map("userprefs")
 }

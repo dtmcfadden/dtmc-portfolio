@@ -1,5 +1,7 @@
 import { selector } from 'recoil';
 import { setIsDarkThemeState } from '../atoms/themeSiteAtom';
+import axios from 'axios';
+import { server } from '@/config/index';
 import { Theme } from '@/types/atomTypes';
 
 export interface ThemeProps {
@@ -36,6 +38,26 @@ export const getThemeSiteState = selector<ThemeProps>({
 		}
 		if (['default', 'storage'].indexOf(themeSiteState.s) == -1 && typeof window !== 'undefined') {
 			localStorage.setItem('DarkTheme', theme.isDark.toString());
+			if (themeSiteState.session === true) {
+				axios.put(`${server}/api/user/theme`, { isDark: theme.isDark }, { responseType: 'json' }).then(
+					(result) => {
+						// console.log('getThemeSiteState result', result);
+					},
+					(error) => {
+						console.log('getThemeSiteState error', error);
+					},
+				);
+
+				// const { data, status } = await axios.put(
+				// 	`${server}/api/user/theme`,
+				// 	{
+				// 		isDark: theme.isDark,
+				// 	},
+				// 	{
+				// 		responseType: 'json',
+				// 	},
+				// );
+			}
 		}
 		return theme;
 	},

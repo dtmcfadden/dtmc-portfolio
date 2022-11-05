@@ -35,7 +35,7 @@ export default function Header() {
 								<NavBuilder navHref={`${server}/api/navLinks`} />
 							</Nav>
 							<Nav>
-								<div className="py-3">
+								<div className="my-2 pb-3">
 									<ThemeSwitcher />
 								</div>
 								<NavSigninSignout />

@@ -10,5 +10,5 @@ import { Theme } from '@/types/atomTypes';
 
 export const setIsDarkThemeState = atom({
 	key: 'isDarkTheme',
-	default: { s: 'default', v: true },
+	default: { s: 'default', v: true, session: false },
 });
