@@ -13,3 +13,7 @@ export interface UserProfile {
 	name: string | null;
 	roles: string;
 }
+
+export interface UserId {
+	userId: string;
+}
