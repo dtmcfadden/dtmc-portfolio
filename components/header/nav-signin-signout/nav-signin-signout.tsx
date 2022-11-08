@@ -9,14 +9,24 @@ import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
 const NavSigninSignout: FC = () => {
-	const { bg: themeBg, variant: themeVariant, text: themeText } = useRecoilValue(getThemeSiteState);
+	const {
+		bg: themeBg,
+		variant: themeVariant,
+		text: themeText,
+		border: themeBorder,
+	} = useRecoilValue(getThemeSiteState);
 	// console.log('NavSigninSignout');
 	const { data: session, status } = useSession();
+
+	const handleSignout = () => {
+		localStorage.removeItem('SiteTheme');
+		signOut();
+	};
 
 	return (
 		<>
 			<NavDropdown
-				className={`bg-${themeBg}`}
+				className={`bg-${themeBg} ${themeBorder}`}
 				title={
 					session?.user?.image ? (
 						<Image
@@ -35,8 +45,8 @@ const NavSigninSignout: FC = () => {
 				align="end"
 			>
 				{!session && (
-					<NavDropdown.Item className={`px-2 bg-${themeBg} ${themeText}`}>
-						<Card bg="primary">
+					<NavDropdown.Item className={`px-2 text-center bg-${themeBg} ${themeText}`}>
+						<Card bg={themeBg} className={`${themeBorder}`}>
 							<Card.Title>Sign In</Card.Title>
 							<LoginProviderList />
 						</Card>
@@ -44,16 +54,16 @@ const NavSigninSignout: FC = () => {
 				)}
 				{session?.user && (
 					<>
-						<NavDropdown.Item className={`bg-${themeBg} ${themeText}`} href="/profile">
+						<NavDropdown.Item className={`text-center bg-${themeBg} ${themeText}`} href="/profile">
 							Profile
 						</NavDropdown.Item>
-						<NavDropdown.Divider />
+						<NavDropdown.Divider className={`${themeBorder}`} />
 						<NavDropdown.Item
 							href={`/api/auth/signout`}
-							className={`${styles.button} bg-${themeBg} ${themeText}`}
+							className={`${styles.button} text-center bg-${themeBg} ${themeText}`}
 							onClick={(e) => {
 								e.preventDefault();
-								signOut();
+								handleSignout();
 							}}
 						>
 							Sign out

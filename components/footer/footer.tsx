@@ -15,7 +15,7 @@ export default function Footer() {
 
 	return (
 		<>
-			<Container>
+			<Container className="mt-1">
 				<ListGroup horizontal="md" variant={themeVariant}>
 					<ListGroup.Item className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 						<Link href="https://www.linkedin.com/in/davidtmcfadden/">David McFadden Linkedin</Link>

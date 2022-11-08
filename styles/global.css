@@ -11349,6 +11349,21 @@ a.text-dark:focus {
   color: #000;
 }
 
+.navDropdown > a.dropdown-toggle,
+.dropdown > a.dropdown-toggle {
+  color: inherit !important;
+}
+
+.navDropdown > div.dropdown-menu,
+.dropdown > div.dropdown-menu {
+  border-color: inherit !important;
+}
+
+button.btn.submit.border-success {
+  border-width: 5px !important;
+  margin: -4px;
+}
+
 /* ============ desktop view ============ */
 @media all and (min-width: 992px) {
   .dropdown-menu li {

@@ -4,8 +4,8 @@ import { server } from '@/config/index';
 import axios from 'axios';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { setIsDarkThemeState } from '@/recoil/atoms/themeSiteAtom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { previewThemeState, siteThemeState } from '@/recoil/atoms/themeSiteAtom';
 import { Container } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
@@ -16,31 +16,49 @@ interface Props {
 
 export default function Layout({ children }: Props) {
 	const { data: session, status } = useSession();
-	const setThemeSite = useSetRecoilState(setIsDarkThemeState);
-	const { isDark, page: themePage, bg: themeBg, text: themeText } = useRecoilValue(getThemeSiteState);
+	const setSiteTheme = useSetRecoilState(siteThemeState);
+	const [previewTheme, setPreviewTheme] = useRecoilState(previewThemeState);
+	const { page: themePage, text: themeText } = useRecoilValue(getThemeSiteState);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
-			const localDarkTheme = localStorage.getItem('DarkTheme');
-			if (localDarkTheme != null) {
-				setThemeSite({
-					s: 'storage',
-					v: localDarkTheme === 'true',
-					session: status === 'authenticated' ? true : false,
+			const localSiteTheme = localStorage.getItem('SiteTheme');
+			if (localSiteTheme != null) {
+				setSiteTheme({
+					...{ s: 'storage', session: status === 'authenticated' ? true : false },
+					...JSON.parse(localSiteTheme),
 				});
+				if (previewTheme.s === 'default') {
+					// console.log('local set previewTheme', previewTheme);
+					// console.log('local set previewTheme localSiteTheme', localSiteTheme);
+					setPreviewTheme({
+						...previewTheme,
+						...{ s: 'storage' },
+						...JSON.parse(localSiteTheme),
+					});
+				}
 			}
 		}
-		// getThemeData(status.toString());
+
 		if (status === 'authenticated') {
 			axios.get(`${server}/api/user/theme`, { responseType: 'json' }).then(
 				(result) => {
-					console.log('LayoutThemeGet result', result);
-					if (result.data.isDark != undefined) {
-						setThemeSite({
-							s: 'storage',
-							v: result.data.isDark,
-							session: status === 'authenticated' ? true : false,
+					// console.log('LayoutThemeGet result', result);
+					// console.log('LayoutThemeGet result.data', result.data);
+					if (result.data != undefined) {
+						setSiteTheme({
+							...{ s: 'storage', session: status === 'authenticated' ? true : false },
+							...result.data,
 						});
+						if (previewTheme.s === 'default') {
+							// console.log('local set previewTheme', previewTheme);
+							// console.log('local set previewTheme result.data', result.data);
+							setPreviewTheme({
+								...previewTheme,
+								...{ s: 'storage' },
+								...result.data,
+							});
+						}
 					}
 				},
 				(error) => {
@@ -48,14 +66,7 @@ export default function Layout({ children }: Props) {
 				},
 			);
 		}
-		// const { data } = await axios.get(`${server}/api/user/theme`, { responseType: 'json' });
-		// console.log('theme data', data);
-		// setThemeSite({
-		// 	s: 'storage',
-		// 	v: data.isDark,
-		// 	session: status === 'authenticated' ? true : false,
-		// });
-	}, [setThemeSite, status]);
+	}, [setSiteTheme, setPreviewTheme, previewTheme, status]);
 
 	useEffect(() => {
 		document.body.setAttribute('class', `bg-${themePage}`);

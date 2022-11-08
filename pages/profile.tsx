@@ -1,10 +1,11 @@
 import ChangeDisplayName from '@/components/ChangeDisplayName/ChangeDisplayName';
 import LoginProviderList from '@/components/LoginProviderList/LoginProviderList';
+import ThemeCustomize from '@/components/themeCustomize/themeCustomize';
 import UserRoles from '@/components/UserRoles/UserRoles';
 import { server } from '@/config/index';
 import axios from 'axios';
 import { useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row, Stack } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
@@ -26,38 +27,38 @@ const Profile = ({ name, roles }: props) => {
 
 	return (
 		<Container>
-			<Row className="pt-2">
-				<Col>
-					<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-						<Card.Header>Change username</Card.Header>
-						<Card.Body className={`py-2 border ${themeBorder}`}>
-							<ChangeDisplayName name={userName} />
-						</Card.Body>
-					</Card>
+			<Row>
+				<Col md={6} className="pt-1 px-1">
+					<Stack gap={2}>
+						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
+							<Card.Header>Change username</Card.Header>
+							<Card.Body className={`py-2 border ${themeBorder}`}>
+								<ChangeDisplayName name={userName} />
+							</Card.Body>
+						</Card>
+						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
+							<Card.Header>Link new account</Card.Header>
+							<Card.Body className={`py-2 border ${themeBorder}`}>
+								<LoginProviderList />
+							</Card.Body>
+						</Card>
+						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
+							<Card.Header>Roles</Card.Header>
+							<Card.Body className={`py-2 border ${themeBorder}`}>
+								<UserRoles roles={userRoles} />
+							</Card.Body>
+						</Card>
+					</Stack>
 				</Col>
-				<Col>
-					<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-						<Card.Header>Link new account</Card.Header>
-						<Card.Body className={`py-2 border ${themeBorder}`}>
-							<LoginProviderList />
-						</Card.Body>
-					</Card>
-				</Col>
-			</Row>
-			<Row className="pt-2">
-				<Col>
-					<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-						<Card.Header>Roles</Card.Header>
-						<Card.Body className={`py-2 border ${themeBorder}`}>
-							<UserRoles roles={userRoles} />
-						</Card.Body>
-					</Card>
-				</Col>
-				<Col>
-					{/* <Card bg={themeBg} className={themeText}>
-						<Card.Header>unknown</Card.Header>
-						<Card.Body className="py-2"></Card.Body>
-					</Card> */}
+				<Col md={6} className="pt-1 px-1">
+					<Stack gap={2}>
+						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
+							<Card.Header>Custom theme</Card.Header>
+							<Card.Body className={`py-2 border ${themeBorder}`}>
+								<ThemeCustomize />
+							</Card.Body>
+						</Card>
+					</Stack>
 				</Col>
 			</Row>
 		</Container>

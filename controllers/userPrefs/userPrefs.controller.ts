@@ -7,6 +7,7 @@ import { Prisma } from '@prisma/client';
 import { yupThemePrefs } from '@/lib/yup/form/theme.yup';
 import { getUserIdBySessionToken } from '../session/session.controller';
 import { date } from 'yup';
+import { BorderColor, DefaultColor, TextColor } from '@/interfaces/userPrefs.interface';
 
 export const getThemeBySessionToken = async (sessionToken: string): Promise<UserThemePrefs | null> => {
 	const userTheme = await prisma.user.findFirst({
@@ -28,6 +29,23 @@ export const getThemeBySessionToken = async (sessionToken: string): Promise<User
 
 	let userThemePrefs = {
 		isDark: true,
+		useCustom: false,
+		theme: {
+			0: {
+				page: DefaultColor.LIGHT,
+				bg: DefaultColor.SECONDARY,
+				variant: DefaultColor.LIGHT,
+				text: TextColor.DARK,
+				border: BorderColor.SECONDARY,
+			},
+			1: {
+				page: DefaultColor.PRIMARY,
+				bg: DefaultColor.PRIMARY,
+				variant: DefaultColor.DARK,
+				text: TextColor.LIGHT,
+				border: BorderColor.LIGHT,
+			},
+		},
 	};
 	if (userTheme?.userPrefs && userTheme?.userPrefs.length > 0) {
 		if (userTheme.userPrefs[0].theme) {
@@ -43,9 +61,9 @@ export const updateThemePrefsBySessionToken = async (
 	sessionToken: string,
 	userThemePrefs: UserThemePrefs,
 ): Promise<UserThemePrefs | null> => {
+	// console.log('updateThemePrefsBySessionToken userThemePrefs', userThemePrefs);
 	const themeCheck = await yupThemePrefs.isValid(userThemePrefs);
-	console.log('updateThemePrefsBySessionToken themeCheck', themeCheck);
-	console.log('updateThemePrefsBySessionToken userThemePrefs', userThemePrefs);
+	// console.log('updateThemePrefsBySessionToken themeCheck', themeCheck);
 	let returnTheme = null;
 
 	if (themeCheck == false) {
@@ -53,7 +71,7 @@ export const updateThemePrefsBySessionToken = async (
 	}
 
 	const sessionData = await getUserIdBySessionToken(sessionToken);
-	console.log('updateThemePrefsBySessionToken userId', sessionData?.userId);
+	// console.log('updateThemePrefsBySessionToken userId', sessionData?.userId);
 	if (sessionData?.userId != null) {
 		const userPrefsData = await prisma.userPrefs.upsert({
 			select: {
@@ -72,11 +90,11 @@ export const updateThemePrefsBySessionToken = async (
 				updatedAt: new Date(),
 			},
 		});
-		console.log('updateThemePrefsBySessionToken userPrefsData', userPrefsData.theme);
+		// console.log('updateThemePrefsBySessionToken userPrefsData', userPrefsData.theme);
 		returnTheme = userPrefsData.theme ? JSON.parse(userPrefsData.theme) : {};
 	}
 
-	console.log('updateThemePrefsBySessionToken returnTheme', returnTheme);
+	// console.log('updateThemePrefsBySessionToken returnTheme', returnTheme);
 	return returnTheme;
 	// return 0;
 };

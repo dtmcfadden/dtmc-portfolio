@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { setIsDarkThemeState } from '../atoms/themeSiteAtom';
+import { defaultLight, defaultDark, previewThemeState, siteThemeState } from '../atoms/themeSiteAtom';
 import axios from 'axios';
 import { server } from '@/config/index';
 import { Theme } from '@/types/atomTypes';
@@ -16,30 +16,44 @@ export interface ThemeProps {
 export const getThemeSiteState = selector<ThemeProps>({
 	key: 'themeGlobal',
 	get: ({ get }) => {
-		const themeSiteState = get(setIsDarkThemeState);
-		// console.log('themeSiteState', themeSiteState);
-		let theme = {
-			isDark: false,
-			page: 'light',
-			bg: 'secondary',
-			variant: 'light',
-			text: 'text-black',
-			border: 'border-secondary',
-		};
-		if (themeSiteState.v == true) {
-			theme = {
-				isDark: true,
-				page: 'primary',
-				bg: 'primary',
-				variant: 'dark',
-				text: 'text-light',
-				border: 'border-light',
-			};
-		}
-		if (['default', 'storage'].indexOf(themeSiteState.s) == -1 && typeof window !== 'undefined') {
-			localStorage.setItem('DarkTheme', theme.isDark.toString());
-			if (themeSiteState.session === true) {
-				axios.put(`${server}/api/user/theme`, { isDark: theme.isDark }, { responseType: 'json' }).then(
+		// const isDarkTheme = get(isDarkThemeState);
+		const siteTheme = get(siteThemeState);
+		const previewTheme = get(previewThemeState);
+		// console.log('themeGlobal isDarkTheme', isDarkTheme);
+		// console.log('themeGlobal siteTheme', siteTheme);
+		// console.log('themeGlobal previewTheme', previewTheme);
+		let theme = { ...{ isDark: false }, ...defaultLight };
+
+		const storeSkipType = ['default'];
+		if (
+			storeSkipType.indexOf(siteTheme.s) == -1 &&
+			previewTheme.usePreview === false &&
+			typeof window !== 'undefined'
+		) {
+			let hasChange = false;
+			const localSiteTheme = localStorage.getItem('SiteTheme');
+			const curCustomTheme = JSON.stringify({
+				isDark: siteTheme.isDark,
+				useCustom: siteTheme.useCustom,
+				theme: siteTheme.theme,
+			});
+			// console.log('localCustomThemeCheck localSiteTheme', localSiteTheme, 'curCustomTheme', curCustomTheme);
+			// console.log('localCustomThemeCheck localSiteTheme != localCustomTheme', localSiteTheme != curCustomTheme);
+			if (localSiteTheme != curCustomTheme) {
+				localStorage.setItem('SiteTheme', curCustomTheme);
+				hasChange = true;
+			}
+
+			const serverSkipType = ['storage'];
+			// console.log('sumbit server hasChange', hasChange);
+			if (hasChange === true && siteTheme.session === true && serverSkipType.indexOf(siteTheme.s) === -1) {
+				const sendData = {
+					isDark: siteTheme.isDark,
+					useCustom: siteTheme.useCustom,
+					theme: siteTheme.theme,
+				};
+				// console.log('submit theme to server sendData', sendData);
+				axios.put(`${server}/api/user/theme`, sendData, { responseType: 'json' }).then(
 					(result) => {
 						// console.log('getThemeSiteState result', result);
 					},
@@ -47,18 +61,25 @@ export const getThemeSiteState = selector<ThemeProps>({
 						console.log('getThemeSiteState error', error);
 					},
 				);
-
-				// const { data, status } = await axios.put(
-				// 	`${server}/api/user/theme`,
-				// 	{
-				// 		isDark: theme.isDark,
-				// 	},
-				// 	{
-				// 		responseType: 'json',
-				// 	},
-				// );
 			}
 		}
+
+		if (previewTheme.usePreview === true) {
+			theme = { ...{ isDark: previewTheme.isDark }, ...previewTheme.theme[previewTheme.isDark === true ? 1 : 0] };
+		} else {
+			if (siteTheme.useCustom === false) {
+				if (siteTheme.isDark === true) {
+					theme = { ...{ isDark: true }, ...defaultDark };
+				}
+			} else {
+				// console.log('customThemeState', customThemeState);
+				theme = { ...{ isDark: siteTheme.isDark }, ...siteTheme.theme[siteTheme.isDark === true ? 1 : 0] };
+			}
+		}
+		// console.log('themeGlobal theme', theme);
 		return theme;
+	},
+	cachePolicy_UNSTABLE: {
+		eviction: 'most-recent',
 	},
 });

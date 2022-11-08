@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			// console.log('session_token', session_token);
 			if (session_token) {
 				const themeResult = await getThemeBySessionToken(session_token);
-				console.log('themeResult', themeResult);
+				// console.log('themeResult', themeResult);
 				return res.status(200).json(themeResult);
 			} else {
 				return res.status(401).json({
@@ -31,6 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		const session_token = req?.cookies['next-auth.session-token'];
 
 		// console.log('originalDisplayName', originalDisplayName, 'session_token', session_token);
+		// console.log('theme put themePrefs', themePrefs);
 		if (!session_token) {
 			return res.status(401).json({
 				error: 'Unauthorized',

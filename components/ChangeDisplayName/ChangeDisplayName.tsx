@@ -94,7 +94,7 @@ export default function ChangeUserName({ name }: props) {
 						variant={themeVariant}
 						type="submit"
 						disabled={!isValid || isSubmitting}
-						className={`border ${
+						className={`w-100 submit border ${
 							errorMessage == '' ? (isSubmitted ? 'border-success' : 'border-dark') : 'border-danger'
 						}`}
 					>

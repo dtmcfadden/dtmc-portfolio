@@ -28,27 +28,31 @@ const NavBuilder: FC<props> = ({ navHref }) => {
 export default NavBuilder;
 
 const secureNav = (depth: number, navLinks: any, themeSite: any) => {
-	const { bg: themeBg, variant: themeVariant, border: themeBorder } = themeSite;
+	const { bg: themeBg, text: themeText, border: themeBorder } = themeSite;
 
 	return navLinks.map((navLink: any) => {
 		const tKey = depth + navLink.type + navLink.title + Math.random();
 
 		if (navLink.type === 'dd') {
 			return (
-				<NavDropdown className={`bg-${themeBg}`} title={navLink.title} key={tKey}>
+				<NavDropdown
+					className={`navDropdown bg-${themeBg} ${themeText} ${themeBorder}`}
+					title={navLink.title}
+					key={tKey}
+				>
 					{secureNav(depth + 1, navLink.children, themeSite)}
 				</NavDropdown>
 			);
 		}
 		if (navLink.type === 'ddItem') {
 			return (
-				<NavDropdown.Item className={`bg-${themeBg}`} href={navLink.href} key={tKey}>
+				<NavDropdown.Item className={`navDropDownItem bg-${themeBg} ${themeText}`} href={navLink.href} key={tKey}>
 					{navLink.title}
 				</NavDropdown.Item>
 			);
 		}
 		if (navLink.type === 'divider') {
-			return <NavDropdown.Divider key={tKey} />;
+			return <NavDropdown.Divider key={tKey} className={`${themeBorder}`} />;
 		}
 		return <></>;
 	});
