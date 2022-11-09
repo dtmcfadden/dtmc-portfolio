@@ -4,12 +4,14 @@ import styles from './nav-builder.module.css';
 import { NavDropdown } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { useOnClickShared } from '@/lib/sharedHooks';
 
 interface props {
 	navHref: string;
 }
 
 const NavBuilder: FC<props> = ({ navHref }) => {
+	const { handleHrefOnClick } = useOnClickShared();
 	const themeSite = useRecoilValue(getThemeSiteState);
 	const [navLinkData, setNavLinkData] = useState([]);
 
@@ -23,11 +25,16 @@ const NavBuilder: FC<props> = ({ navHref }) => {
 		getNavData(navHref);
 	}, [navHref]);
 
-	return <>{secureNav(0, navLinkData, themeSite)}</>;
+	return <>{secureNav(0, navLinkData, themeSite, handleHrefOnClick)}</>;
 };
 export default NavBuilder;
 
-const secureNav = (depth: number, navLinks: any, themeSite: any) => {
+const secureNav = (
+	depth: number,
+	navLinks: any,
+	themeSite: any,
+	handleHrefOnClick: (e: React.MouseEvent<HTMLElement>) => void,
+) => {
 	const { bg: themeBg, text: themeText, border: themeBorder } = themeSite;
 
 	return navLinks.map((navLink: any) => {
@@ -40,13 +47,18 @@ const secureNav = (depth: number, navLinks: any, themeSite: any) => {
 					title={navLink.title}
 					key={tKey}
 				>
-					{secureNav(depth + 1, navLink.children, themeSite)}
+					{secureNav(depth + 1, navLink.children, themeSite, handleHrefOnClick)}
 				</NavDropdown>
 			);
 		}
 		if (navLink.type === 'ddItem') {
 			return (
-				<NavDropdown.Item className={`navDropDownItem bg-${themeBg} ${themeText}`} href={navLink.href} key={tKey}>
+				<NavDropdown.Item
+					className={`navDropDownItem bg-${themeBg} ${themeText}`}
+					href={navLink.href}
+					key={tKey}
+					onClick={handleHrefOnClick}
+				>
 					{navLink.title}
 				</NavDropdown.Item>
 			);

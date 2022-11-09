@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './header.module.css';
 import { server } from '@/config/index';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
@@ -10,8 +10,10 @@ import ThemePreview from '@/components/themePreview/themePreview';
 import ThemeSwitcher from '@/components/themeSwitcher/themeSwitcher';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { useOnClickShared } from '@/lib/sharedHooks';
 
 export default function Header() {
+	const { handleHrefOnClick } = useOnClickShared();
 	const {
 		bg: themeBg,
 		variant: themeVariant,
@@ -37,7 +39,7 @@ export default function Header() {
 						<Navbar.Toggle aria-controls="navbar-nav-main" />
 						<Navbar.Collapse id="navbar-nav-main">
 							<Nav className="me-auto">
-								<Nav.Link href="/" className={`${themeText}`}>
+								<Nav.Link href="/" onClick={handleHrefOnClick} className={`${themeText}`}>
 									Home
 								</Nav.Link>
 								<NavBuilder navHref={`${server}/api/navLinks`} />

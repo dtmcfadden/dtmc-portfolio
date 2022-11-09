@@ -7,8 +7,10 @@ import { PersonCircle } from 'react-bootstrap-icons';
 import LoginProviderList from '@/components/LoginProviderList/LoginProviderList';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { useOnClickShared } from '@/lib/sharedHooks';
 
 const NavSigninSignout: FC = () => {
+	const { handleHrefOnClick } = useOnClickShared();
 	const {
 		bg: themeBg,
 		variant: themeVariant,
@@ -54,7 +56,11 @@ const NavSigninSignout: FC = () => {
 				)}
 				{session?.user && (
 					<>
-						<NavDropdown.Item className={`text-center bg-${themeBg} ${themeText}`} href="/profile">
+						<NavDropdown.Item
+							className={`text-center bg-${themeBg} ${themeText}`}
+							href="/profile"
+							onClick={handleHrefOnClick}
+						>
 							Profile
 						</NavDropdown.Item>
 						<NavDropdown.Divider className={`${themeBorder}`} />

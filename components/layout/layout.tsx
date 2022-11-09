@@ -39,12 +39,12 @@ export default function Layout({ children }: Props) {
 				}
 			}
 		}
-
+		console.log('layout status', status);
 		if (status === 'authenticated') {
 			axios.get(`${server}/api/user/theme`, { responseType: 'json' }).then(
 				(result) => {
-					// console.log('LayoutThemeGet result', result);
-					// console.log('LayoutThemeGet result.data', result.data);
+					console.log('LayoutThemeGet result', result);
+					console.log('LayoutThemeGet result.data', result.data);
 					if (result.data != undefined) {
 						setSiteTheme({
 							...{ s: 'storage', session: status === 'authenticated' ? true : false },

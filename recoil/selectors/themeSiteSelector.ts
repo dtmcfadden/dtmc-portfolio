@@ -3,6 +3,7 @@ import { defaultLight, defaultDark, previewThemeState, siteThemeState } from '..
 import axios from 'axios';
 import { server } from '@/config/index';
 import { Theme } from '@/types/atomTypes';
+import _ from 'lodash';
 
 export interface ThemeProps {
 	isDark: boolean;
@@ -67,13 +68,18 @@ export const getThemeSiteState = selector<ThemeProps>({
 		if (previewTheme.usePreview === true) {
 			theme = { ...{ isDark: previewTheme.isDark }, ...previewTheme.theme[previewTheme.isDark === true ? 1 : 0] };
 		} else {
-			if (siteTheme.useCustom === false) {
-				if (siteTheme.isDark === true) {
-					theme = { ...{ isDark: true }, ...defaultDark };
+			console.log('siteTheme isEmpty', _.isEmpty(siteTheme), 'siteTheme', siteTheme);
+			if (_.isEmpty(siteTheme) == false) {
+				if (siteTheme.useCustom === false) {
+					if (siteTheme.isDark === true) {
+						theme = { ...{ isDark: true }, ...defaultDark };
+					}
+				} else {
+					// console.log('customThemeState', customThemeState);
+					if (siteTheme.isDark != undefined && siteTheme.theme != undefined) {
+						theme = { ...{ isDark: siteTheme.isDark }, ...siteTheme?.theme[siteTheme.isDark === true ? 1 : 0] };
+					}
 				}
-			} else {
-				// console.log('customThemeState', customThemeState);
-				theme = { ...{ isDark: siteTheme.isDark }, ...siteTheme.theme[siteTheme.isDark === true ? 1 : 0] };
 			}
 		}
 		// console.log('themeGlobal theme', theme);
