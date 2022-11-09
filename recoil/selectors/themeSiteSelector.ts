@@ -68,7 +68,7 @@ export const getThemeSiteState = selector<ThemeProps>({
 		if (previewTheme.usePreview === true) {
 			theme = { ...{ isDark: previewTheme.isDark }, ...previewTheme.theme[previewTheme.isDark === true ? 1 : 0] };
 		} else {
-			console.log('siteTheme isEmpty', _.isEmpty(siteTheme), 'siteTheme', siteTheme);
+			// console.log('siteTheme isEmpty', _.isEmpty(siteTheme), 'siteTheme', siteTheme);
 			if (_.isEmpty(siteTheme) == false) {
 				if (siteTheme.useCustom === false) {
 					if (siteTheme.isDark === true) {

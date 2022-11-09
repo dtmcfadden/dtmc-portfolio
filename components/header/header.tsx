@@ -10,7 +10,7 @@ import ThemePreview from '@/components/themePreview/themePreview';
 import ThemeSwitcher from '@/components/themeSwitcher/themeSwitcher';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/hooks/use-sharedHooks';
 
 export default function Header() {
 	const { handleHrefOnClick } = useOnClickShared();

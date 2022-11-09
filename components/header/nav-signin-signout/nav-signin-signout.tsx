@@ -7,7 +7,7 @@ import { PersonCircle } from 'react-bootstrap-icons';
 import LoginProviderList from '@/components/LoginProviderList/LoginProviderList';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 
 const NavSigninSignout: FC = () => {
 	const { handleHrefOnClick } = useOnClickShared();

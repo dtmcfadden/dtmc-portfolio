@@ -74,6 +74,11 @@ export async function getServerSideProps(context: any) {
 		headers: { Cookie: cookies },
 		responseType: 'json',
 	});
-	data.roles = data.roles ? data.roles.split(',') : [];
-	return { props: data };
+	console.log('profile data', data);
+	let returnData = {
+		name: data?.name || '',
+		roles: data?.roles ? data?.roles.split(',') : [],
+	};
+	console.log('profile returnData', returnData);
+	return { props: returnData };
 }

@@ -4,7 +4,7 @@ import styles from './nav-builder.module.css';
 import { NavDropdown } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 
 interface props {
 	navHref: string;

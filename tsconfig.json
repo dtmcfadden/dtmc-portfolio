@@ -37,6 +37,7 @@
 			"@/data/*": ["data/*"],
 			"@/layouts/*": ["layouts/*"],
 			"@/lib/*": ["lib/*"],
+			"@/hooks/*": ["lib/hooks/*"],
 			"@/styles/*": ["styles/*"],
 			"@/types": ["types/index"],
 			"@/types/*": ["types/*"],

@@ -1,7 +1,7 @@
 import { Button, Container } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { previewThemeState } from '@/recoil/atoms/themeSiteAtom';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 
 export default function ThemePreview() {
 	const { handleHrefOnClick } = useOnClickShared();
