@@ -22,7 +22,9 @@ const NavSigninSignout: FC = () => {
 
 	const handleSignout = () => {
 		localStorage.removeItem('SiteTheme');
-		signOut();
+		signOut({
+			callbackUrl: `${window.location.origin}`,
+		});
 	};
 
 	return (

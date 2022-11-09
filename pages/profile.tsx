@@ -74,11 +74,11 @@ export async function getServerSideProps(context: any) {
 		headers: { Cookie: cookies },
 		responseType: 'json',
 	});
-	console.log('profile data', data);
+	// console.log('profile data', data);
 	let returnData = {
 		name: data?.name || '',
 		roles: data?.roles ? data?.roles.split(',') : [],
 	};
-	console.log('profile returnData', returnData);
+	// console.log('profile returnData', returnData);
 	return { props: returnData };
 }

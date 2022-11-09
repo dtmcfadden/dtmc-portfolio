@@ -1,17 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getProfileBySessionToken, updateNameBySessionToken } from '@/controllers/user/user.controller';
+import {
+	getProfileById,
+	getProfileBySessionToken,
+	updateNameById,
+	updateNameBySessionToken,
+} from '@/controllers/user/user.controller';
 import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	const session = await getSession({ req });
+	// const session = await getSession({ req });
 	// console.log('session', session);
+	const token = await getToken({ req });
+	// console.log('token', token);
 	if (req.method === 'GET') {
 		// console.log('req.cookies', req.cookies);
 		try {
-			const session_token = req?.cookies['next-auth.session-token'];
+			// const session_token = req?.cookies['next-auth.session-token'];
 			// console.log('session_token', session_token);
-			if (session_token) {
-				const result = await getProfileBySessionToken(session_token);
+			// if (session_token) {
+			if (token?.sub) {
+				// const result = await getProfileBySessionToken(session_token);
+				const result = await getProfileById(token.sub);
 				// console.log('result', result);
 				return res.status(200).json(result);
 			} else {
@@ -37,8 +47,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		}
 		try {
 			let errMsg: string[] = [];
-			if (displayName && displayName != '' && originalDisplayName == session?.user.name) {
-				const updateCount = await updateNameBySessionToken(session_token, originalDisplayName, displayName);
+			if (token?.sub && displayName && displayName != '' && originalDisplayName == token?.name) {
+				// const updateCount = await updateNameBySessionToken(session_token, originalDisplayName, displayName);
+				const updateCount = await updateNameById(token?.sub, originalDisplayName, displayName);
 				if (updateCount == 0) {
 					errMsg.push('Not updated. Try a different name.');
 				}

@@ -30,6 +30,20 @@ export const getUserByName = async (name: string): Promise<UserFull | null> => {
 	return userFull;
 };
 
+export const getProfileById = async (id: string): Promise<UserProfile | null> => {
+	const profile = await prisma.user.findFirst({
+		select: {
+			name: true,
+			roles: true,
+		},
+		where: {
+			id: id,
+		},
+	});
+	// console.log('profile', profile);
+	return profile;
+};
+
 export const getProfileBySessionToken = async (sessionToken: string): Promise<UserProfile | null> => {
 	const profile = await prisma.user.findFirst({
 		select: {
@@ -46,6 +60,27 @@ export const getProfileBySessionToken = async (sessionToken: string): Promise<Us
 	});
 	// console.log('profile', profile);
 	return profile;
+};
+
+export const updateNameById = async (id: string, originalDisplayName: string, displayname: string): Promise<number> => {
+	// console.log('updateNameBySessionToken originalDisplayName', originalDisplayName, 'displayname', displayname);
+	const nameCheck = await formName.isValid({ formDisplayName: displayname });
+
+	if (nameCheck == false || originalDisplayName.toLowerCase() == displayname.toLowerCase()) {
+		return 0;
+	}
+	const updateCount = await prisma.user.updateMany({
+		data: {
+			name: displayname,
+		},
+		where: {
+			name: originalDisplayName,
+			id: id,
+		},
+	});
+
+	// console.log('updateCount', updateCount);
+	return updateCount.count;
 };
 
 export const updateNameBySessionToken = async (

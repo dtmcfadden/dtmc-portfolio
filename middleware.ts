@@ -58,7 +58,7 @@ const checkUrlRole = (
 ) => {
 	const userRoles = token?.roles || '';
 	const urlClientPath = req.nextUrl.pathname;
-	console.log('urlClientPath', urlClientPath);
+	// console.log('urlClientPath', urlClientPath);
 	let urlMatch = true;
 	if (urlCheck != '') {
 		urlMatch =
