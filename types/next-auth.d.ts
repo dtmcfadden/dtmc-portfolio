@@ -6,7 +6,7 @@ declare module 'next-auth' {
 	interface Session {
 		/** This is an example. You can find me in types/next-auth.d.ts */
 		user: {
-			roles: string[];
+			roles: string;
 		} & DefaultSession['user'];
 	}
 }
@@ -15,6 +15,7 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
 	interface JWT {
 		/** This is an example. You can find me in types/next-auth.d.ts */
+		roles: string;
 		bar: number;
 	}
 }

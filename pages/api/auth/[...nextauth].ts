@@ -92,13 +92,14 @@ export const authOptions: NextAuthOptions = {
 	// The secret should be set to a reasonably long random string.
 	// It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
 	// a separate secret is defined explicitly for encrypting the JWT.
-	secret: process.env.SECRET,
+	// secret: process.env.SECRET,
 
 	session: {
 		// Use JSON Web Tokens for session instead of database sessions.
 		// This option can be used with or without a database for users/accounts.
 		// Note: `strategy` should be set to 'jwt' if no database is used.
-		strategy: 'database',
+		strategy: 'jwt',
+		// jwt: true,
 		// Seconds - How long until an idle session expires and is no longer valid.
 		maxAge: 5 * 24 * 60 * 60, // 5 days
 		// Seconds - Throttle how frequently to write to database to extend a session.
@@ -115,6 +116,7 @@ export const authOptions: NextAuthOptions = {
 		// secret: process.env.SECRET,
 		// Set to true to use encryption (default: false)
 		// encryption: true,
+		maxAge: 5 * 24 * 60 * 60,
 		// You can define your own encode/decode functions for signing and encryption
 		// if you want to override the default behaviour.
 		// encode: async ({ secret, token, maxAge }) => {},
@@ -138,26 +140,34 @@ export const authOptions: NextAuthOptions = {
 	// when an action is performed.
 	// https://next-auth.js.org/configuration/callbacks
 	callbacks: {
-		// async jwt({ token }) {
-		// 	console.log('jwt token', token);
-		// 	// token.userRole = 'admin';
-		// 	// token.username = user.username;
-		// 	return token;
-		// },
+		async jwt({ token, user, account, profile, isNewUser }) {
+			// console.log('jwt token', token);
+			// console.log('jwt user', user);
+			// console.log('jwt account', account);
+			// console.log('jwt profile', profile);
+			// console.log('jwt isNewUser', isNewUser);
+			token.roles = 'guest';
+			// token.username = user.username;
+			return token;
+		},
 		// async signIn({ user, account, profile, email, credentials }) {
 		// 	console.log('signIn user', user);
 		// 	return true;
 		// },
 		async session({ session, token, user }) {
 			// Add role value to user object so it is passed along with session
-			session.user.roles = [];
-			if (user.roles) {
-				session.user.roles = user.roles.toString().split(',');
-			}
-
 			// console.log('auth callback session', session);
 			// console.log('auth callback token', token);
 			// console.log('auth callback user', user);
+			session.user.roles = '';
+			if (token?.roles) {
+				session.user.roles = token.roles.toString();
+			}
+			if (user?.roles) {
+				session.user.roles = user.roles.toString();
+			}
+			// console.log('auth callback return session', session);
+
 			return session;
 		},
 	},

@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getToken } from 'next-auth/jwt';
 import { getSession } from 'next-auth/react';
 
 export default async function navLinks(req: NextApiRequest, res: NextApiResponse) {
+	const token = await getToken({ req });
+	// console.log('navLinks token', token);
 	const session = await getSession({ req });
+	// console.log('navLinks session', session);
 	let navJSON = [];
 
 	const recursiveExample = {
@@ -44,8 +48,8 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 	};
 	navJSON.push(recursiveExample);
 
-	if (session && req.method === 'GET') {
-		if (session?.user?.roles.indexOf('guest') != -1) {
+	if (token && token?.roles && session && req.method === 'GET') {
+		if (token?.roles.indexOf('guest') != -1) {
 			navJSON.push({
 				type: 'dd',
 				title: 'Guest',
@@ -64,7 +68,7 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 				],
 			});
 		}
-		if (session?.user?.roles.indexOf('admin') != -1) {
+		if (token?.roles.indexOf('admin') != -1) {
 			navJSON.push({
 				type: 'dd',
 				title: 'Admin',
