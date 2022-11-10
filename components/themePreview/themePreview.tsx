@@ -10,11 +10,11 @@ export default function ThemePreview() {
 	return (
 		<>
 			{getPreviewTheme.usePreview && (
-				<Container>
-					<Button type="button" variant="outline-success" size="sm" href="/profile" onClick={handleHrefOnClick}>
-						Preview
-					</Button>
-				</Container>
+				// <Container>
+				<Button type="button" variant="outline-success" size="sm" href="/profile" onClick={handleHrefOnClick}>
+					Preview
+				</Button>
+				// </Container>
 			)}
 		</>
 	);

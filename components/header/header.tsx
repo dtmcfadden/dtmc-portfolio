@@ -3,7 +3,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import styles from './header.module.css';
 import { server } from '@/config/index';
-import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, Container, Row, Col } from 'react-bootstrap';
 import NavBuilder from './nav-builder/nav-builder';
 import NavSigninSignout from './nav-signin-signout/nav-signin-signout';
 import ThemePreview from '@/components/themePreview/themePreview';
@@ -15,6 +15,7 @@ import { useOnClickShared } from '@/hooks/use-sharedHooks';
 export default function Header() {
 	const { handleHrefOnClick } = useOnClickShared();
 	const {
+		isDark,
 		bg: themeBg,
 		variant: themeVariant,
 		text: themeText,
@@ -36,7 +37,10 @@ export default function Header() {
 						<Navbar.Brand href="/">
 							<div className={`navbar-text p-0 mt-1 ${themeText}`}>Welcome {session?.user?.name}</div>
 						</Navbar.Brand>
-						<Navbar.Toggle aria-controls="navbar-nav-main" />
+						<Navbar.Toggle
+							aria-controls="navbar-nav-main"
+							className={`navbar-${isDark === true ? 'dark' : 'light'} ${themeBorder}`}
+						/>
 						<Navbar.Collapse id="navbar-nav-main">
 							<Nav className="me-auto">
 								<Nav.Link href="/" onClick={handleHrefOnClick} className={`${themeText}`}>
@@ -45,10 +49,20 @@ export default function Header() {
 								<NavBuilder navHref={`${server}/api/navLinks`} />
 							</Nav>
 							<Nav>
-								<ThemePreview />
+								<Container>
+									<Row>
+										<Col md="auto" className="p-0">
+											<ThemePreview />
+										</Col>
+										<Col md="auto" className="my-2 px-1 pb-3">
+											<ThemeSwitcher />
+										</Col>
+									</Row>
+								</Container>
+								{/* <ThemePreview />
 								<div className="my-2 pb-3">
 									<ThemeSwitcher />
-								</div>
+								</div> */}
 								<NavSigninSignout />
 							</Nav>
 						</Navbar.Collapse>
