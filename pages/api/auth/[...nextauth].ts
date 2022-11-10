@@ -57,6 +57,10 @@ export const authOptions: NextAuthOptions = {
 		//   clientId: process.env.FACEBOOK_ID || '',
 		//   clientSecret: process.env.FACEBOOK_SECRET || '',
 		// }),
+		// LinkedInProvider({
+		// 	clientId: process.env.LINKEDIN_CLIENT_ID,
+		// 	clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+		// }),
 		GithubProvider({
 			clientId: process.env.GITHUB_ID || '',
 			clientSecret: process.env.GITHUB_SECRET || '',
@@ -340,6 +344,13 @@ export const authOptions: NextAuthOptions = {
 // }
 
 export default NextAuth(authOptions);
+
+function LinkedInProvider(arg0: {
+	clientId: string | undefined;
+	clientSecret: string | undefined;
+}): import('next-auth/providers').Provider {
+	throw new Error('Function not implemented.');
+}
 // export default NextAuth(req, res, authOptions);
 // export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 // 	// Do whatever you want here, before the request is passed down to `NextAuth`
