@@ -7,24 +7,26 @@ import { Prisma } from '@prisma/client';
 import { yupThemePrefs } from '@/lib/yup/form/theme.yup';
 import { getUserIdBySessionToken } from '../session/session.controller';
 import { date } from 'yup';
-import { BorderColor, DefaultColor, TextColor } from '@/interfaces/userPrefs.interface';
+import { BorderColor, ButtonColor, DefaultColor, TextColor, VariantColor } from '@/interfaces/userPrefs.interface';
 
 const userThemePrefsConst = {
 	isDark: true,
 	useCustom: false,
 	theme: {
 		0: {
+			variant: VariantColor.LIGHT,
 			page: DefaultColor.LIGHT,
 			bg: DefaultColor.SECONDARY,
-			variant: DefaultColor.LIGHT,
 			text: TextColor.DARK,
+			button: ButtonColor.LIGHT,
 			border: BorderColor.SECONDARY,
 		},
 		1: {
+			variant: VariantColor.DARK,
 			page: DefaultColor.PRIMARY,
 			bg: DefaultColor.PRIMARY,
-			variant: DefaultColor.DARK,
 			text: TextColor.LIGHT,
+			button: ButtonColor.DARK,
 			border: BorderColor.LIGHT,
 		},
 	},

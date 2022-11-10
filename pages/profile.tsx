@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Card, Col, Container, Row, Stack } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import CustomCard from '@/components/customCard/customCard';
 
 interface props {
 	name: string;
@@ -30,34 +31,22 @@ const Profile = ({ name, roles }: props) => {
 			<Row>
 				<Col md={6} className="pt-1 px-1">
 					<Stack gap={2}>
-						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-							<Card.Header>Change username</Card.Header>
-							<Card.Body className={`py-2 border ${themeBorder}`}>
-								<ChangeDisplayName name={userName} />
-							</Card.Body>
-						</Card>
-						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-							<Card.Header>Link new account</Card.Header>
-							<Card.Body className={`py-2 border ${themeBorder}`}>
-								<LoginProviderList />
-							</Card.Body>
-						</Card>
-						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-							<Card.Header>Roles</Card.Header>
-							<Card.Body className={`py-2 border ${themeBorder}`}>
-								<UserRoles roles={userRoles} />
-							</Card.Body>
-						</Card>
+						<CustomCard header="Change username">
+							<ChangeDisplayName name={userName} />
+						</CustomCard>
+						<CustomCard header="Link new account">
+							<LoginProviderList />
+						</CustomCard>
+						<CustomCard header="Roles">
+							<UserRoles roles={userRoles} />
+						</CustomCard>
 					</Stack>
 				</Col>
 				<Col md={6} className="pt-1 px-1">
 					<Stack gap={2}>
-						<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-							<Card.Header>Custom theme</Card.Header>
-							<Card.Body className={`py-2 border ${themeBorder}`}>
-								<ThemeCustomize />
-							</Card.Body>
-						</Card>
+						<CustomCard header="Custom theme">
+							<ThemeCustomize />
+						</CustomCard>
 					</Stack>
 				</Col>
 			</Row>

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { BorderColor, DefaultColor, TextColor } from '@/interfaces/userPrefs.interface';
+import { BorderColor, ButtonColor, DefaultColor, TextColor } from '@/interfaces/userPrefs.interface';
 
 const validateThemeInterface = (value: String | undefined, themeType: any) => {
 	// console.log('validateThemeInterface value', value);
@@ -40,17 +40,17 @@ const yupBgDefaultColor = yup
 	})
 	.required()
 	.strict(true);
-const yupVariantDefaultColor = yup
-	.string()
-	.test('variant', 'Invalid Variant color', (value) => {
-		return validateThemeInterface(value, DefaultColor);
-	})
-	.required()
-	.strict(true);
 const yupTextColor = yup
 	.string()
 	.test('text', 'Invalid Text color', (value) => {
 		return validateThemeInterface(value, TextColor);
+	})
+	.required()
+	.strict(true);
+const yupButtonColor = yup
+	.string()
+	.test('button', 'Invalid Button color', (value) => {
+		return validateThemeInterface(value, ButtonColor);
 	})
 	.required()
 	.strict(true);
@@ -67,8 +67,8 @@ export const yupThemePrefsBlock = yup
 	.shape({
 		page: yupPageDefaultColor,
 		bg: yupBgDefaultColor,
-		variant: yupVariantDefaultColor,
 		text: yupTextColor,
+		button: yupButtonColor,
 		border: yupBorderColor,
 	})
 	.required()
@@ -99,7 +99,7 @@ export const yupThemePrefs = yup
 export const yupThemePrefsForm = yup.object().shape({
 	formPage: yupPageDefaultColor,
 	formBg: yupBgDefaultColor,
-	formVariant: yupVariantDefaultColor,
 	formText: yupTextColor,
+	formButton: yupButtonColor,
 	formBorder: yupBorderColor,
 });

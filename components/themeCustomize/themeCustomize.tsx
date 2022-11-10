@@ -8,7 +8,7 @@ import React from 'react';
 import { server } from '@/config/index';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
-import { ThemePrefs, DefaultColor, BorderColor, TextColor } from '@/interfaces/userPrefs.interface';
+import { ThemePrefs, DefaultColor, BorderColor, TextColor, ButtonColor } from '@/interfaces/userPrefs.interface';
 import { yupThemePrefs, yupThemePrefsForm } from '@/lib/yup/form/theme.yup';
 import { useSession } from 'next-auth/react';
 import _ from 'lodash';
@@ -18,7 +18,7 @@ export default function ThemeCustomize() {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
-	const { variant: themeVariant } = useRecoilValue(getThemeSiteState);
+	const { variant: themeVariant, button: themeButton, border: themeBorder } = useRecoilValue(getThemeSiteState);
 
 	const [siteTheme, setSiteTheme] = useRecoilState(siteThemeState);
 	const [previewTheme, setPreviewTheme] = useRecoilState(previewThemeState);
@@ -32,8 +32,8 @@ export default function ThemeCustomize() {
 		formIsDarkCustom: previewTheme.isDark,
 		formPage: formCustom.page,
 		formBg: formCustom.bg,
-		formVariant: formCustom.variant,
 		formText: formCustom.text,
+		formButton: formCustom.button,
 		formBorder: formCustom.border,
 	};
 
@@ -92,7 +92,7 @@ export default function ThemeCustomize() {
 
 	const handleFormInputSelectChange = (
 		event: React.ChangeEvent<HTMLSelectElement>,
-		inputType: 'page' | 'bg' | 'variant' | 'text' | 'border',
+		inputType: 'page' | 'bg' | 'text' | 'button' | 'border',
 	) => {
 		let previewThemeClone = JSON.parse(JSON.stringify(previewTheme));
 		previewThemeClone.theme[previewTheme.isDark === false ? 0 : 1][inputType] = event.currentTarget.value;
@@ -209,31 +209,6 @@ export default function ThemeCustomize() {
 
 					<Row>
 						<Col lg={4} className="px-1">
-							<Form.Group className="mb-3" controlId="formVariant">
-								<InputGroup hasValidation>
-									<FloatingLabel controlId="formVariantLabel" label="Variant Color" className="text-dark">
-										<Form.Select
-											aria-label="Variant color"
-											name="formVariant"
-											value={formCustom.variant}
-											onChange={(e) => {
-												handleChange(e);
-												handleFormInputSelectChange(e, 'variant');
-											}}
-											isInvalid={!!errors.formVariant}
-										>
-											{Object.keys(DefaultColor).map((value, index) => (
-												<option key={value} value={Object.values(DefaultColor)[index]}>
-													{value}
-												</option>
-											))}
-										</Form.Select>
-									</FloatingLabel>
-									<Form.Control.Feedback type="invalid">{errors.formVariant}</Form.Control.Feedback>
-								</InputGroup>
-							</Form.Group>
-						</Col>
-						<Col lg={4} className="px-1">
 							<Form.Group className="mb-3" controlId="formText">
 								<InputGroup hasValidation>
 									<FloatingLabel controlId="formTextLabel" label="Text Color" className="text-dark">
@@ -255,6 +230,31 @@ export default function ThemeCustomize() {
 										</Form.Select>
 									</FloatingLabel>
 									<Form.Control.Feedback type="invalid">{errors.formText}</Form.Control.Feedback>
+								</InputGroup>
+							</Form.Group>
+						</Col>
+						<Col lg={4} className="px-1">
+							<Form.Group className="mb-3" controlId="formButton">
+								<InputGroup hasValidation>
+									<FloatingLabel controlId="formButtonLabel" label="Button Color" className="text-dark">
+										<Form.Select
+											aria-label="Button color"
+											name="formButton"
+											value={formCustom.button}
+											onChange={(e) => {
+												handleChange(e);
+												handleFormInputSelectChange(e, 'button');
+											}}
+											isInvalid={!!errors.formButton}
+										>
+											{Object.keys(ButtonColor).map((value, index) => (
+												<option key={value} value={Object.values(ButtonColor)[index]}>
+													{value}
+												</option>
+											))}
+										</Form.Select>
+									</FloatingLabel>
+									<Form.Control.Feedback type="invalid">{errors.formButton}</Form.Control.Feedback>
 								</InputGroup>
 							</Form.Group>
 						</Col>
@@ -298,8 +298,8 @@ export default function ThemeCustomize() {
 							variant={themeVariant}
 							type="submit"
 							disabled={!isValid || isSubmitting}
-							className={`w-100 submit border ${
-								errorMessage == '' ? (isSubmitted ? 'border-success' : 'border-dark') : 'border-danger'
+							className={`w-100 submit ${themeButton} border ${
+								errorMessage == '' ? (isSubmitted ? 'border-success' : themeBorder) : 'border-danger'
 							}`}
 						>
 							Save

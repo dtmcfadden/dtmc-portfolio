@@ -10,19 +10,21 @@ import { Theme } from '@/types/atomTypes';
 
 export const defaultLight = {
 	// isDark: false,
+	variant: 'light',
 	page: 'light',
 	bg: 'secondary',
-	variant: 'light',
 	text: 'text-dark',
+	button: 'light',
 	border: 'border-secondary',
 };
 
 export const defaultDark = {
 	// isDark: true,
+	variant: 'dark',
 	page: 'primary',
 	bg: 'primary',
-	variant: 'dark',
 	text: 'text-light',
+	button: 'dark',
 	border: 'border-light',
 };
 

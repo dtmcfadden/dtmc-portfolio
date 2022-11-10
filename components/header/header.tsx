@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './header.module.css';
 import { server } from '@/config/index';
 import { Nav, Navbar, NavDropdown, Container, Row, Col } from 'react-bootstrap';
@@ -24,9 +24,14 @@ export default function Header() {
 	// const [navLinks, setNavLinks] = useState(navLinksObj);
 	// console.log('Header navLinks', navLinks);
 	const { data: session, status } = useSession();
+	const [userName, setUserName] = useState(session?.user?.name);
 	const [loading, setLoading] = useState(false);
 	const [showNav, setShowNav] = useState(true);
 	// console.log('header session', session);
+
+	useEffect(() => {
+		setUserName(session?.user?.name);
+	}, [session]);
 
 	return (
 		<header>
@@ -35,14 +40,11 @@ export default function Header() {
 				<Navbar bg={themeBg} variant={themeVariant} className={`mb-1 border rounded ${themeBorder}`} expand="lg">
 					<Container>
 						<Navbar.Brand href="/">
-							<div className={`navbar-text p-0 mt-1 ${themeText}`}>Welcome {session?.user?.name}</div>
+							<div className={`navbar-text p-0 mt-1 ${themeText}`}>Welcome {userName}</div>
 						</Navbar.Brand>
-						<Navbar.Toggle
-							aria-controls="navbar-nav-main"
-							className={`navbar-${isDark === true ? 'dark' : 'light'} ${themeBorder}`}
-						/>
+						<Navbar.Toggle aria-controls="navbar-nav-main" className={`navbar-${themeVariant} ${themeBorder}`} />
 						<Navbar.Collapse id="navbar-nav-main">
-							<Nav className="me-auto">
+							<Nav className="me-auto" variant={themeVariant}>
 								<Nav.Link href="/" onClick={handleHrefOnClick} className={`${themeText}`}>
 									Home
 								</Nav.Link>

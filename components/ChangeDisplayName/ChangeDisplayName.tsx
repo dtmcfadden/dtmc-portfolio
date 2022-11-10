@@ -19,7 +19,7 @@ export default function ChangeUserName({ name }: props) {
 	const [validated, setValidated] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
-	const { variant: themeVariant, text: themeText } = useRecoilValue(getThemeSiteState);
+	const { variant: themeVariant, text: themeText, border: themeBorder } = useRecoilValue(getThemeSiteState);
 
 	useEffect(() => {
 		setUsername(name);
@@ -73,7 +73,7 @@ export default function ChangeUserName({ name }: props) {
 								type="text"
 								placeholder="Display Name"
 								name="formDisplayName"
-								className="px-2 py-1"
+								className="px-2 py-1 rounded"
 								value={values.formDisplayName}
 								onFocus={handleInputFocus}
 								onChange={handleChange}
@@ -95,7 +95,7 @@ export default function ChangeUserName({ name }: props) {
 						type="submit"
 						disabled={!isValid || isSubmitting}
 						className={`w-100 submit border ${
-							errorMessage == '' ? (isSubmitted ? 'border-success' : 'border-dark') : 'border-danger'
+							errorMessage == '' ? (isSubmitted ? 'border-success' : themeBorder) : 'border-danger'
 						}`}
 					>
 						Change

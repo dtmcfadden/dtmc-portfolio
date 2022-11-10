@@ -7,10 +7,11 @@ import _ from 'lodash';
 
 export interface ThemeProps {
 	isDark: boolean;
+	variant: string;
 	page: string;
 	bg: string;
-	variant: string;
 	text: string;
+	button: string;
 	border: string;
 }
 

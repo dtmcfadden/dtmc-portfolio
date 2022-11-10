@@ -17,19 +17,19 @@ export default function Footer() {
 		<>
 			<Container className="mt-1">
 				<ListGroup horizontal="md" variant={themeVariant}>
-					<ListGroup.Item className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
+					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 						<Link href="https://www.linkedin.com/in/davidtmcfadden/">David McFadden Linkedin</Link>
 					</ListGroup.Item>
-					<ListGroup.Item className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
+					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 						<Link href="https://github.com/dtmcfadden">GitHub</Link>
 					</ListGroup.Item>
-					<ListGroup.Item className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
+					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 						<em>next@{packageJSON.dependencies['next']}</em>
 					</ListGroup.Item>
-					<ListGroup.Item className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
+					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 						<em>react@{packageJSON.dependencies['react']}</em>
 					</ListGroup.Item>
-					<ListGroup.Item className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
+					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 						<em>next-auth@{packageJSON.dependencies['next-auth']}</em>
 					</ListGroup.Item>
 				</ListGroup>

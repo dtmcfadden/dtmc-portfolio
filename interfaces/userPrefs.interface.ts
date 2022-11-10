@@ -19,10 +19,11 @@ export interface ThemeTypes {
 }
 
 export interface ThemePrefs {
+	variant: VariantColor;
 	page: DefaultColor;
 	bg: DefaultColor;
-	variant: DefaultColor;
 	text: TextColor;
+	button: ButtonColor;
 	border: BorderColor;
 }
 // export interface UserThemePrefs {
@@ -46,6 +47,11 @@ export interface ThemePrefs {
 export enum Boolean {
 	'TRUE' = 'true',
 	'FALSE' = 'false',
+}
+
+export enum VariantColor {
+	'LIGHT' = 'light',
+	'DARK' = 'dark',
 }
 
 export enum DefaultColor {
@@ -72,6 +78,18 @@ export enum TextColor {
 	'DARK' = 'text-dark',
 	'MUTED' = 'text-muted',
 	'WHITE' = 'text-white',
+}
+
+export enum ButtonColor {
+	'PRIMARY' = 'btn-primary',
+	'SECONDARY' = 'btn-secondary',
+	'SUCCESS' = 'btn-success',
+	'DANGER' = 'btn-danger',
+	'WARNING' = 'btn-warning',
+	'INFO' = 'btn-info',
+	'LIGHT' = 'btn-light',
+	'DARK' = 'btn-dark',
+	'LINK' = 'btn-link',
 }
 
 export enum BorderColor {
