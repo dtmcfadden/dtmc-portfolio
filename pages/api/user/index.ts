@@ -1,40 +1,45 @@
+import { getUserSelectCustomById } from '@/controllers/user/user.controller';
+import { toUserClientData } from '@/controllers/user/user.mapper';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getToken } from 'next-auth/jwt';
 // import { searchUser, updateUser } from '@/seqmysql/dal/user';
 import { getSession } from 'next-auth/react';
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-// 	if (req.method === 'GET') {
-// 		try {
-// 			const result = await searchUser(req.query.query as string);
-// 			return res.status(200).json(result);
-// 		} catch (e: any) {
-// 			console.log(e);
-// 			return res.status(500).json({
-// 				error: e.toString(),
-// 			});
-// 		}
-// 	} else if (req.method === 'PUT') {
-// 		const { username, bio } = req.body;
-// 		const session = await getSession({ req });
-// 		if (!session || session.username !== username) {
-// 			return res.status(401).json({
-// 				error: 'Unauthorized',
-// 			});
-// 		}
-// 		try {
-// 			const result = await updateUser(username, bio);
-// 			if (result) {
-// 				await res.unstable_revalidate(`/${username}`);
-// 			}
-// 			const bioMdx = await getMdxSource(bio); // return bioMdx to optimistically show updated state
-// 			return res.status(200).json(bioMdx);
-// 		} catch (e: any) {
-// 			console.log(e);
-// 			return res.status(500).json({
-// 				error: e.toString(),
-// 			});
-// 		}
-// 	} else {
-// 		return res.status(405).end(`Method ${req.method} Not Allowed`);
-// 	}
-// }
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	const token = await getToken({ req });
+	if (req.method === 'GET') {
+		try {
+			// const session_token = req?.cookies['next-auth.session-token'];
+			// console.log('session_token', session_token);
+			// console.log('index handler token', token);
+			// if (session_token) {
+			if (token?.sub) {
+				// const result = await getProfileBySessionToken(session_token);
+				const userReturn = {
+					name: true,
+					roles: true,
+					image: true,
+					userPrefs: {
+						select: {
+							theme: true,
+						},
+					},
+				};
+				const result = toUserClientData(await getUserSelectCustomById(token.sub, userReturn));
+				// console.log('result', result);
+				return res.status(200).json(result);
+			} else {
+				return res.status(401).json({
+					error: 'Unauthorized',
+				});
+			}
+		} catch (e: any) {
+			console.log('error', e);
+			return res.status(500).json({
+				error: e.toString(),
+			});
+		}
+	} else {
+		return res.status(405).end(`Method ${req.method} Not Allowed`);
+	}
+}

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { BorderColor, ButtonColor, DefaultColor, TextColor } from '@/interfaces/userPrefs.interface';
+import { BorderColor, ButtonColor, DefaultColor, TextColor, VariantColor } from '@/interfaces/userPrefs.interface';
 
 const validateThemeInterface = (value: String | undefined, themeType: any) => {
 	// console.log('validateThemeInterface value', value);
@@ -61,6 +61,13 @@ const yupBorderColor = yup
 	})
 	.required()
 	.strict(true);
+const yupVariantColor = yup
+	.string()
+	.test('variant', 'Invalid Variant color', (value) => {
+		return validateThemeInterface(value, VariantColor);
+	})
+	.required()
+	.strict(true);
 
 export const yupThemePrefsBlock = yup
 	.object()
@@ -70,6 +77,7 @@ export const yupThemePrefsBlock = yup
 		text: yupTextColor,
 		button: yupButtonColor,
 		border: yupBorderColor,
+		variant: yupVariantColor,
 	})
 	.required()
 	.noUnknown(true)

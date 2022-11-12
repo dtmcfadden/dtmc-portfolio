@@ -11,9 +11,11 @@ import ThemeSwitcher from '@/components/themeSwitcher/themeSwitcher';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/hooks/use-sharedHooks';
+import { userState } from '@/recoil/atoms/userAtom';
 
 export default function Header() {
 	const { handleHrefOnClick } = useOnClickShared();
+	const { name: username } = useRecoilValue(userState);
 	const {
 		isDark,
 		bg: themeBg,
@@ -23,15 +25,15 @@ export default function Header() {
 	} = useRecoilValue(getThemeSiteState);
 	// const [navLinks, setNavLinks] = useState(navLinksObj);
 	// console.log('Header navLinks', navLinks);
-	const { data: session, status } = useSession();
-	const [userName, setUserName] = useState(session?.user?.name);
+	// const { data: session, status } = useSession();
+	// const [userName, setUserName] = useState(session?.user?.name);
 	const [loading, setLoading] = useState(false);
 	const [showNav, setShowNav] = useState(true);
 	// console.log('header session', session);
 
-	useEffect(() => {
-		setUserName(session?.user?.name);
-	}, [session]);
+	// useEffect(() => {
+	// 	setUserName(session?.user?.name);
+	// }, [session]);
 
 	return (
 		<header>
@@ -40,7 +42,7 @@ export default function Header() {
 				<Navbar bg={themeBg} variant={themeVariant} className={`mb-1 border rounded ${themeBorder}`} expand="lg">
 					<Container>
 						<Navbar.Brand href="/">
-							<div className={`navbar-text p-0 mt-1 ${themeText}`}>Welcome {userName}</div>
+							<div className={`navbar-text p-0 mt-1 ${themeText}`}>Welcome {username}</div>
 						</Navbar.Brand>
 						<Navbar.Toggle aria-controls="navbar-nav-main" className={`navbar-${themeVariant} ${themeBorder}`} />
 						<Navbar.Collapse id="navbar-nav-main">

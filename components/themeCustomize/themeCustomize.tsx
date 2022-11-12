@@ -26,7 +26,7 @@ export default function ThemeCustomize() {
 	const [formCustom, setFormCustom] = useState(previewTheme.theme[previewTheme.isDark === true ? 1 : 0]);
 
 	const { data: session, status } = useSession();
-
+	// console.log('ThemeCustomize previewTheme', previewTheme);
 	const defaultFormValue = {
 		formUseCustom: previewTheme.useCustom,
 		formIsDarkCustom: previewTheme.isDark,
@@ -36,6 +36,24 @@ export default function ThemeCustomize() {
 		formButton: formCustom.button,
 		formBorder: formCustom.border,
 	};
+
+	useEffect(() => {
+		if (siteTheme.s == 'storage' && previewTheme.s == 'default') {
+			setPreviewTheme({
+				...previewTheme,
+				...{
+					s: 'storage',
+					isDark: siteTheme.isDark,
+					useCustom: siteTheme.useCustom,
+					theme: {
+						0: { ...previewTheme.theme[0], ...siteTheme.theme[0] },
+						1: { ...previewTheme.theme[1], ...siteTheme.theme[1] },
+					},
+				},
+			});
+		}
+		// console.log('useEffect previewTheme', previewTheme);
+	}, [siteTheme, previewTheme, setPreviewTheme]);
 
 	useEffect(() => {
 		setFormCustom(previewTheme.theme[previewTheme.isDark === false ? 0 : 1]);
@@ -87,6 +105,7 @@ export default function ThemeCustomize() {
 		event: React.ChangeEvent<HTMLInputElement>,
 		inputType: 'isDark' | 'usePreview' | 'useCustom',
 	) => {
+		// console.log('handleFormInputCheckChange');
 		setPreviewTheme({ ...previewTheme, ...{ [inputType]: event.currentTarget.checked } });
 	};
 
@@ -94,6 +113,7 @@ export default function ThemeCustomize() {
 		event: React.ChangeEvent<HTMLSelectElement>,
 		inputType: 'page' | 'bg' | 'text' | 'button' | 'border',
 	) => {
+		// console.log('handleFormInputSelectChange');
 		let previewThemeClone = JSON.parse(JSON.stringify(previewTheme));
 		previewThemeClone.theme[previewTheme.isDark === false ? 0 : 1][inputType] = event.currentTarget.value;
 		// console.log('handleFormInputChange previewTheme', previewThemeClone);
@@ -101,7 +121,12 @@ export default function ThemeCustomize() {
 	};
 
 	return (
-		<Formik validationSchema={yupThemePrefsForm} onSubmit={handleSubmit} initialValues={defaultFormValue}>
+		<Formik
+			validationSchema={yupThemePrefsForm}
+			onSubmit={handleSubmit}
+			initialValues={defaultFormValue}
+			enableReinitialize={true}
+		>
 			{({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors, isSubmitting }) => (
 				<Form noValidate validated={validated} onSubmit={handleSubmit}>
 					<Form.Group className="mb-3" controlId="formPreview">
@@ -254,6 +279,7 @@ export default function ThemeCustomize() {
 											))}
 										</Form.Select>
 									</FloatingLabel>
+									{errors.formButton}
 									<Form.Control.Feedback type="invalid">{errors.formButton}</Form.Control.Feedback>
 								</InputGroup>
 							</Form.Group>

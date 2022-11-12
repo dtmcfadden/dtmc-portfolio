@@ -14,7 +14,7 @@ export const defaultLight = {
 	page: 'light',
 	bg: 'secondary',
 	text: 'text-dark',
-	button: 'light',
+	button: 'btn-light',
 	border: 'border-secondary',
 };
 
@@ -24,7 +24,7 @@ export const defaultDark = {
 	page: 'primary',
 	bg: 'primary',
 	text: 'text-light',
-	button: 'dark',
+	button: 'btn-dark',
 	border: 'border-light',
 };
 

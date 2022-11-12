@@ -1,6 +1,6 @@
 import * as userService from 'database/services/UserService';
 // import { CreateIngredientDTO, UpdateIngredientDTO, FilterIngredientsDTO } from '../../dto/ingredient.dto';
-import { UserId } from '@/interfaces/index';
+import { UserId } from '@/interfaces/index.interface';
 import * as userMapper from './session.mapper';
 import prisma from '@/lib/prismadb';
 import { Prisma } from '@prisma/client';

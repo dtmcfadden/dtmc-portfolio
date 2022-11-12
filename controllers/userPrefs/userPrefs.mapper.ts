@@ -1,1 +1,1 @@
-import { UserThemePrefs } from '@/interfaces/index';
+import { UserThemePrefs } from '@/interfaces/index.interface';

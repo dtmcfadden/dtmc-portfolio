@@ -8,9 +8,11 @@ import LoginProviderList from '@/components/LoginProviderList/LoginProviderList'
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
+import { userState } from '@/recoil/atoms/userAtom';
 
 const NavSigninSignout: FC = () => {
 	const { handleHrefOnClick } = useOnClickShared();
+	const { image: userImage } = useRecoilValue(userState);
 	const {
 		bg: themeBg,
 		variant: themeVariant,
@@ -32,15 +34,8 @@ const NavSigninSignout: FC = () => {
 			<NavDropdown
 				className={`bg-${themeBg} ${themeBorder}`}
 				title={
-					session?.user?.image ? (
-						<Image
-							alt="SignIn"
-							rounded={true}
-							roundedCircle={true}
-							height="32px"
-							width="32px"
-							src={session?.user?.image}
-						/>
+					userImage ? (
+						<Image alt="SignIn" rounded={true} roundedCircle={true} height="32px" width="32px" src={userImage} />
 					) : (
 						<PersonCircle size={32} />
 					)

@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	// const session = await getSession({ req });
 	// console.log('session', session);
 	const token = await getToken({ req });
-	// console.log('token', token);
+	console.log('profile handler token', token);
 	if (req.method === 'GET') {
 		// console.log('req.cookies', req.cookies);
 		try {
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			if (token?.sub) {
 				// const result = await getProfileBySessionToken(session_token);
 				const result = await getProfileById(token.sub);
-				// console.log('result', result);
+
 				return res.status(200).json(result);
 			} else {
 				return res.status(401).json({
@@ -37,25 +37,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		}
 	} else if (req.method === 'PUT') {
 		const { originalDisplayName, displayName } = req.body;
-		const session_token = req?.cookies['next-auth.session-token'];
+		// const session_token = req?.cookies['next-auth.session-token'];
 
 		// console.log('originalDisplayName', originalDisplayName, 'session_token', session_token);
-		if (!session_token) {
-			return res.status(401).json({
-				error: 'Unauthorized',
-			});
-		}
+
 		try {
 			let errMsg: string[] = [];
-			if (token?.sub && displayName && displayName != '' && originalDisplayName == token?.name) {
-				// const updateCount = await updateNameBySessionToken(session_token, originalDisplayName, displayName);
-				const updateCount = await updateNameById(token?.sub, originalDisplayName, displayName);
-				if (updateCount == 0) {
-					errMsg.push('Not updated. Try a different name.');
+			let profileData = null;
+			if (token?.sub) {
+				if (displayName && displayName != '') {
+					// const updateCount = await updateNameBySessionToken(session_token, originalDisplayName, displayName);
+					const updateCount = await updateNameById(token?.sub, displayName);
+					if (updateCount == 0) {
+						errMsg.push('Not updated. Try a different name.');
+					}
+					// console.log('handler updateCount', updateCount);
 				}
-				// console.log('handler updateCount', updateCount);
+				profileData = await getProfileById(token.sub);
 			}
-			const profileData = await getProfileBySessionToken(session_token);
 			const returnDate = {
 				error: errMsg.join(' '),
 				profile: profileData,

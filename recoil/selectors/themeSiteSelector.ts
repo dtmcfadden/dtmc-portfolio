@@ -21,7 +21,6 @@ export const getThemeSiteState = selector<ThemeProps>({
 		// const isDarkTheme = get(isDarkThemeState);
 		const siteTheme = get(siteThemeState);
 		const previewTheme = get(previewThemeState);
-		// console.log('themeGlobal isDarkTheme', isDarkTheme);
 		// console.log('themeGlobal siteTheme', siteTheme);
 		// console.log('themeGlobal previewTheme', previewTheme);
 		let theme = { ...{ isDark: false }, ...defaultLight };

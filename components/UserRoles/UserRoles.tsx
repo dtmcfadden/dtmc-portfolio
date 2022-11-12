@@ -1,27 +1,24 @@
+import { userState } from '@/recoil/atoms/userAtom';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useEffect, useState } from 'react';
 // import styles from './ChangeUsername.module.css';
 import { ListGroup } from 'react-bootstrap';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-interface props {
-	roles: string[] | null;
-}
-
-export default function UserRoles({ roles }: props) {
-	// console.log('UserRoles roles', roles);
+export default function UserRoles() {
 	const { variant: themeVariant } = useRecoilValue(getThemeSiteState);
-	const [userRoles, setUserRoles] = useState(roles ? roles : null);
+	const [user, setUserState] = useRecoilState(userState);
+	const [userRoles, setUserRoles] = useState(user.roles.split(','));
 
 	useEffect(() => {
-		setUserRoles(roles ? roles : null);
-	}, [roles]);
+		setUserRoles(user.roles.split(','));
+	}, [user?.roles]);
 
 	return (
 		<>
 			<ListGroup variant={themeVariant}>
-				{roles &&
-					roles.map((role) => (
+				{userRoles.length > 0 &&
+					userRoles.map((role) => (
 						<ListGroup.Item variant={themeVariant} key={role} className="px-2 py-1">
 							{role}
 						</ListGroup.Item>

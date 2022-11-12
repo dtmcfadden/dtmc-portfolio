@@ -1,10 +1,11 @@
 import * as userService from 'database/services/UserService';
 // import { CreateIngredientDTO, UpdateIngredientDTO, FilterIngredientsDTO } from '../../dto/ingredient.dto';
-import { UserFull, UserProfile } from '@/interfaces/index';
+import { UserFull, UserProfile } from '@/interfaces/index.interface';
 import * as userMapper from './user.mapper';
 import prisma from '@/lib/prismadb';
 import { Prisma } from '@prisma/client';
 import { formName } from '@/lib/yup/schema/user.schema';
+import { UserCustomReturn, UserCustomSelect } from '@/interfaces/user.interface';
 
 // const userProfile = Prisma.validator<Prisma.UserSelect>()({
 //   name: true,
@@ -21,6 +22,11 @@ export const getUserByName = async (name: string): Promise<UserFull | null> => {
 			roles: true,
 			createdAt: true,
 			updatedAt: true,
+			userPrefs: {
+				select: {
+					theme: true,
+				},
+			},
 		},
 		where: {
 			name: name,
@@ -30,7 +36,22 @@ export const getUserByName = async (name: string): Promise<UserFull | null> => {
 	return userFull;
 };
 
+export const getUserSelectCustomById = async (
+	id: string,
+	returnColumn: UserCustomSelect,
+): Promise<UserCustomReturn | null> => {
+	const userCustom = await prisma.user.findFirst({
+		select: returnColumn,
+		where: {
+			id: id,
+		},
+	});
+	// console.log('getUserSelectCustomById userCustom', userCustom);
+	return userCustom;
+};
+
 export const getProfileById = async (id: string): Promise<UserProfile | null> => {
+	console.log('getProfileById id', id);
 	const profile = await prisma.user.findFirst({
 		select: {
 			name: true,
@@ -40,7 +61,7 @@ export const getProfileById = async (id: string): Promise<UserProfile | null> =>
 			id: id,
 		},
 	});
-	// console.log('profile', profile);
+	console.log('getProfileById profile', profile);
 	return profile;
 };
 
@@ -62,11 +83,11 @@ export const getProfileBySessionToken = async (sessionToken: string): Promise<Us
 	return profile;
 };
 
-export const updateNameById = async (id: string, originalDisplayName: string, displayname: string): Promise<number> => {
+export const updateNameById = async (id: string, displayname: string): Promise<number> => {
 	// console.log('updateNameBySessionToken originalDisplayName', originalDisplayName, 'displayname', displayname);
 	const nameCheck = await formName.isValid({ formDisplayName: displayname });
 
-	if (nameCheck == false || originalDisplayName.toLowerCase() == displayname.toLowerCase()) {
+	if (nameCheck == false) {
 		return 0;
 	}
 	const updateCount = await prisma.user.updateMany({
@@ -74,7 +95,6 @@ export const updateNameById = async (id: string, originalDisplayName: string, di
 			name: displayname,
 		},
 		where: {
-			name: originalDisplayName,
 			id: id,
 		},
 	});

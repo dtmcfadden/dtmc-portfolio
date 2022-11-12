@@ -1,3 +1,25 @@
+export interface UserPrefsFull {
+	id: string;
+	userId: string;
+	theme: string | null;
+	createdAt: Date;
+	updatedAt: Date | null;
+}
+
+export interface UserPrefsRelation {
+	userPrefs?: UserPrefSelect;
+}
+export interface UserPrefSelect {
+	select: UserPrefsCustomSelect;
+}
+export interface UserPrefsCustomSelect {
+	id?: boolean;
+	userId?: boolean;
+	theme?: boolean;
+	createdAt?: boolean;
+	updatedAt?: boolean;
+}
+
 export interface UserTheme {
 	theme: UserThemePrefs;
 }
