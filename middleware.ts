@@ -17,6 +17,7 @@ export default withAuth({
 			const urlCheck = [
 				checkUrlRole(req, token, 'guest', '/api/user', false),
 				checkUrlRole(req, token, 'guest', '/profile', true),
+				checkUrlRole(req, token, 'guest', '/todo', true),
 			].every((toCheck) => {
 				// console.log('middleware toCheck', toCheck);
 				return toCheck;
