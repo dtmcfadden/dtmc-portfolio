@@ -55,15 +55,9 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 				title: 'Guest',
 				children: [
 					{
-						type: 'dd',
-						title: 'Statistics',
-						children: [
-							{
-								type: 'ddItem',
-								href: '/guest/stats/games',
-								title: 'Games',
-							},
-						],
+						type: 'ddItem',
+						href: '/todo',
+						title: 'ToDo',
 					},
 				],
 			});
