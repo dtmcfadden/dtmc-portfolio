@@ -6,6 +6,7 @@ import { getToken } from 'next-auth/jwt';
 import { getSession } from 'next-auth/react';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	// console.log('user handler');
 	const token = await getToken({ req });
 	if (req.method === 'GET') {
 		try {
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 					name: true,
 					roles: true,
 					image: true,
-					userPrefs: {
+					userprefs: {
 						select: {
 							theme: true,
 						},
