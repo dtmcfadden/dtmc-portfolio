@@ -22,7 +22,7 @@ export const getUserByName = async (name: string): Promise<UserFull | null> => {
 			roles: true,
 			createdAt: true,
 			updatedAt: true,
-			userPrefs: {
+			userprefs: {
 				select: {
 					theme: true,
 				},

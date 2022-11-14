@@ -1,8 +1,9 @@
 // import type { NextApiRequest, NextApiResponse } from 'next';
-import { Card, Image } from 'react-bootstrap';
+import { Card, Col, Image, Row } from 'react-bootstrap';
 import styles from './portfolioImageCard.module.css';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import ResumePdfButton from '../resumepdfbutton/resumepdfbutton';
 
 export default function PortfolioImageCard() {
 	const { bg: themeBg, border: themeBorder } = useRecoilValue(getThemeSiteState);
@@ -23,6 +24,7 @@ export default function PortfolioImageCard() {
 						Specializing in creating tools to fight the never ending battle against{' '}
 						<span className="text-nowrap">E-Commerce</span> fraud.
 					</Card.Text>
+					<ResumePdfButton />
 				</Card.Body>
 			</Card>
 		</>
