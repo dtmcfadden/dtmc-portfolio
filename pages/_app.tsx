@@ -1,14 +1,11 @@
 import Layout from '@/components/layout/layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/global.css';
-import { server } from '@/config/index';
 import type { AppProps } from 'next/app';
-import type { Session } from 'next-auth';
+import { Analytics } from '@vercel/analytics/react';
 import { SSRProvider } from '@react-aria/ssr';
 import { SessionProvider } from 'next-auth/react';
-import { Container } from 'react-bootstrap';
 import Head from 'next/head';
-import { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -27,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<RecoilRoot>
 					<Layout>
 						<Component {...pageProps} />
+						<Analytics />
 					</Layout>
 				</RecoilRoot>
 			</SessionProvider>
