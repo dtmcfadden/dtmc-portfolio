@@ -41,7 +41,7 @@ export default function Header() {
 				// <Navbar bg="primary" variant="dark" expand="lg">
 				<Navbar bg={themeBg} variant={themeVariant} className={`mb-1 border rounded ${themeBorder}`} expand="lg">
 					<Container>
-						<Navbar.Brand href="/">
+						<Navbar.Brand href="/" onClick={handleHrefOnClick}>
 							<div className={`navbar-text p-0 mt-1 ${themeText}`}>Welcome {username}</div>
 						</Navbar.Brand>
 						<Navbar.Toggle aria-controls="navbar-nav-main" className={`navbar-${themeVariant} ${themeBorder}`} />
