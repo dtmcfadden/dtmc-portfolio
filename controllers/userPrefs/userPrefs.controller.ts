@@ -33,44 +33,36 @@ const userThemePrefsConst = {
 };
 
 export const getThemeById = async (id: string): Promise<UserThemePrefs | null> => {
-	const userTheme = await prisma.user.findFirst({
+	const userTheme = await prisma.userPrefs.findFirst({
 		select: {
-			userPrefs: {
-				select: {
-					theme: true,
-				},
-			},
+			theme: true,
 		},
 		where: {
-			id: id,
+			userId: id,
 		},
 	});
 
 	let returnUserThemePrefs = userThemePrefsConst;
 
-	if (userTheme?.userPrefs && userTheme?.userPrefs.length > 0) {
-		if (userTheme.userPrefs[0].theme) {
-			const userThemeObj = JSON.parse(userTheme.userPrefs[0].theme.toString());
-			returnUserThemePrefs = { ...userThemePrefsConst, ...userThemeObj };
-		}
+	if (userTheme && userTheme.theme) {
+		const userThemeObj = JSON.parse(userTheme.theme.toString());
+		returnUserThemePrefs = { ...userThemePrefsConst, ...userThemeObj };
 	}
 
 	return returnUserThemePrefs;
 };
 
 export const getThemeBySessionToken = async (sessionToken: string): Promise<UserThemePrefs | null> => {
-	const userTheme = await prisma.user.findFirst({
+	const userTheme = await prisma.userPrefs.findFirst({
 		select: {
-			userPrefs: {
-				select: {
-					theme: true,
-				},
-			},
+			theme: true,
 		},
 		where: {
-			sessions: {
-				some: {
-					sessionToken: sessionToken,
+			user: {
+				sessions: {
+					some: {
+						sessionToken: sessionToken,
+					},
 				},
 			},
 		},
@@ -78,11 +70,9 @@ export const getThemeBySessionToken = async (sessionToken: string): Promise<User
 
 	let returnUserThemePrefs = userThemePrefsConst;
 
-	if (userTheme?.userPrefs && userTheme?.userPrefs.length > 0) {
-		if (userTheme.userPrefs[0].theme) {
-			const userThemeObj = JSON.parse(userTheme.userPrefs[0].theme.toString());
-			returnUserThemePrefs = { ...userThemePrefsConst, ...userThemeObj };
-		}
+	if (userTheme && userTheme.theme) {
+		const userThemeObj = JSON.parse(userTheme.theme.toString());
+		returnUserThemePrefs = { ...userThemePrefsConst, ...userThemeObj };
 	}
 
 	return returnUserThemePrefs;

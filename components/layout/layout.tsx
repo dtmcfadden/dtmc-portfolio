@@ -46,7 +46,7 @@ export default function Layout({ children }: Props) {
 			axios.get(`${server}/api/user`, { responseType: 'json' }).then(
 				(result) => {
 					// console.log('LayoutThemeGet result', result);
-					console.log('LayoutThemeGet result.data', result.data);
+					// console.log('LayoutThemeGet result.data', result.data);
 					if (result.data != undefined) {
 						if (result.data.theme != null) {
 							setSiteTheme({

@@ -22,11 +22,6 @@ export const getUserByName = async (name: string): Promise<UserFull | null> => {
 			roles: true,
 			createdAt: true,
 			updatedAt: true,
-			userprefs: {
-				select: {
-					theme: true,
-				},
-			},
 		},
 		where: {
 			name: name,
