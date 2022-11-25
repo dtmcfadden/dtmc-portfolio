@@ -167,9 +167,6 @@ export const authOptions: NextAuthOptions = {
 			if (token?.roles) {
 				session.user.roles = token.roles.toString();
 			}
-			if (user?.roles) {
-				session.user.roles = user.roles.toString();
-			}
 			// console.log('auth callback return session', session);
 
 			return session;

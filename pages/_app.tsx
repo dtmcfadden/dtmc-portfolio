@@ -1,8 +1,9 @@
 import Layout from '@/components/layout/layout';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/global.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import '../styles/global.css';
 import type { AppProps } from 'next/app';
-import { Analytics } from '@vercel/analytics/react';
+// import { Analytics } from '@vercel/analytics/react';
 import { SSRProvider } from '@react-aria/ssr';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
@@ -24,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<RecoilRoot>
 					<Layout>
 						<Component {...pageProps} />
-						<Analytics />
+						{/* <Analytics /> */}
 					</Layout>
 				</RecoilRoot>
 			</SessionProvider>
