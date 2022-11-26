@@ -5,6 +5,7 @@ import { NavDropdown } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
+import UnderConstructionIcon from '@/components/underConstuctionIcon/underConstructionIcon';
 
 interface props {
 	navHref: string;
@@ -59,6 +60,7 @@ const secureNav = (
 					key={tKey}
 					onClick={handleHrefOnClick}
 				>
+					{navLink.construction === true && <UnderConstructionIcon />}
 					{navLink.title}
 				</NavDropdown.Item>
 			);
