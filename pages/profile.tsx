@@ -11,6 +11,7 @@ import { Col, Container, Row, Stack } from 'react-bootstrap';
 import CustomCard from '@/components/customCard/customCard';
 // import { userState } from '@/recoil/atoms/userAtom';
 import _ from 'lodash';
+import DeleteUserData from '@/components/deleteUserData/deleteUserData';
 
 const Profile = () => {
 	// const {
@@ -40,6 +41,9 @@ const Profile = () => {
 					<Stack gap={2}>
 						<CustomCard header="Custom theme">
 							<ThemeCustomize />
+						</CustomCard>
+						<CustomCard header="Delete User Data">
+							<DeleteUserData />
 						</CustomCard>
 					</Stack>
 				</Col>

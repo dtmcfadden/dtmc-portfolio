@@ -8,10 +8,12 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 export default function UserRoles() {
 	const { variant: themeVariant } = useRecoilValue(getThemeSiteState);
 	const [user, setUserState] = useRecoilState(userState);
-	const [userRoles, setUserRoles] = useState(user.roles.split(','));
+	const [userRoles, setUserRoles] = useState(user.roles ? user.roles.split(',') : []);
 
 	useEffect(() => {
-		setUserRoles(user.roles.split(','));
+		if (user.roles) {
+			setUserRoles(user.roles.split(','));
+		}
 	}, [user?.roles]);
 
 	return (

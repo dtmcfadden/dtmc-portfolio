@@ -7,10 +7,13 @@ import { NextRequest } from 'next/server';
 export default withAuth({
 	callbacks: {
 		async authorized({ req, token }) {
+			// const session_token = req.cookies.get('next-auth.session-token');
+			// console.log('middleware session_token', session_token);
+			// console.log('middleware index handler token', token);
 			// const session = await getSession(req);
-			// console.log('middleware authorized req.nextauth', req.nextUrl);
 			// console.log('middleware authorized session', session);
 			// console.log('middleware authorized token', token);
+			// console.log('middleware authorized req.nextauth', req.nextUrl);
 			// console.log('middleware authorized token?.userRole', token?.userRole);
 			// console.log('middleware authorized /api/user', req.nextUrl.pathname.indexOf('/api/user'));
 

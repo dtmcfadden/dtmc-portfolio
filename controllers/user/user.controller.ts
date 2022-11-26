@@ -6,6 +6,7 @@ import prisma from '@/lib/prismadb';
 import { Prisma } from '@prisma/client';
 import { formName } from '@/lib/yup/schema/user.schema';
 import { UserCustomReturn, UserCustomSelect } from '@/interfaces/user.interface';
+import { errorReturn } from '@/interfaces/error.interface';
 
 // const userProfile = Prisma.validator<Prisma.UserSelect>()({
 //   name: true,
@@ -125,6 +126,39 @@ export const updateNameBySessionToken = async (
 
 	// console.log('updateCount', updateCount);
 	return updateCount.count;
+};
+
+export const deleteUserById = async (id: string): Promise<string | null | errorReturn> => {
+	const user = await prisma.user.findFirst({
+		select: {
+			name: true,
+		},
+		where: {
+			id: id,
+			// id: '123',
+		},
+	});
+	// console.log('deleteUserById user', user);
+	if (user !== null) {
+		try {
+			const deleteUser = await prisma.user.delete({
+				where: {
+					id: id,
+					// id: '123',
+				},
+			});
+			console.log('deleteUserById deleteUser', deleteUser);
+			return deleteUser?.name;
+		} catch (e: any) {
+			return {
+				error: 'Error deleting user',
+			};
+		}
+	} else {
+		return {
+			error: 'No user found',
+		};
+	}
 };
 
 // export const getProfileBySessionToken = async (sessionToken: string): Promise<UserProfile> => {
