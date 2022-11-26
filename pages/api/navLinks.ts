@@ -58,6 +58,7 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 						type: 'ddItem',
 						href: '/todo',
 						title: 'ToDo',
+						construction: true,
 					},
 				],
 			});
@@ -75,6 +76,7 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 								type: 'ddItem',
 								href: '/admin/user/list',
 								title: 'List',
+								construction: true,
 							},
 						],
 					},
@@ -86,6 +88,7 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 								type: 'ddItem',
 								href: '/admin/tester',
 								title: 'Tester',
+								construction: true,
 							},
 						],
 					},
