@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	if (req.method === 'GET') {
 		try {
 			const session_token = req?.cookies['next-auth.session-token'];
-			console.log('session_token', session_token);
-			console.log('index handler token', token);
+			// console.log('session_token', session_token);
+			// console.log('index handler token', token);
 			// if (session_token) {
 			if (token?.sub) {
 				// const result = await getProfileBySessionToken(session_token);

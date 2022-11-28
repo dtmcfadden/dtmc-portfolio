@@ -9,7 +9,7 @@ export const toProfile = (user: UserOuput): UserProfile => {
 };
 
 export const toUserClientData = (user: UserCustomReturn | null): UserClientData => {
-	console.log('toUserClientData user', user);
+	// console.log('toUserClientData user', user);
 	// console.log('toUserClientData user?.userprefs', user?.userprefs);
 	// if (user?.userprefs && user?.userprefs.length > 0 && user?.userprefs[0].theme) {
 	// 	console.log('user?.userprefs[0].theme', user?.userprefs[0].theme);
