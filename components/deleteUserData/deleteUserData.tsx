@@ -37,8 +37,9 @@ export default function DeleteUserData() {
 				setErrorMessage(data.error);
 			} else {
 				setErrorMessage('');
-				setIsSubmitted(true);
 				console.log('window.location.origin', window.location.origin);
+				localStorage.clear();
+				setIsSubmitted(true);
 				signOut({
 					callbackUrl: `${window.location.origin}`,
 				});
