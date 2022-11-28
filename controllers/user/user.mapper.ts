@@ -9,17 +9,21 @@ export const toProfile = (user: UserOuput): UserProfile => {
 };
 
 export const toUserClientData = (user: UserCustomReturn | null): UserClientData => {
-	// console.log('toUserClientData user', user);
+	console.log('toUserClientData user', user);
+	// console.log('toUserClientData user?.userprefs', user?.userprefs);
+	// if (user?.userprefs && user?.userprefs.length > 0 && user?.userprefs[0].theme) {
+	// 	console.log('user?.userprefs[0].theme', user?.userprefs[0].theme);
+	// }
 	let returnUser = {
 		...user,
 		...{
 			theme:
-				user?.userPrefs && user?.userPrefs.length > 0 && user?.userPrefs[0].theme
-					? JSON.parse(user?.userPrefs[0].theme)
+				user?.userprefs && user?.userprefs.length > 0 && user?.userprefs[0].theme
+					? JSON.parse(user?.userprefs[0].theme)
 					: null,
 		},
 	};
 	// console.log('toUserClientData returnUser', returnUser);
-	delete returnUser.userPrefs;
+	delete returnUser.userprefs;
 	return returnUser;
 };

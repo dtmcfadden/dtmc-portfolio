@@ -48,6 +48,29 @@ export interface ThemePrefs {
 	button: ButtonColor;
 	border: BorderColor;
 }
+
+export interface UserThemeAtom {
+	session: boolean;
+	s: string;
+	isDark: boolean;
+	useCustom: boolean;
+	theme: ThemeBasicTypes;
+}
+
+export interface ThemeBasicTypes {
+	0: ThemeBasicPrefs;
+	1: ThemeBasicPrefs;
+}
+
+export interface ThemeBasicPrefs {
+	variant: string;
+	page: string;
+	bg: string;
+	text: string;
+	button: string;
+	border: string;
+}
+
 // export interface UserThemePrefs {
 // 	isDark: boolean;
 // 	page: DefaultColor;

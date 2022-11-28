@@ -31,7 +31,7 @@ export interface UserCustomReturn {
 	roles?: string;
 	createdAt?: Date;
 	updatedAt?: Date | null;
-	userPrefs?: UserPrefsFull[] | null;
+	userprefs?: UserPrefsFull[] | null;
 }
 
 export interface UserClientData {
