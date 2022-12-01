@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useRecoilValue } from 'recoil';
 
 interface Props {
@@ -15,7 +15,7 @@ export default function CustomCard({ header, title, text, children }: Props) {
 		variant: themeVariant,
 		text: themeText,
 		border: themeBorder,
-	} = useRecoilValue(getThemeSiteState);
+	} = useRecoilValue(selectThemeSiteState);
 
 	return (
 		<>

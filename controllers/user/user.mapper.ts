@@ -23,7 +23,7 @@ export const toUserClientData = (user: UserCustomReturn | null): UserClientData 
 					: null,
 		},
 	};
-	// console.log('toUserClientData returnUser', returnUser);
 	delete returnUser.userprefs;
+	// console.log('toUserClientData returnUser', returnUser);
 	return returnUser;
 };

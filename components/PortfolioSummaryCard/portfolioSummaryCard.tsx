@@ -2,10 +2,10 @@
 import { Card, Image } from 'react-bootstrap';
 import styles from './portfolioSummaryCard.module.css';
 import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
 export default function PortfolioSummaryCard() {
-	const { bg: themeBg, border: themeBorder } = useRecoilValue(getThemeSiteState);
+	const { bg: themeBg, border: themeBorder } = useRecoilValue(selectThemeSiteState);
 
 	return (
 		<>

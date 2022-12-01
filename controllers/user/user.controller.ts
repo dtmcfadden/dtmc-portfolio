@@ -47,7 +47,7 @@ export const getUserSelectCustomById = async (
 };
 
 export const getProfileById = async (id: string): Promise<UserProfile | null> => {
-	console.log('getProfileById id', id);
+	// console.log('getProfileById id', id);
 	const profile = await prisma.user.findFirst({
 		select: {
 			name: true,
@@ -57,7 +57,7 @@ export const getProfileById = async (id: string): Promise<UserProfile | null> =>
 			id: id,
 		},
 	});
-	console.log('getProfileById profile', profile);
+	// console.log('getProfileById profile', profile);
 	return profile;
 };
 
@@ -147,7 +147,7 @@ export const deleteUserById = async (id: string): Promise<string | null | errorR
 					// id: '123',
 				},
 			});
-			console.log('deleteUserById deleteUser', deleteUser);
+			// console.log('deleteUserById deleteUser', deleteUser);
 			return deleteUser?.name;
 		} catch (e: any) {
 			return {

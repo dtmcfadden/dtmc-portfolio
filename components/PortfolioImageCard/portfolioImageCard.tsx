@@ -2,11 +2,11 @@
 import { Card, Col, Image, Row } from 'react-bootstrap';
 import styles from './portfolioImageCard.module.css';
 import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import ResumePdfButton from '../resumepdfbutton/resumepdfbutton';
 
 export default function PortfolioImageCard() {
-	const { bg: themeBg, border: themeBorder } = useRecoilValue(getThemeSiteState);
+	const { bg: themeBg, border: themeBorder } = useRecoilValue(selectThemeSiteState);
 
 	return (
 		<>

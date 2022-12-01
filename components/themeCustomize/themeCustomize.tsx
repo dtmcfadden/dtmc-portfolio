@@ -7,18 +7,20 @@ import axios from 'axios';
 import React from 'react';
 import { server } from '@/config/index';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { ThemePrefs, DefaultColor, BorderColor, TextColor, ButtonColor } from '@/interfaces/userPrefs.interface';
 import { yupThemePrefs, yupThemePrefsForm } from '@/lib/yup/form/theme.yup';
 import { useSession } from 'next-auth/react';
 import _ from 'lodash';
+import { userStorageState } from '@/recoil/atoms/userAtom';
 
 export default function ThemeCustomize() {
 	const [validated, setValidated] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
-	const { variant: themeVariant, button: themeButton, border: themeBorder } = useRecoilValue(getThemeSiteState);
+	const { variant: themeVariant, button: themeButton, border: themeBorder } = useRecoilValue(selectThemeSiteState);
+	const userStorage = useRecoilValue(userStorageState);
 
 	const [siteTheme, setSiteTheme] = useRecoilState(siteThemeState);
 	const [previewTheme, setPreviewTheme] = useRecoilState(previewThemeState);
@@ -26,6 +28,7 @@ export default function ThemeCustomize() {
 	const [formCustom, setFormCustom] = useState(previewTheme.theme[previewTheme.isDark === true ? 1 : 0]);
 
 	const { data: session, status } = useSession();
+	// console.log('ThemeCustomize siteTheme', siteTheme);
 	// console.log('ThemeCustomize previewTheme', previewTheme);
 	const defaultFormValue = {
 		formUseCustom: previewTheme.useCustom,
@@ -38,27 +41,17 @@ export default function ThemeCustomize() {
 	};
 
 	useEffect(() => {
-		if (siteTheme.s == 'storage' && previewTheme.s == 'default') {
-			setPreviewTheme({
-				...previewTheme,
-				...{
-					s: 'storage',
-					isDark: siteTheme.isDark,
-					useCustom: siteTheme.useCustom,
-					theme: {
-						0: { ...previewTheme.theme[0], ...siteTheme.theme[0] },
-						1: { ...previewTheme.theme[1], ...siteTheme.theme[1] },
-					},
-				},
-			});
+		// console.log('ThemeCustomize previewTheme.status', previewTheme.status, 'userStorage', userStorage);
+		// console.log('ThemeCustomize siteTheme', siteTheme);
+		if (previewTheme.status === 'default' && userStorage !== 'default') {
+			setFormCustom(siteTheme.theme[siteTheme.isDark === false ? 0 : 1]);
+			// setPreviewTheme({ ...previewTheme, ...siteTheme, ...{ usePreview: false, status: 'site' } });
+		} else {
+			setFormCustom(previewTheme.theme[previewTheme.isDark === false ? 0 : 1]);
 		}
 		// console.log('useEffect previewTheme', previewTheme);
-	}, [siteTheme, previewTheme, setPreviewTheme]);
-
-	useEffect(() => {
-		setFormCustom(previewTheme.theme[previewTheme.isDark === false ? 0 : 1]);
-		// console.log('useEffect previewTheme', previewTheme);
-	}, [previewTheme, status]);
+	}, [siteTheme, previewTheme, setPreviewTheme, userStorage]);
+	// }, [previewTheme, status]);
 
 	const handleSubmit = async (fields: any, { setSubmitting }: any) => {
 		// console.log('handleSubmit fields', fields);
@@ -92,9 +85,8 @@ export default function ThemeCustomize() {
 			} else {
 				setErrorMessage('');
 				// console.log('data', data);
-				const applyTheme = { ...data.theme, ...{ s: 'storage' } };
-				setSiteTheme({ ...applyTheme, ...{ session: false } });
-				setPreviewTheme({ ...applyTheme, ...{ usePreview: false } });
+				setSiteTheme(data.theme);
+				setPreviewTheme({ ...previewTheme, ...data.theme, ...{ usePreview: false } });
 				setIsSubmitted(true);
 			}
 		}

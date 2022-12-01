@@ -1,5 +1,6 @@
 import { atom, AtomOptions } from 'recoil';
 import { Theme } from '@/types/atomTypes';
+import { localForageEffect, localStorageEffect } from './sharedAtom';
 
 // const localDarkTheme = localStorage.getItem('DarkTheme');
 
@@ -12,10 +13,15 @@ export const defaultLight = {
 	// isDark: false,
 	variant: 'light',
 	page: 'light',
-	bg: 'secondary',
-	text: 'text-dark',
-	button: 'btn-light',
-	border: 'border-secondary',
+	bg: 'primary',
+	text: 'text-light',
+	button: 'btn-dark',
+	border: 'border-light',
+	// page: 'light',
+	// bg: 'secondary',
+	// text: 'text-dark',
+	// button: 'btn-light',
+	// border: 'border-secondary',
 };
 
 export const defaultDark = {
@@ -33,8 +39,7 @@ export const defaultDark = {
 // 	default: { s: 'default', v: true, session: false },
 // });
 
-const defaultTheme = {
-	s: 'default',
+export const defaultTheme = {
 	isDark: true,
 	useCustom: false,
 	theme: {
@@ -45,16 +50,14 @@ const defaultTheme = {
 
 export const siteThemeState = atom({
 	key: 'storedTheme',
-	default: {
-		...defaultTheme,
-		...{ session: false },
-	},
+	default: defaultTheme,
+	// effects: [localStorageEffect('SiteTheme')],
 });
 
 export const previewThemeState = atom({
 	key: 'previewTheme',
 	default: {
 		...defaultTheme,
-		...{ usePreview: false },
+		...{ usePreview: false, status: 'default' },
 	},
 });

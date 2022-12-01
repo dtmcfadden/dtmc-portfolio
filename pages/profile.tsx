@@ -7,7 +7,7 @@ import UserRoles from '@/components/UserRoles/UserRoles';
 // import { useEffect, useState } from 'react';
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 // import { useRecoilState, useRecoilValue } from 'recoil';
-// import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+// import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import CustomCard from '@/components/customCard/customCard';
 // import { userState } from '@/recoil/atoms/userAtom';
 import _ from 'lodash';
@@ -19,7 +19,7 @@ const Profile = () => {
 	// 	variant: themeVariant,
 	// 	text: themeText,
 	// 	border: themeBorder,
-	// } = useRecoilValue(getThemeSiteState);
+	// } = useRecoilValue(selectThemeSiteState);
 
 	return (
 		<Container>

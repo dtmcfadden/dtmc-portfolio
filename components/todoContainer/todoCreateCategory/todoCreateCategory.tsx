@@ -1,5 +1,5 @@
 import { userState } from '@/recoil/atoms/userAtom';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useEffect, useState } from 'react';
 import { Formik, useFormik, useFormikContext } from 'formik';
 import { server } from '@/config/index';
@@ -18,7 +18,7 @@ const TodoCreateCategory = () => {
 		border: themeBorder,
 		button: themeButton,
 		text: themeText,
-	} = useRecoilValue(getThemeSiteState);
+	} = useRecoilValue(selectThemeSiteState);
 	const [showBtnCat, setShowBtnCat] = useState(true);
 	const [formValues, setFormValues] = useState({ formCategoryName: 'test' });
 
