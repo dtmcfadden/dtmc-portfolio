@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { server } from '@/config/index';
 import styles from './nav-builder.module.css';
-import { NavDropdown } from 'react-bootstrap';
+import { Nav, NavDropdown } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
@@ -53,6 +53,7 @@ const secureNav = (
 			);
 		}
 		if (navLink.type === 'ddItem') {
+			console.log('ddItem depth', depth, 'navLink.href', navLink.href);
 			return (
 				<NavDropdown.Item
 					className={`navDropDownItem bg-${themeBg} ${themeText}`}
@@ -63,6 +64,15 @@ const secureNav = (
 					{navLink.construction === true && <UnderConstructionIcon />}
 					{navLink.title}
 				</NavDropdown.Item>
+			);
+		}
+		if (navLink.type === 'link') {
+			console.log('ddItem depth', depth, 'navLink.href', navLink.href);
+			return (
+				<Nav.Link href={navLink.href} key={tKey} onClick={handleHrefOnClick} className={`${themeText}`}>
+					{navLink.construction === true && <UnderConstructionIcon />}
+					{navLink.title}
+				</Nav.Link>
 			);
 		}
 		if (navLink.type === 'divider') {

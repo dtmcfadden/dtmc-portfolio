@@ -20,7 +20,7 @@ export default function CustomCard({ header, title, text, children }: Props) {
 	return (
 		<>
 			<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-				{header && <Card.Header>{header}</Card.Header>}
+				{header && <Card.Header className={`h5`}>{header}</Card.Header>}
 				{(title || text || children) && (
 					<Card.Body className={`py-2 border ${themeBorder}`}>
 						{title && <Card.Title>{title}</Card.Title>}

@@ -48,6 +48,12 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 	};
 	navJSON.push(recursiveExample);
 
+	navJSON.push({
+		type: 'link',
+		href: '/googlecloudexample',
+		title: 'Google Cloud',
+	});
+
 	if (token && token?.roles && session && req.method === 'GET') {
 		if (token?.roles.indexOf('guest') != -1) {
 			navJSON.push({
