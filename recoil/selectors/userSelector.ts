@@ -1,83 +1,88 @@
-import { selector } from 'recoil';
-import { userDefault, userState } from '../atoms/userAtom';
+import { DefaultValue, selector } from 'recoil';
+import { userStorageState, userState, userAuthenticatedState } from '../atoms/userAtom';
+import { siteThemeState, previewThemeState } from '../atoms/themeSiteAtom';
 import axios from 'axios';
 import { server } from '@/config/index';
 import _ from 'lodash';
 
-export interface UserProps {
-	name: string;
-	roles: string;
-	image: string;
-}
-
-// export const getUseState = selector<UserProps>({
-// 	key: 'userGlobal',
+// export const userStateChangeState = selector({
+// 	key: 'userStateChange',
 // 	get: ({ get }) => {
-// 		// const isDarkTheme = get(isDarkThemeState);
-// 		const siteTheme = get(userState);
-// 		// console.log('themeGlobal isDarkTheme', isDarkTheme);
-// 		// console.log('themeGlobal siteTheme', siteTheme);
-// 		// console.log('themeGlobal previewTheme', previewTheme);
-// 		let returnUser = userDefault;
+// 		console.log('userStateChangeState get');
 
-// 		const storeSkipType = ['default'];
-// 		if (
-// 			storeSkipType.indexOf(siteTheme.s) == -1 &&
-// 			typeof window !== 'undefined'
-// 		) {
-// 			let hasChange = false;
-// 			const localSiteTheme = localStorage.getItem('SiteTheme');
-// 			const curCustomTheme = JSON.stringify({
-// 				isDark: siteTheme.isDark,
-// 				useCustom: siteTheme.useCustom,
-// 				theme: siteTheme.theme,
-// 			});
-// 			// console.log('localCustomThemeCheck localSiteTheme', localSiteTheme, 'curCustomTheme', curCustomTheme);
-// 			// console.log('localCustomThemeCheck localSiteTheme != localCustomTheme', localSiteTheme != curCustomTheme);
-// 			if (localSiteTheme != curCustomTheme) {
-// 				localStorage.setItem('SiteTheme', curCustomTheme);
-// 				hasChange = true;
-// 			}
+// 		const userAuthenticated = get(userAuthenticatedState);
+// 		console.log('userStateChangeState get userAuthenticated', userAuthenticated);
+// 		const userStorage = get(userStorageState);
+// 		console.log('userStateChangeState get userStorage', userStorage);
+// 		const user = get(userState);
+// 		console.log('userStateChangeState get user', user);
+// 		const siteTheme = get(siteThemeState);
+// 		console.log('userStateChangeState get siteTheme', siteTheme);
 
-// 			const serverSkipType = ['storage'];
-// 			// console.log('sumbit server hasChange', hasChange);
-// 			if (hasChange === true && siteTheme.session === true && serverSkipType.indexOf(siteTheme.s) === -1) {
-// 				const sendData = {
-// 					isDark: siteTheme.isDark,
-// 					useCustom: siteTheme.useCustom,
-// 					theme: siteTheme.theme,
-// 				};
-// 				// console.log('submit theme to server sendData', sendData);
-// 				axios.put(`${server}/api/user/theme`, sendData, { responseType: 'json' }).then(
-// 					(result) => {
-// 						// console.log('getThemeSiteState result', result);
-// 					},
-// 					(error) => {
-// 						console.log('getThemeSiteState error', error);
-// 					},
-// 				);
-// 			}
-// 		}
+// 		let returnUser = { ...user, ...{ theme: siteTheme } };
+// 		console.log('userStateChangeState returnUser', returnUser);
 
-// 		if (previewTheme.usePreview === true) {
-// 			theme = { ...{ isDark: previewTheme.isDark }, ...previewTheme.theme[previewTheme.isDark === true ? 1 : 0] };
+// 		// console.log('userStateChangeState', await axios.get(`${server}/api/user`, { responseType: 'json' }));
+
+// 		if (userAuthenticated === true) {
+// 			axios.get(`${server}/api/user`).then(
+// 				(result) => {
+// 					// console.log('userStateChangeState get result', result);
+// 					console.log('userStateChangeState get result.data', result.data);
+
+// 					// if (result.data != undefined) {
+// 					// 	if (result.data.theme != null) {
+// 					// 		set(siteThemeState, result.data.theme);
+// 					// 	}
+// 					// 	set(userState, { name: result.data.name, roles: result.data.roles, image: result.data.image });
+// 					// }
+// 					// set(userStorageState, { storage: 'server', status: 'used' });
+// 					return returnUser;
+// 				},
+// 				(error) => {
+// 					console.log('userStateChangeState error', error);
+// 					// set(userStorageState, { storage: 'server', status: 'failed' });
+// 					return returnUser;
+// 				},
+// 			);
 // 		} else {
-// 			// console.log('siteTheme isEmpty', _.isEmpty(siteTheme), 'siteTheme', siteTheme);
-// 			if (_.isEmpty(siteTheme) == false) {
-// 				if (siteTheme.useCustom === false) {
-// 					if (siteTheme.isDark === true) {
-// 						theme = { ...{ isDark: true }, ...defaultDark };
-// 					}
-// 				} else {
-// 					// console.log('customThemeState', customThemeState);
-// 					if (siteTheme.isDark != undefined && siteTheme.theme != undefined) {
-// 						theme = { ...{ isDark: siteTheme.isDark }, ...siteTheme?.theme[siteTheme.isDark === true ? 1 : 0] };
-// 					}
-// 				}
-// 			}
+// 			return returnUser;
 // 		}
-// 		// console.log('themeGlobal theme', theme);
-// 		return theme;
+// 	},
+// 	set: ({ get, set }, userStorage) => {
+// 		console.log('userStateChangeState set userStorage', userStorage);
+// 		const storage = get(userStorageState);
+// 		console.log('userStateChangeState set storage', storage);
+// 		// const sentStorage = userStorage instanceof DefaultValue ? '' : userStorage.storage;
+// 		// const sentStatus = userStorage instanceof DefaultValue ? '' : userStorage.status;
+
+// 		// if (userStorage instanceof DefaultValue === false) {
+// 		// 	if (storage !== 'server' && sentStorage === 'server' && sentStatus === 'check') {
+// 		// 		const { authenticated } = get(userAuthenticatedState);
+// 		// 		if (authenticated === true) {
+// 		// 			set(userStorageState, { storage: 'server', status: 'checking' });
+
+// 		// 			axios.get(`${server}/api/user`, { responseType: 'json' }).then(
+// 		// 				(result) => {
+// 		// 					console.log('userStateChangeState result', result);
+// 		// 					console.log('userStateChangeState result.data', result.data);
+
+// 		// 					if (result.data != undefined) {
+// 		// 						if (result.data.theme != null) {
+// 		// 							set(siteThemeState, result.data.theme);
+// 		// 						}
+// 		// 						set(userState, { name: result.data.name, roles: result.data.roles, image: result.data.image });
+// 		// 					}
+// 		// 					set(userStorageState, { storage: 'server', status: 'used' });
+// 		// 				},
+// 		// 				(error) => {
+// 		// 					console.log('userStateChangeState error', error);
+// 		// 					set(userStorageState, { storage: 'server', status: 'failed' });
+// 		// 				},
+// 		// 			);
+// 		// 		}
+// 		// 	}
+// 		// }
 // 	},
 // 	cachePolicy_UNSTABLE: {
 // 		eviction: 'most-recent',

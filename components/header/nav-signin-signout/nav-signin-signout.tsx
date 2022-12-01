@@ -5,10 +5,11 @@ import styles from './nav-signin-signout.module.css';
 import { NavDropdown, Image, Card } from 'react-bootstrap';
 import { PersonCircle } from 'react-bootstrap-icons';
 import LoginProviderList from '@/components/LoginProviderList/LoginProviderList';
-import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
-import { userState } from '@/recoil/atoms/userAtom';
+import { userAuthenticatedState, userState, userStorageState } from '@/recoil/atoms/userAtom';
+import { siteThemeState, previewThemeState } from '@/recoil/atoms/themeSiteAtom';
 
 const NavSigninSignout: FC = () => {
 	const { handleHrefOnClick } = useOnClickShared();
@@ -18,12 +19,23 @@ const NavSigninSignout: FC = () => {
 		variant: themeVariant,
 		text: themeText,
 		border: themeBorder,
-	} = useRecoilValue(getThemeSiteState);
+	} = useRecoilValue(selectThemeSiteState);
+	// const resetUserStorage = useResetRecoilState(userStorageState)
+	// const resetUser = useResetRecoilState(userState)
+	// const resetUserAuthenticated = useResetRecoilState(userAuthenticatedState)
+	// const resetSiteTheme = useResetRecoilState(siteThemeState)
+	// const resetPreviewTheme = useResetRecoilState(previewThemeState)
 	// console.log('NavSigninSignout');
 	const { data: session, status } = useSession();
 
 	const handleSignout = () => {
-		localStorage.removeItem('SiteTheme');
+		// localStorage.removeItem('SiteTheme');
+		localStorage.clear();
+		// resetUserStorage()
+		// resetUser()
+		// resetUserAuthenticated()
+		// resetSiteTheme()
+		// resetPreviewTheme()
 		signOut({
 			callbackUrl: `${window.location.origin}`,
 		});

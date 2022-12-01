@@ -1,7 +1,7 @@
 import styles from './underConstructionIcon.module.css';
 import { ConeStriped } from 'react-bootstrap-icons';
 // import { useRecoilValue } from 'recoil';
-// import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+// import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
 export default function UnderConstructionIcon() {
 	// const {
@@ -10,7 +10,7 @@ export default function UnderConstructionIcon() {
 	// 	variant: themeVariant,
 	// 	text: themeText,
 	// 	border: themeBorder,
-	// } = useRecoilValue(getThemeSiteState);
+	// } = useRecoilValue(selectThemeSiteState);
 
 	return <ConeStriped className={`${styles.coneColor} ${styles.conePosition}`} />;
 }

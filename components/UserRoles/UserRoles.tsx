@@ -1,12 +1,12 @@
 import { userState } from '@/recoil/atoms/userAtom';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useEffect, useState } from 'react';
 // import styles from './ChangeUsername.module.css';
 import { ListGroup } from 'react-bootstrap';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function UserRoles() {
-	const { variant: themeVariant } = useRecoilValue(getThemeSiteState);
+	const { variant: themeVariant } = useRecoilValue(selectThemeSiteState);
 	const [user, setUserState] = useRecoilState(userState);
 	const [userRoles, setUserRoles] = useState(user.roles ? user.roles.split(',') : []);
 

@@ -3,10 +3,10 @@ import styles from './resumepdfbutton.module.css';
 import { FiletypePdf, Link } from 'react-bootstrap-icons';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
 export default function ResumePdfButton() {
-	const { button: themeButton, border: themeBorder } = useRecoilValue(getThemeSiteState);
+	const { button: themeButton, border: themeBorder } = useRecoilValue(selectThemeSiteState);
 
 	return (
 		<Button

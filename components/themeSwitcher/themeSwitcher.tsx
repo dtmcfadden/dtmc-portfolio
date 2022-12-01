@@ -5,7 +5,7 @@ import styles from './themeSwitcher.module.css';
 import { siteThemeState, previewThemeState } from '@/recoil/atoms/themeSiteAtom';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useSession } from 'next-auth/react';
 
 export default function ThemeSwitcher() {
@@ -16,13 +16,12 @@ export default function ThemeSwitcher() {
 
 	const changeTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const themeSwitch = event.currentTarget.checked;
+		const switchedSetting = { isDark: themeSwitch };
 		if (previewTheme.usePreview === false) {
-			setSiteThemeState({
-				...siteTheme,
-				...{ s: 'switcher', isDark: themeSwitch, session: status === 'authenticated' ? true : false },
-			});
+			setSiteThemeState({ ...siteTheme, ...switchedSetting });
+			localStorage.setItem('SiteTheme', JSON.stringify({ ...siteTheme, ...switchedSetting }));
 		} else {
-			setPreviewThemeState({ ...previewTheme, ...{ s: 'switcher', isDark: themeSwitch } });
+			setPreviewThemeState({ ...previewTheme, ...switchedSetting });
 		}
 	};
 

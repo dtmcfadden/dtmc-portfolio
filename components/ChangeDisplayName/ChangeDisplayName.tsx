@@ -7,7 +7,7 @@ import axios from 'axios';
 import { server } from '@/config/index';
 import { formName } from '@/lib/yup/schema/user.schema';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { userState } from '@/recoil/atoms/userAtom';
 
 export default function ChangeUserName() {
@@ -20,7 +20,7 @@ export default function ChangeUserName() {
 		text: themeText,
 		border: themeBorder,
 		button: themeButton,
-	} = useRecoilValue(getThemeSiteState);
+	} = useRecoilValue(selectThemeSiteState);
 	const [user, setUserState] = useRecoilState(userState);
 	const [formValues, setFormValues] = useState({ formDisplayName: user.name });
 	// const { values: formValues } = useFormikContext();

@@ -4,7 +4,7 @@ import { Button, ListGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import styles from './LoginProviderList.module.css';
 import ProviderIcon from './ProviderIcon/ProviderIcon';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useRecoilValue } from 'recoil';
 
 export default function LoginProviderList() {
@@ -15,7 +15,7 @@ export default function LoginProviderList() {
 		variant: themeVariant,
 		text: themeText,
 		border: themeBorder,
-	} = useRecoilValue(getThemeSiteState);
+	} = useRecoilValue(selectThemeSiteState);
 	const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>>();
 
 	useEffect(() => {

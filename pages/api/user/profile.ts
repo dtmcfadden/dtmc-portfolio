@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	// const session = await getSession({ req });
 	// console.log('session', session);
 	const token = await getToken({ req });
-	console.log('profile handler token', token);
+	// console.log('profile handler token', token);
 	if (req.method === 'GET') {
 		// console.log('req.cookies', req.cookies);
 		try {

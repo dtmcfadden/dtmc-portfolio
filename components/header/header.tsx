@@ -9,7 +9,7 @@ import NavSigninSignout from './nav-signin-signout/nav-signin-signout';
 import ThemePreview from '@/components/themePreview/themePreview';
 import ThemeSwitcher from '@/components/themeSwitcher/themeSwitcher';
 import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/hooks/use-sharedHooks';
 import { userState } from '@/recoil/atoms/userAtom';
 
@@ -22,7 +22,19 @@ export default function Header() {
 		variant: themeVariant,
 		text: themeText,
 		border: themeBorder,
-	} = useRecoilValue(getThemeSiteState);
+	} = useRecoilValue(selectThemeSiteState);
+	// console.log(
+	// 	'Header isDark',
+	// 	isDark,
+	// 	'themeBg',
+	// 	themeBg,
+	// 	'themeVariant',
+	// 	themeVariant,
+	// 	'themeText',
+	// 	themeText,
+	// 	'themeBorder',
+	// 	themeBorder,
+	// );
 	// const [navLinks, setNavLinks] = useState(navLinksObj);
 	// console.log('Header navLinks', navLinks);
 	// const { data: session, status } = useSession();

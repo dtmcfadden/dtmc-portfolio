@@ -3,7 +3,7 @@ import { server } from '@/config/index';
 import styles from './nav-builder.module.css';
 import { NavDropdown } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
-import { getThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 import UnderConstructionIcon from '@/components/underConstuctionIcon/underConstructionIcon';
 
@@ -13,7 +13,7 @@ interface props {
 
 const NavBuilder: FC<props> = ({ navHref }) => {
 	const { handleHrefOnClick } = useOnClickShared();
-	const themeSite = useRecoilValue(getThemeSiteState);
+	const themeSite = useRecoilValue(selectThemeSiteState);
 	const [navLinkData, setNavLinkData] = useState([]);
 
 	const getNavData = async (navHref: string) => {

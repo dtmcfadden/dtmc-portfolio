@@ -6,7 +6,7 @@ const Todo = () => {
 	// 	variant: themeVariant,
 	// 	text: themeText,
 	// 	border: themeBorder,
-	// } = useRecoilValue(getThemeSiteState);
+	// } = useRecoilValue(selectThemeSiteState);
 
 	return <TodoContainer />;
 };
