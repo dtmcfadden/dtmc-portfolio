@@ -88,56 +88,58 @@ model UserPrefs {
 }
 
 model TodoCategory {
-  userId        String         @db.VarChar(36)
-  id            DateTime       @default(now())
+  id            String         @id @default(cuid()) @db.Char(36)
+  userId        String         @db.Char(36)
+  categoryId    DateTime       @default(now()) @db.DateTime(3)
   parentId      DateTime?      @db.DateTime(3)
   name          String         @db.VarChar(25)
   entryposition TodoPosition[]
+  catEntry      TodoCatEntry[]
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  catentry TodoCatEntry @relation(fields: [userId, id], references: [userId, categoryId], onDelete: Cascade)
-
-  @@id([userId, id])
+  @@unique([userId, categoryId])
   // @@unique([userId(length: 36), Id()])
   @@map("todocategory")
 }
 
 model TodoCatEntry {
-  userId     String         @db.VarChar(36)
-  categoryId DateTime       @db.DateTime(3)
-  entryId    DateTime       @db.DateTime(3)
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime?
-  category   TodoCategory[]
+  id         String       @id @default(cuid()) @db.Char(36)
+  userId     String       @db.Char(36)
+  categoryId DateTime     @db.DateTime(3)
+  entryId    DateTime     @db.DateTime(3)
+  createdAt  DateTime     @default(now()) @db.DateTime(3)
+  updatedAt  DateTime?    @db.DateTime(3)
+  // category   TodoCategory[]
   entry      TodoEntry[]
   // user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category   TodoCategory @relation(fields: [userId, categoryId], references: [userId, categoryId], onDelete: Cascade)
 
-  @@id([userId, categoryId, entryId])
-  @@unique([userId, categoryId])
+  @@unique([userId, categoryId, entryId])
+  // @@unique([userId, categoryId])
   @@unique([userId, entryId])
   @@map("todocatentry")
 }
 
 model TodoPosition {
-  userId        String   @db.VarChar(36)
-  categoryId    DateTime @db.DateTime(3)
-  entryposition String   @db.LongText
+  id            String       @id @default(cuid()) @db.Char(36)
+  userId        String       @db.Char(36)
+  categoryId    DateTime     @db.DateTime(3)
+  entryposition String       @db.LongText
+  category      TodoCategory @relation(fields: [userId, categoryId], references: [userId, categoryId], onDelete: Cascade)
 
-  category TodoCategory @relation(fields: [userId, categoryId], references: [userId, id], onDelete: Cascade)
-
-  @@id([userId, categoryId])
+  @@unique([userId, categoryId])
   @@map("todoposition")
 }
 
 model TodoEntry {
-  userId String   @db.VarChar(36)
-  id     DateTime @default(now())
-  title  String   @db.Text
-  entry  String   @db.LongText
+  id       String       @id @default(cuid()) @db.Char(36)
+  userId   String       @db.Char(36)
+  entryId  DateTime     @default(now()) @db.DateTime(3)
+  title    String       @db.Text
+  entry    String       @db.LongText
+  entrycat TodoCatEntry @relation(fields: [userId, entryId], references: [userId, entryId], onDelete: Cascade)
 
-  entrycat TodoCatEntry @relation(fields: [userId, id], references: [userId, entryId], onDelete: Cascade)
-
-  @@id([userId, id])
+  @@unique([userId, entryId])
   // @@unique([userId(length: 36), Id()])
   @@map("todoentry")
 }

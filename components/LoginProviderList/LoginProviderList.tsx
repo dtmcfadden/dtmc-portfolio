@@ -17,7 +17,6 @@ export default function LoginProviderList() {
 		border: themeBorder,
 	} = useRecoilValue(selectThemeSiteState);
 	const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>>();
-
 	useEffect(() => {
 		(async () => {
 			// console.log('LoginProviderList', 'useEffect');

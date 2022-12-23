@@ -6,8 +6,9 @@ import { server } from '@/config/index';
 import axios from 'axios';
 import styles from './todoCreateCategory.module.css';
 import { Button, Col, Container, Form, InputGroup, ListGroup, Row, Spinner } from 'react-bootstrap';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { yupCreateCategoryForm } from '@/lib/yup/todo/todoForm.yup';
+import { selectorAddTodoCategoryListState } from '@/recoil/selectors/todoSelector';
 
 const TodoCreateCategory = () => {
 	const [validated, setValidated] = useState(false);
@@ -19,6 +20,7 @@ const TodoCreateCategory = () => {
 		button: themeButton,
 		text: themeText,
 	} = useRecoilValue(selectThemeSiteState);
+	const setSelectorAddTodoCategoryListState = useSetRecoilState(selectorAddTodoCategoryListState);
 	const [showBtnCat, setShowBtnCat] = useState(true);
 	const [formValues, setFormValues] = useState({ formCategoryName: 'test' });
 
@@ -32,17 +34,18 @@ const TodoCreateCategory = () => {
 				`${server}/api/todo/category/name`,
 				{
 					name: fields.formCategoryName,
+					parent: null,
 				},
 				{
 					responseType: 'json',
 				},
 			);
 			console.log('TodoCreateCategory data', data);
-			if (data.error != '') {
+			if (data.error && data.error != '') {
 				setErrorMessage(data.error);
 			} else {
 				setErrorMessage('');
-				// setUserState({ ...user, ...{ name: data.profile.name } });
+				setSelectorAddTodoCategoryListState(data);
 				setIsSubmitted(true);
 			}
 			setSubmitting(false);
@@ -131,31 +134,6 @@ const TodoCreateCategory = () => {
 					</Formik>
 				</Col>
 			</Row>
-			{/* <Row>
-				<Col>
-					<Row className={`m-0`}>
-						<Col sm={10} className={`p-0`}>
-							<Button type="button" className={`w-100 text-nowrap btn-sm btn-primary border ${themeBorder}`}>
-								{`Add Category`}
-							</Button>
-						</Col>
-						<Col sm={2} className={`p-0`}>
-							<Button
-								type="button"
-								className={`w-100 submit btn-sm btn-danger border ${themeBorder}`}
-								onClick={() => {
-									setShowBtnCat(false);
-								}}
-							>
-								{`X`}
-							</Button>
-						</Col>
-					</Row>
-				</Col>
-				<Col>
-
-				</Col>
-			</Row> */}
 		</Container>
 	);
 };

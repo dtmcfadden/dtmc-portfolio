@@ -38,4 +38,4 @@ export const yupDateRequired = yup.date().required();
 // 			throw new yup.ValidationError('Value must be a date or `undefined`');
 // 	}
 // });
-export const yupDateNotRequired = yup.date().notRequired();
+export const yupDateNotRequired = yup.date().nullable().notRequired();
