@@ -1,8 +1,35 @@
 import { JWT } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
-import { NextRequest } from 'next/server';
+import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
+import { checkRateLimit } from '@/lib/rateLimiter/rateLimiter';
+// import clientIp from 'request-ip';
 
 // More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
+
+// export async function middleware(req: NextRequest, event: NextFetchEvent): Promise<Response | undefined> {
+// 	// const reqClientIp = clientIp.getClientIp(req);
+// 	const ip = req.ip ?? '127.0.0.1';
+// 	console.log(`middleware request response ip`, ip, 'req.ip', req.ip);
+
+// 	// const { success, pending, limit, reset, remaining } = await ratelimit.limit(
+// 	//   `mw_${ip}`,
+// 	// );
+// 	// event.waitUntil(pending);
+
+// 	const rateLimitCheck = await checkRateLimit('abcd');
+// 	console.log('authorized rateLimitCheck', rateLimitCheck);
+
+// 	const res = NextResponse.next();
+
+// 	// const res = success
+// 	//   ? NextResponse.next()
+// 	//   : NextResponse.rewrite(new URL("/api/blocked", request.url), request);
+
+// 	// res.headers.set("X-RateLimit-Limit", limit.toString());
+// 	// res.headers.set("X-RateLimit-Remaining", remaining.toString());
+// 	// res.headers.set("X-RateLimit-Reset", reset.toString());
+// 	return res;
+// }
 
 export default withAuth({
 	callbacks: {

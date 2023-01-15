@@ -53,7 +53,7 @@ const secureNav = (
 			);
 		}
 		if (navLink.type === 'ddItem') {
-			console.log('ddItem depth', depth, 'navLink.href', navLink.href);
+			// console.log('ddItem depth', depth, 'navLink.href', navLink.href);
 			return (
 				<NavDropdown.Item
 					className={`navDropDownItem bg-${themeBg} ${themeText}`}
@@ -67,7 +67,7 @@ const secureNav = (
 			);
 		}
 		if (navLink.type === 'link') {
-			console.log('ddItem depth', depth, 'navLink.href', navLink.href);
+			// console.log('ddItem depth', depth, 'navLink.href', navLink.href);
 			return (
 				<Nav.Link href={navLink.href} key={tKey} onClick={handleHrefOnClick} className={`${themeText}`}>
 					{navLink.construction === true && <UnderConstructionIcon />}

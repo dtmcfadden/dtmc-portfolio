@@ -1,0 +1,11 @@
+.cTriang {
+  border-radius: 0.3em;
+  border-width: 0.5em;
+  border-color: #0c0 transparent transparent #0c0;
+  position: absolute;
+  border-style: solid;
+}
+
+.textAdj {
+  padding-left: 0.5em;
+}

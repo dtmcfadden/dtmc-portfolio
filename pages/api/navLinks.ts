@@ -54,6 +54,12 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 		title: 'Google Cloud',
 	});
 
+	navJSON.push({
+		type: 'link',
+		href: '/fraudgame',
+		title: 'Fraud Game',
+	});
+
 	if (token && token?.roles && session && req.method === 'GET') {
 		if (token?.roles.indexOf('guest') != -1) {
 			navJSON.push({
