@@ -52,7 +52,7 @@ export const getRandomUserForPlay = async (
 ): Promise<PurchaseTrans | errorReturn | null> => {
 	let returnUser = null;
 	let apiUrl = null;
-	console.log('fraudAPI', fraudAPI);
+	// console.log('fraudAPI', fraudAPI);
 	if (user_id) {
 		apiUrl = `${fraudAPI}/fraud/play/${user_id}`;
 	} else {
