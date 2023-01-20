@@ -41,3 +41,21 @@ export interface FraudSearchParams {
 	purchase_fingerprint?: string;
 	user_fingerprint?: string;
 }
+
+export interface FraudUserStats {
+	trans_is_fraud_count: number;
+	trans_total_count: number;
+	user_action_count?: number;
+	user_action_is_fraud_count?: number;
+	user_correct_match?: number;
+}
+
+export interface FraudUserAction {
+	user_id: string;
+	id: number;
+	is_fraud: boolean;
+}
+
+export interface FraudUserResult {
+	result: number;
+}

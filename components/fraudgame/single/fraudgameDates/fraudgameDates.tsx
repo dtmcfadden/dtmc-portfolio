@@ -56,7 +56,10 @@ export default function FraudGameDates({ signup_time, purchase_time, signup_purc
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Signup_purchase_diff_sec} text="Difference" />
 						</td>
-						<td>{signup_purchase_diff_sec}</td>
+						<td>
+							{signup_purchase_diff_sec}
+							{signup_purchase_diff_sec && <span title="Second(s)"> Sec</span>}
+						</td>
 					</tr>
 				</tbody>
 			</Table>

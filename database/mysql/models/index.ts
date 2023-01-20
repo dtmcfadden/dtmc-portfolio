@@ -6,11 +6,11 @@ import { Account } from './Account';
 import { Session } from './Session';
 import { VerificationToken } from './VerificationToken';
 
-console.log('dbConfig', dbConfig);
+// console.log('dbConfig', dbConfig);
 const env = process.env.NODE_ENV || 'development';
 const dbConfigEnv = dbConfig[env];
 const db: any = {};
-console.log('dbConfigEnv', dbConfigEnv);
+// console.log('dbConfigEnv', dbConfigEnv);
 const sequelize = new Sequelize(
 	dbConfigEnv.database as string,
 	dbConfigEnv.username as string,

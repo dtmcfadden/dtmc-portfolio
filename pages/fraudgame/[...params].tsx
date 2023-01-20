@@ -12,6 +12,7 @@ const FraudGame = () => {
 	const query = router.query;
 	// console.log('query', query);
 	const [transData, setTransData] = useState([]);
+	const [errorMsg, setErrorMsg] = useState();
 
 	const getFraudData = async (query: ParsedUrlQuery) => {
 		// console.log('getFraudData query', query);
@@ -35,10 +36,14 @@ const FraudGame = () => {
 			const response = await fetch(`${server}/api/fraud/${sendParams}`);
 			// console.log('getFraudData response', response);
 			// console.log('getFraudData response.text()', response.text());
-
 			const data = await response.json();
 			// console.log('getFraudData data', data);
-			setTransData(data);
+			if (data.error) {
+				setErrorMsg(data.error);
+			} else {
+				setErrorMsg(undefined);
+				setTransData(data);
+			}
 		}
 	};
 
@@ -50,7 +55,9 @@ const FraudGame = () => {
 	// return <p>Test</p>;
 	return (
 		<Container fluid className={`${styles.topContainer}`}>
-			{transData &&
+			{errorMsg && <div className={'text-danger text-center'}>{errorMsg}</div>}
+			{!errorMsg &&
+				transData &&
 				Object.values(transData).map((trans: PurchaseTrans, index: number) => (
 					<FraudGameSingleLayout key={trans.id} transSingle={trans} index={index} getFraudData={getFraudData} />
 				))}

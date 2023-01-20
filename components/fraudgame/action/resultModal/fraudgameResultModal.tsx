@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useOnClickShared } from '@/lib/sharedHooks';
 
 interface IAction {
 	resultMsg: string;
@@ -15,12 +16,9 @@ interface IAction {
 
 export default function FraudGameResultModal({ resultMsg, passShown, handleModalShow, getFraudData }: IAction) {
 	const router = useRouter();
+	const { handleHrefOnClick } = useOnClickShared();
 
 	const handleClose = () => handleModalShow(false);
-	const handleQuit = () => {
-		// console.log('Quitting');
-		router.push('/fraudgame');
-	};
 	const handlePlay = () => {
 		// console.log('Playing Again');
 		getFraudData(router.query);
@@ -42,7 +40,7 @@ export default function FraudGameResultModal({ resultMsg, passShown, handleModal
 				<Button variant="info" onClick={handleClose}>
 					Try Again
 				</Button>
-				<Button variant="primary" onClick={handleQuit}>
+				<Button variant="primary" href="/fraudgame" onClick={handleHrefOnClick}>
 					Quit
 				</Button>
 				<Button variant="success" onClick={handlePlay}>
