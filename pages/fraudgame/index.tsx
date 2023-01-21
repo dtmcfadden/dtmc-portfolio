@@ -33,15 +33,18 @@ const FraudGame = () => {
 
 		const response = await fetch(`${server}/api/fraud/user/stats`);
 		// console.log('getFraudData response', response);
-
-		const data = await response.json();
-		// console.log('getFraudTransStats data', data);
-		setTransStats({ trans_is_fraud_count: data.trans_is_fraud_count, trans_total_count: data.trans_total_count });
-		setUserStats({
-			user_action_count: data.user_action_count,
-			user_action_is_fraud_count: data.user_action_is_fraud_count,
-			user_correct_match: data.user_correct_match,
-		});
+		try {
+			const data = await response.json();
+			// console.log('getFraudTransStats data', data);
+			setTransStats({ trans_is_fraud_count: data.trans_is_fraud_count, trans_total_count: data.trans_total_count });
+			setUserStats({
+				user_action_count: data.user_action_count,
+				user_action_is_fraud_count: data.user_action_is_fraud_count,
+				user_correct_match: data.user_correct_match,
+			});
+		} catch (error) {
+			console.log('error', error);
+		}
 	};
 
 	useEffect(() => {

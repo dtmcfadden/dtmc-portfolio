@@ -5,21 +5,30 @@ import {
 	FraudUserStats,
 	PurchaseTrans,
 } from '@/interfaces/fraud.interface';
-import { fraudAPI } from '@/config/index';
+import { GoogleAuth } from 'google-auth-library';
+import { URL } from 'url';
+import { isDev, fraudAPI } from '@/config/index';
 import * as fraudMapper from './fraud.mapper';
 import { yupSearchForm } from '@/lib/yup/fraud/fraudgameSearch.yup';
 import { yupUserId } from '@/lib/yup/fraud/fraudgameTests.yup';
 import { errorReturn } from '@/interfaces/error.interface';
+import { GaxiosOptions } from 'node_modules/gaxios/build/src/common';
 
 // const userProfile = Prisma.validator<Prisma.UserSelect>()({
 //   name: true,
 // })
 
-interface ErrorReturn {
+interface IErrorReturn {
 	error: string;
 }
 
-const errorCheck = (e: any): ErrorReturn => {
+interface IServiceApi {
+	// url: string;
+	options: GaxiosOptions;
+	targetAudience?: string | undefined;
+}
+
+const errorCheck = (e: any): IErrorReturn => {
 	console.log('errorCheck e.name', e.name);
 	console.log('errorCheck e.message', e.message);
 	let returnMsg = 'Error Encoutered';
@@ -33,7 +42,37 @@ const errorCheck = (e: any): ErrorReturn => {
 	return { error: returnMsg };
 };
 
-export const getUserById = async (id: number): Promise<PurchaseTrans | errorReturn | null> => {
+const serviceAPI = async ({ options, targetAudience }: IServiceApi) => {
+	console.log('serviceAPI options', options);
+	console.log('serviceAPI targetAudience1', targetAudience);
+	console.log('serviceAPI isDev', isDev);
+	let res = null;
+	try {
+		if (isDev === false) {
+			if (!targetAudience && options.url) {
+				targetAudience = new URL(options.url).origin;
+			}
+			console.log('serviceAPI targetAudience2', targetAudience);
+			if (targetAudience) {
+				const auth = new GoogleAuth();
+				const client = await auth.getIdTokenClient(targetAudience);
+				res = await client.request(options);
+				console.log('serviceAPI res.data', res.data);
+				return res.data;
+			}
+		} else {
+			if (options.url) {
+				res = await fetch(options.url, options);
+				return await res.json();
+			}
+		}
+		return res;
+	} catch (err: any) {
+		console.log('serviceAPI Error:', err);
+	}
+};
+
+export const getUserById = async (id: number): Promise<PurchaseTrans | errorReturn | unknown | null> => {
 	const userIdCheck = await yupUserId.isValid(id);
 
 	let returnUser = null;
@@ -41,8 +80,13 @@ export const getUserById = async (id: number): Promise<PurchaseTrans | errorRetu
 		if (userIdCheck == false) {
 			returnUser;
 		} else {
-			const response = await fetch(`${fraudAPI}/fraud/id/${id}`);
-			const data: PurchaseTrans = await response.json();
+			const sendOptions: GaxiosOptions = {
+				url: `${fraudAPI}/fraud/id/${id}`,
+			};
+			// console.log('postUserAction bodyData', bodyData);
+			const data = serviceAPI({ options: sendOptions });
+			// const response = await fetch(`${fraudAPI}/fraud/id/${id}`);
+			// const data: PurchaseTrans = await response.json();
 
 			returnUser = data;
 		}
@@ -54,7 +98,7 @@ export const getUserById = async (id: number): Promise<PurchaseTrans | errorRetu
 
 export const getRandomUserForPlay = async (
 	user_id: string | undefined,
-): Promise<PurchaseTrans | errorReturn | null> => {
+): Promise<PurchaseTrans | errorReturn | unknown | null> => {
 	let returnUser = null;
 	let apiUrl = null;
 	console.log('getRandomUserForPlay fraudAPI', fraudAPI);
@@ -66,9 +110,15 @@ export const getRandomUserForPlay = async (
 	console.log('getRandomUserForPlay apiUrl', apiUrl);
 
 	try {
-		const response = await fetch(apiUrl);
-		console.log('getRandomUserForPlay response', response);
-		const data: PurchaseTrans = await response.json();
+		const sendOptions: GaxiosOptions = {
+			url: apiUrl,
+		};
+		// console.log('postUserAction bodyData', bodyData);
+		const data = serviceAPI({ options: sendOptions });
+
+		// const response = await fetch(apiUrl);
+		// console.log('getRandomUserForPlay response', response);
+		// const data: PurchaseTrans = await response.json();
 		returnUser = data;
 	} catch (e: any) {
 		returnUser = errorCheck(e);
@@ -77,7 +127,9 @@ export const getRandomUserForPlay = async (
 	return returnUser;
 };
 
-export const getUserByParams = async (params: FraudSearchParams): Promise<PurchaseTrans[] | errorReturn | null> => {
+export const getUserByParams = async (
+	params: FraudSearchParams,
+): Promise<PurchaseTrans[] | errorReturn | unknown | null> => {
 	let returnUser = null;
 	try {
 		if (params) {
@@ -93,9 +145,15 @@ export const getUserByParams = async (params: FraudSearchParams): Promise<Purcha
 				}
 				if (buildParams.length > 0) {
 					const stringParams = buildParams.join('&');
+					const sendOptions: GaxiosOptions = {
+						url: `${fraudAPI}/fraud?${stringParams}`,
+					};
+					// console.log('postUserAction bodyData', bodyData);
+					const data = serviceAPI({ options: sendOptions });
+
 					// console.log('stringParams', stringParams);
-					const response = await fetch(`${fraudAPI}/fraud?${stringParams}`);
-					const data: PurchaseTrans[] = await response.json();
+					// const response = await fetch(`${fraudAPI}/fraud?${stringParams}`);
+					// const data: PurchaseTrans[] = await response.json();
 
 					returnUser = data;
 					// console.log('returnUser', returnUser);
@@ -108,13 +166,19 @@ export const getUserByParams = async (params: FraudSearchParams): Promise<Purcha
 	return returnUser;
 };
 
-export const getTransactionStats = async (): Promise<FraudUserStats | errorReturn | null> => {
+export const getTransactionStats = async (): Promise<FraudUserStats | errorReturn | unknown | null> => {
 	let returnUser = null;
 	try {
-		console.log('getTransactionStats fraudAPI', fraudAPI);
-		const response = await fetch(`${fraudAPI}/fraud/transstats`);
-		console.log('getTransactionStats response', response);
-		const data: FraudUserStats = await response.json();
+		const sendOptions: GaxiosOptions = {
+			url: `${fraudAPI}/fraud/transstats`,
+		};
+		// console.log('postUserAction bodyData', bodyData);
+		const data = serviceAPI({ options: sendOptions });
+
+		// console.log('getTransactionStats fraudAPI', fraudAPI);
+		// const response = await fetch(`${fraudAPI}/fraud/transstats`);
+		// console.log('getTransactionStats response', response);
+		// const data: FraudUserStats = await response.json();
 		returnUser = data;
 	} catch (e: any) {
 		returnUser = errorCheck(e);
@@ -122,13 +186,19 @@ export const getTransactionStats = async (): Promise<FraudUserStats | errorRetur
 	return returnUser;
 };
 
-export const getUserStats = async (user_id: string): Promise<FraudUserStats | errorReturn | null> => {
+export const getUserStats = async (user_id: string): Promise<FraudUserStats | errorReturn | unknown | null> => {
 	let returnUser = null;
 	try {
 		// console.log('getUserStats user_id', user_id);
 		if (user_id) {
-			const response = await fetch(`${fraudAPI}/fraud/userstats/${user_id}`);
-			const data: FraudUserStats = await response.json();
+			const sendOptions: GaxiosOptions = {
+				url: `${fraudAPI}/fraud/userstats/${user_id}`,
+			};
+			// console.log('postUserAction bodyData', bodyData);
+			const data = serviceAPI({ options: sendOptions });
+
+			// const response = await fetch(`${fraudAPI}/fraud/userstats/${user_id}`);
+			// const data: FraudUserStats = await response.json();
 
 			returnUser = data;
 			// console.log('returnUser', returnUser);
@@ -143,7 +213,7 @@ export const postUserAction = async ({
 	user_id,
 	id,
 	is_fraud,
-}: FraudUserAction): Promise<FraudUserResult | errorReturn | null> => {
+}: FraudUserAction): Promise<FraudUserResult | errorReturn | unknown | null> => {
 	let returnUser = null;
 	try {
 		// console.log('postUserAction user_id', user_id, 'is_fraud', is_fraud);
@@ -154,16 +224,26 @@ export const postUserAction = async ({
 				id: id,
 				is_fraud: is_fraud,
 			};
-			// console.log('postUserAction bodyData', bodyData);
-			const response = await fetch(`${fraudAPI}/fraud/user/action`, {
+			const sendOptions: GaxiosOptions = {
+				url: `${fraudAPI}/fraud/userstats/${user_id}`,
+				method: 'POST',
+				data: JSON.stringify(bodyData),
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				method: 'POST',
-				body: JSON.stringify(bodyData),
-			});
-			// console.log('response', response);
-			const data: FraudUserResult = await response.json();
+			};
+			// console.log('postUserAction bodyData', bodyData);
+			const data = serviceAPI({ options: sendOptions });
+
+			// const response = await fetch(`${fraudAPI}/fraud/user/action`, {
+			// 	headers: {
+			// 		'Content-Type': 'application/json',
+			// 	},
+			// 	method: 'POST',
+			// 	body: JSON.stringify(bodyData),
+			// });
+			// // console.log('response', response);
+			// const data: FraudUserResult = await response.json();
 			// console.log('postUserAction data', data);
 			returnUser = data;
 			// console.log('returnUser', returnUser);
