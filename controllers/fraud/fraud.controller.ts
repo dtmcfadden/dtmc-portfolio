@@ -67,7 +67,7 @@ export const getRandomUserForPlay = async (
 
 	try {
 		const response = await fetch(apiUrl);
-		// console.log('getRandomUserForPlay response', response);
+		console.log('getRandomUserForPlay response', response);
 		const data: PurchaseTrans = await response.json();
 		returnUser = data;
 	} catch (e: any) {
@@ -113,6 +113,7 @@ export const getTransactionStats = async (): Promise<FraudUserStats | errorRetur
 	try {
 		console.log('getTransactionStats fraudAPI', fraudAPI);
 		const response = await fetch(`${fraudAPI}/fraud/transstats`);
+		console.log('getTransactionStats response', response);
 		const data: FraudUserStats = await response.json();
 		returnUser = data;
 	} catch (e: any) {
