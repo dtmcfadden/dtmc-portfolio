@@ -52,12 +52,13 @@ export const getRandomUserForPlay = async (
 ): Promise<PurchaseTrans | errorReturn | null> => {
 	let returnUser = null;
 	let apiUrl = null;
-	// console.log('fraudAPI', fraudAPI);
+	console.log('getRandomUserForPlay fraudAPI', fraudAPI);
 	if (user_id) {
 		apiUrl = `${fraudAPI}/fraud/play/${user_id}`;
 	} else {
 		apiUrl = `${fraudAPI}/fraud/play`;
 	}
+	console.log('getRandomUserForPlay apiUrl', apiUrl);
 
 	try {
 		const response = await fetch(apiUrl);
@@ -105,6 +106,7 @@ export const getUserByParams = async (params: FraudSearchParams): Promise<Purcha
 export const getTransactionStats = async (): Promise<FraudUserStats | errorReturn | null> => {
 	let returnUser = null;
 	try {
+		console.log('getTransactionStats fraudAPI', fraudAPI);
 		const response = await fetch(`${fraudAPI}/fraud/transstats`);
 		const data: FraudUserStats = await response.json();
 		returnUser = data;
