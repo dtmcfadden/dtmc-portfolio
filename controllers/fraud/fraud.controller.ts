@@ -15,8 +15,13 @@ import { errorReturn } from '@/interfaces/error.interface';
 //   name: true,
 // })
 
-const errorCheck = (e: any): { error: string } => {
-	// console.log('errorCheck e.name', e.name);
+interface ErrorReturn {
+	error: string;
+}
+
+const errorCheck = (e: any): ErrorReturn => {
+	console.log('errorCheck e.name', e.name);
+	console.log('errorCheck e.message', e.message);
 	let returnMsg = 'Error Encoutered';
 	switch (e.name) {
 		case 'FetchError':
