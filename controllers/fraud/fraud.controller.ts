@@ -66,6 +66,13 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 						if (!options.headers) {
 							options.headers = {};
 						}
+						if (!options.method) {
+							options['method'] = 'GET';
+						}
+						if (!options.headers['Content-Type']) {
+							options.headers['Content-Type'] = 'application/json';
+						}
+
 						options.headers['Authorization'] = clientHeaders['Authorization'];
 					}
 				} catch (err: any) {
