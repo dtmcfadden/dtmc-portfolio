@@ -73,9 +73,10 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 				}
 			}
 		}
-
+		console.log('serviceAPI options', options);
 		try {
 			res = await fetch(url, options);
+			console.log('serviceAPI res', res);
 			return await res.json();
 		} catch (err: any) {
 			throw Error('failed to fetch data: ' + err.message);
