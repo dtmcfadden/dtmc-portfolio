@@ -23,8 +23,8 @@ interface IErrorReturn {
 }
 
 interface IServiceApi {
-	// url: string;
-	options: GaxiosOptions;
+	url: string;
+	options?: GaxiosOptions;
 	targetAudience?: string | undefined;
 }
 
@@ -42,31 +42,44 @@ const errorCheck = (e: any): IErrorReturn => {
 	return { error: returnMsg };
 };
 
-const serviceAPI = async ({ options, targetAudience }: IServiceApi) => {
+const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 	console.log('serviceAPI options', options);
 	console.log('serviceAPI targetAudience1', targetAudience);
 	console.log('serviceAPI isDev', isDev);
 	let res = null;
+	if (!options) {
+		options = {};
+	}
 	try {
 		if (isDev === false) {
-			if (!targetAudience && options.url) {
-				targetAudience = new URL(options.url).origin;
+			if (!targetAudience) {
+				targetAudience = new URL(url).origin;
 			}
 			console.log('serviceAPI targetAudience2', targetAudience);
 			if (targetAudience) {
-				const auth = new GoogleAuth();
-				const client = await auth.getIdTokenClient(targetAudience);
-				res = await client.request(options);
-				console.log('serviceAPI res.data', res.data);
-				return res.data;
-			}
-		} else {
-			if (options.url) {
-				res = await fetch(options.url, options);
-				return await res.json();
+				try {
+					const auth = new GoogleAuth();
+					const client = await auth.getIdTokenClient(targetAudience);
+					if (client) {
+						const clientHeaders = await client.getRequestHeaders();
+						console.log('serviceAPI clientHeaders', clientHeaders);
+						if (!options.headers) {
+							options.headers = {};
+						}
+						options.headers['Authorization'] = clientHeaders['Authorization'];
+					}
+				} catch (err: any) {
+					throw Error('could not create an identity token: ' + err.message);
+				}
 			}
 		}
-		return res;
+
+		try {
+			res = await fetch(url, options);
+			return await res.json();
+		} catch (err: any) {
+			throw Error('failed to fetch data: ' + err.message);
+		}
 	} catch (err: any) {
 		console.log('serviceAPI Error:', err);
 	}
@@ -80,11 +93,8 @@ export const getUserById = async (id: number): Promise<PurchaseTrans | errorRetu
 		if (userIdCheck == false) {
 			returnUser;
 		} else {
-			const sendOptions: GaxiosOptions = {
-				url: `${fraudAPI}/fraud/id/${id}`,
-			};
 			// console.log('postUserAction bodyData', bodyData);
-			const data = serviceAPI({ options: sendOptions });
+			const data = serviceAPI({ url: `${fraudAPI}/fraud/id/${id}` });
 			// const response = await fetch(`${fraudAPI}/fraud/id/${id}`);
 			// const data: PurchaseTrans = await response.json();
 
@@ -110,11 +120,8 @@ export const getRandomUserForPlay = async (
 	console.log('getRandomUserForPlay apiUrl', apiUrl);
 
 	try {
-		const sendOptions: GaxiosOptions = {
-			url: apiUrl,
-		};
 		// console.log('postUserAction bodyData', bodyData);
-		const data = serviceAPI({ options: sendOptions });
+		const data = serviceAPI({ url: apiUrl });
 
 		// const response = await fetch(apiUrl);
 		// console.log('getRandomUserForPlay response', response);
@@ -145,11 +152,8 @@ export const getUserByParams = async (
 				}
 				if (buildParams.length > 0) {
 					const stringParams = buildParams.join('&');
-					const sendOptions: GaxiosOptions = {
-						url: `${fraudAPI}/fraud?${stringParams}`,
-					};
 					// console.log('postUserAction bodyData', bodyData);
-					const data = serviceAPI({ options: sendOptions });
+					const data = serviceAPI({ url: `${fraudAPI}/fraud?${stringParams}` });
 
 					// console.log('stringParams', stringParams);
 					// const response = await fetch(`${fraudAPI}/fraud?${stringParams}`);
@@ -169,11 +173,8 @@ export const getUserByParams = async (
 export const getTransactionStats = async (): Promise<FraudUserStats | errorReturn | unknown | null> => {
 	let returnUser = null;
 	try {
-		const sendOptions: GaxiosOptions = {
-			url: `${fraudAPI}/fraud/transstats`,
-		};
 		// console.log('postUserAction bodyData', bodyData);
-		const data = serviceAPI({ options: sendOptions });
+		const data = serviceAPI({ url: `${fraudAPI}/fraud/transstats` });
 
 		// console.log('getTransactionStats fraudAPI', fraudAPI);
 		// const response = await fetch(`${fraudAPI}/fraud/transstats`);
@@ -191,11 +192,8 @@ export const getUserStats = async (user_id: string): Promise<FraudUserStats | er
 	try {
 		// console.log('getUserStats user_id', user_id);
 		if (user_id) {
-			const sendOptions: GaxiosOptions = {
-				url: `${fraudAPI}/fraud/userstats/${user_id}`,
-			};
 			// console.log('postUserAction bodyData', bodyData);
-			const data = serviceAPI({ options: sendOptions });
+			const data = serviceAPI({ url: `${fraudAPI}/fraud/userstats/${user_id}` });
 
 			// const response = await fetch(`${fraudAPI}/fraud/userstats/${user_id}`);
 			// const data: FraudUserStats = await response.json();
@@ -225,7 +223,6 @@ export const postUserAction = async ({
 				is_fraud: is_fraud,
 			};
 			const sendOptions: GaxiosOptions = {
-				url: `${fraudAPI}/fraud/userstats/${user_id}`,
 				method: 'POST',
 				data: JSON.stringify(bodyData),
 				headers: {
@@ -233,7 +230,7 @@ export const postUserAction = async ({
 				},
 			};
 			// console.log('postUserAction bodyData', bodyData);
-			const data = serviceAPI({ options: sendOptions });
+			const data = serviceAPI({ url: `${fraudAPI}/fraud/userstats/${user_id}`, options: sendOptions });
 
 			// const response = await fetch(`${fraudAPI}/fraud/user/action`, {
 			// 	headers: {
