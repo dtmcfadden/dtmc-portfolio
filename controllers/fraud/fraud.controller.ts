@@ -69,6 +69,9 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 						if (!options.method) {
 							options['method'] = 'GET';
 						}
+						if (!options.timeout) {
+							options['timeout'] = 3000;
+						}
 						if (!options.headers['Content-Type']) {
 							options.headers['Content-Type'] = 'application/json';
 						}
