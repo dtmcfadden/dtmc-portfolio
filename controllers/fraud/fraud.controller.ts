@@ -53,7 +53,8 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 	try {
 		if (isDev === false) {
 			if (!targetAudience) {
-				targetAudience = new URL(url).origin;
+				// targetAudience = new URL(url).origin;
+				targetAudience = url;
 			}
 			console.log('serviceAPI targetAudience2', targetAudience);
 			if (targetAudience) {
