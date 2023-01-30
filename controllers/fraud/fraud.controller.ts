@@ -43,9 +43,10 @@ const errorCheck = (e: any): IErrorReturn => {
 };
 
 const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
-	console.log('serviceAPI options', options);
-	console.log('serviceAPI targetAudience1', targetAudience);
-	console.log('serviceAPI isDev', isDev);
+	console.log('serviceAPI 1 url', url);
+	console.log('serviceAPI 1 options', options);
+	console.log('serviceAPI 1 targetAudience1', targetAudience);
+	console.log('serviceAPI 1 isDev', isDev);
 	let res = null;
 	if (!options) {
 		options = {};
@@ -77,7 +78,6 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 						if (!options.headers['Content-Type']) {
 							options.headers['Content-Type'] = 'application/json';
 						}
-
 						options.headers['Authorization'] = clientHeaders['Authorization'];
 					}
 				} catch (err: any) {
@@ -85,7 +85,8 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 				}
 			}
 		}
-		console.log('serviceAPI options', options);
+		console.log('serviceAPI 2 url', url);
+		console.log('serviceAPI 2 options', options);
 		try {
 			res = await fetch(url, options);
 			console.log('serviceAPI res', res);
