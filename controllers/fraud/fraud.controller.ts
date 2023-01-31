@@ -63,6 +63,8 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 				try {
 					const auth = new GoogleAuth();
 					const client = await auth.getIdTokenClient(targetAudience);
+					const requestRes = await client.request({ url });
+					console.log('serviceAPI requestRes', requestRes);
 					if (client) {
 						const clientHeaders = await client.getRequestHeaders();
 						console.log('serviceAPI clientHeaders', clientHeaders);
