@@ -40,7 +40,7 @@ export default function FraudGameAction({ id, is_fraud, getFraudData }: IAction)
 			method: 'POST',
 			body: JSON.stringify(bodyData),
 		});
-		// console.log('FraudGameAction submitAction response', response);
+		console.log('FraudGameAction submitAction response', response);
 		const data = await response.json();
 		// console.log('getFraudData data', data);
 		if (data.error) {
