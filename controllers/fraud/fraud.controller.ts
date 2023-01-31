@@ -102,6 +102,7 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 			const gotOptions: OptionsInit = JSON.parse(JSON.stringify(options));
 			console.log('serviceAPI 2 gotOptions', gotOptions);
 			const gotResponse = await got(url, gotOptions);
+			console.log('serviceAPI 2 gotResponse', gotResponse);
 		} catch (err: any) {
 			throw Error('gotResponse error: ' + err.message);
 		}
