@@ -13,7 +13,6 @@ import { yupSearchForm } from '@/lib/yup/fraud/fraudgameSearch.yup';
 import { yupUserId } from '@/lib/yup/fraud/fraudgameTests.yup';
 import { errorReturn } from '@/interfaces/error.interface';
 import { GaxiosOptions } from 'node_modules/gaxios/build/src/common';
-// import got, { OptionsInit } from 'got';
 
 // const userProfile = Prisma.validator<Prisma.UserSelect>()({
 //   name: true,
@@ -44,10 +43,10 @@ const errorCheck = (e: any): IErrorReturn => {
 };
 
 const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
-	console.log('serviceAPI 1 url', url);
-	console.log('serviceAPI 1 options', options);
-	console.log('serviceAPI 1 targetAudience1', targetAudience);
-	console.log('serviceAPI 1 isDev', isDev);
+	// console.log('serviceAPI 1 url', url);
+	// console.log('serviceAPI 1 options', options);
+	// console.log('serviceAPI 1 targetAudience1', targetAudience);
+	// console.log('serviceAPI 1 isDev', isDev);
 	let res = null;
 	if (!options) {
 		options = {};
@@ -59,22 +58,16 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 				// targetAudience = new URL(url).origin + '/';
 				// targetAudience = url;
 			}
-			console.log('serviceAPI targetAudience2', targetAudience);
+			// console.log('serviceAPI targetAudience2', targetAudience);
 			if (targetAudience) {
 				try {
 					const auth = new GoogleAuth();
 					const client = await auth.getIdTokenClient(targetAudience);
-					console.log('serviceAPI client', client);
-					// try {
-					// 	const requestRes = await client.request({ url });
-					// 	console.log('serviceAPI requestRes', requestRes);
-					// } catch (err: any) {
-					// 	throw Error('serviceAPI requestRes error: ' + err.message);
-					// }
+					// console.log('serviceAPI client', client);
 
 					if (client) {
 						const clientHeaders = await client.getRequestHeaders();
-						console.log('serviceAPI clientHeaders', clientHeaders);
+						// console.log('serviceAPI clientHeaders', clientHeaders);
 						if (!options.headers) {
 							options.headers = {};
 						}
@@ -94,22 +87,13 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 				}
 			}
 		}
-		console.log('serviceAPI 2 url', url);
-		console.log('serviceAPI 2 options', options);
-		console.log('serviceAPI 2 JSON.stringify(options)', JSON.stringify(options));
-
-		// try {
-		// 	const gotOptions: OptionsInit = JSON.parse(JSON.stringify(options));
-		// 	console.log('serviceAPI 2 gotOptions', gotOptions);
-		// 	const gotResponse = await got(url, gotOptions);
-		// 	console.log('serviceAPI 2 gotResponse', gotResponse);
-		// } catch (err: any) {
-		// 	throw Error('gotResponse error: ' + err.message);
-		// }
+		// console.log('serviceAPI 2 url', url);
+		// console.log('serviceAPI 2 options', options);
+		// console.log('serviceAPI 2 JSON.stringify(options)', JSON.stringify(options));
 
 		try {
 			res = await fetch(url, options);
-			console.log('serviceAPI res', res);
+			// console.log('serviceAPI res', res);
 			return await res.json();
 		} catch (err: any) {
 			throw Error('failed to fetch data: ' + err.message);
@@ -145,13 +129,13 @@ export const getRandomUserForPlay = async (
 ): Promise<PurchaseTrans | errorReturn | unknown | null> => {
 	let returnUser = null;
 	let apiUrl = null;
-	console.log('getRandomUserForPlay fraudAPI', fraudAPI);
+	// console.log('getRandomUserForPlay fraudAPI', fraudAPI);
 	if (user_id) {
 		apiUrl = `${fraudAPI}/fraud/play/${user_id}`;
 	} else {
 		apiUrl = `${fraudAPI}/fraud/play`;
 	}
-	console.log('getRandomUserForPlay apiUrl', apiUrl);
+	// console.log('getRandomUserForPlay apiUrl', apiUrl);
 
 	try {
 		// console.log('postUserAction bodyData', bodyData);
@@ -258,13 +242,13 @@ export const postUserAction = async ({
 			};
 			const sendOptions: GaxiosOptions = {
 				method: 'POST',
-				data: JSON.stringify(bodyData),
+				body: JSON.stringify(bodyData),
 				headers: {
 					'Content-Type': 'application/json',
 				},
 			};
 			// console.log('postUserAction bodyData', bodyData);
-			const data = serviceAPI({ url: `${fraudAPI}/fraud/userstats/${user_id}`, options: sendOptions });
+			const data = serviceAPI({ url: `${fraudAPI}/fraud/user/action`, options: sendOptions });
 
 			// const response = await fetch(`${fraudAPI}/fraud/user/action`, {
 			// 	headers: {
