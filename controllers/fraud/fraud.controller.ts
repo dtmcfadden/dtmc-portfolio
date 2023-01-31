@@ -13,6 +13,7 @@ import { yupSearchForm } from '@/lib/yup/fraud/fraudgameSearch.yup';
 import { yupUserId } from '@/lib/yup/fraud/fraudgameTests.yup';
 import { errorReturn } from '@/interfaces/error.interface';
 import { GaxiosOptions } from 'node_modules/gaxios/build/src/common';
+import got, { OptionsInit } from 'got';
 
 // const userProfile = Prisma.validator<Prisma.UserSelect>()({
 //   name: true,
@@ -68,7 +69,7 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 						const requestRes = await client.request({ url });
 						console.log('serviceAPI requestRes', requestRes);
 					} catch (err: any) {
-						throw Error('serviceAPI requestRes error:' + err.message);
+						throw Error('serviceAPI requestRes error: ' + err.message);
 					}
 
 					if (client) {
@@ -95,6 +96,15 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 		}
 		console.log('serviceAPI 2 url', url);
 		console.log('serviceAPI 2 options', options);
+
+		try {
+			const gotOptions: OptionsInit = JSON.parse(JSON.stringify(options));
+			console.log('serviceAPI 2 gotOptions', gotOptions);
+			const gotResponse = await got(url, gotOptions);
+		} catch (err: any) {
+			throw Error('gotResponse error: ' + err.message);
+		}
+
 		try {
 			res = await fetch(url, options);
 			console.log('serviceAPI res', res);

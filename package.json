@@ -29,6 +29,7 @@
 		"dotenv": "^16.0.3",
 		"formik": "^2.2.9",
 		"google-auth-library": "^8.7.0",
+		"got": "^12.5.3",
 		"ioredis": "^5.2.4",
 		"jquery": "^3.6.1",
 		"js-cookie": "^3.0.1",
