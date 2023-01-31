@@ -65,12 +65,12 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 					const auth = new GoogleAuth();
 					const client = await auth.getIdTokenClient(targetAudience);
 					console.log('serviceAPI client', client);
-					try {
-						const requestRes = await client.request({ url });
-						console.log('serviceAPI requestRes', requestRes);
-					} catch (err: any) {
-						throw Error('serviceAPI requestRes error: ' + err.message);
-					}
+					// try {
+					// 	const requestRes = await client.request({ url });
+					// 	console.log('serviceAPI requestRes', requestRes);
+					// } catch (err: any) {
+					// 	throw Error('serviceAPI requestRes error: ' + err.message);
+					// }
 
 					if (client) {
 						const clientHeaders = await client.getRequestHeaders();
@@ -96,6 +96,7 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 		}
 		console.log('serviceAPI 2 url', url);
 		console.log('serviceAPI 2 options', options);
+		console.log('serviceAPI 2 JSON.stringify(options)', JSON.stringify(options));
 
 		try {
 			const gotOptions: OptionsInit = JSON.parse(JSON.stringify(options));
