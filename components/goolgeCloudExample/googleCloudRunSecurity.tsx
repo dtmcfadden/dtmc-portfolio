@@ -21,14 +21,14 @@ export default function GoogleCloudRunSecurity() {
 						alt="Google Cloud Run Security"
 						variant="top"
 						className={`border ${themeBorder} ${styles.image}`}
-						src="/static/images/examples/GoogleCloudRunSecuritySS.jpg"
+						src="/static/images/examples/GoogleCloudRunSecuritySS2.jpg"
 					/>
 
 					<Card.Img
 						alt="Google Cloud IAM Roles"
 						variant="top"
 						className={`border ${themeBorder} ${styles.image}`}
-						src="/static/images/examples/GoogleCloudIAMRolesSS.jpg"
+						src="/static/images/examples/GoogleCloudIAMRolesSS2.jpg"
 					/>
 				</Card.Body>
 			</Card>
