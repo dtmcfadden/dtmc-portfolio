@@ -4,4 +4,33 @@
 	// max-height: 350.5px;
 	height: 100%;
 	width: auto;
+	object-fit: contain;
+}
+
+.colStyle {
+	max-width: 30rem !important;
+}
+
+.imgSecuritySS {
+	max-width: 374px;
+}
+.imgIAMRolesSS {
+	// max-width: 459px;
+}
+
+.imgIngressAuthentication {
+	max-width: 318px !important;
+}
+.imgPrincipalInvoker {
+	max-width: 401px !important;
+}
+.imgControlInternal {
+	// max-width: 533px !important;
+}
+
+.imgBuild {
+	// max-width: 528px !important;
+}
+.imgSqlNetworking {
+	// max-width: 525px !important;
 }

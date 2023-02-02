@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap';
-import styles from './googleCloud.module.css';
+import styles from '../googleCloud.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 
@@ -20,14 +20,14 @@ export default function GoogleCloudRunSecurity() {
 					<Card.Img
 						alt="Google Cloud Run Security"
 						variant="top"
-						className={`border ${themeBorder} ${styles.image}`}
+						className={`border ${themeBorder} ${styles.image} ${styles.imgSecuritySS}`}
 						src="/static/images/examples/GoogleCloudRunSecuritySS2.jpg"
 					/>
 
 					<Card.Img
 						alt="Google Cloud IAM Roles"
 						variant="top"
-						className={`border ${themeBorder} ${styles.image}`}
+						className={`border ${themeBorder} ${styles.image} ${styles.imgIAMRolesSS}`}
 						src="/static/images/examples/GoogleCloudIAMRolesSS2.jpg"
 					/>
 				</Card.Body>

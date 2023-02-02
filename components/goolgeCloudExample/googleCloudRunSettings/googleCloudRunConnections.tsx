@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap';
-import styles from './googleCloud.module.css';
+import styles from '../googleCloud.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 

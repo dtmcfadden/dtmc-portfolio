@@ -2,4 +2,22 @@
   max-width: 450px;
   height: 100%;
   width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.colStyle {
+  max-width: 30rem !important;
+}
+
+.imgSecuritySS {
+  max-width: 374px;
+}
+
+.imgIngressAuthentication {
+  max-width: 318px !important;
+}
+
+.imgPrincipalInvoker {
+  max-width: 401px !important;
 }

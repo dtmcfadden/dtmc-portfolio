@@ -1,10 +1,12 @@
-import { Card } from 'react-bootstrap';
+import Link from 'next/link';
+import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 import styles from './googleCloud.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
+import CustomCard from '../customCard/customCard';
 
 export default function GoogleCloudSql() {
-	const { bg: themeBg, border: themeBorder } = useRecoilValue(selectThemeSiteState);
+	const { bg: themeBg, border: themeBorder, text: themeText } = useRecoilValue(selectThemeSiteState);
 
 	return (
 		<>
@@ -21,10 +23,22 @@ export default function GoogleCloudSql() {
 					<Card.Img
 						alt="Google Cloud SQL Networking"
 						variant="top"
-						className={`border ${themeBorder} ${styles.image}`}
+						className={`border ${themeBorder} ${styles.image} ${styles.imgSqlNetworking}`}
 						src="/static/images/examples/GoogleCloudSqlNetworkingSS.jpg"
 					/>
 				</Card.Body>
+				<CustomCard header="Resources">
+					<ListGroup>
+						<ListGroup.Item className={`bg-${themeBg} ${themeText} ${themeBorder}`}>
+							<Link href="https://cloud.google.com/sql/docs/introduction">Google Cloud - Cloud SQL documentation</Link>
+						</ListGroup.Item>
+						<ListGroup.Item className={`bg-${themeBg} ${themeText} ${themeBorder}`}>
+							<Link href="https://cloud.google.com/sql/docs/mysql/private-ip">
+								Google Cloud - Using private IP with Cloud SQL
+							</Link>
+						</ListGroup.Item>
+					</ListGroup>
+				</CustomCard>
 			</Card>
 		</>
 	);
