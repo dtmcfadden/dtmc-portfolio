@@ -5,7 +5,7 @@ import React from 'react';
 import { Formik, useFormik, useFormikContext } from 'formik';
 import axios from 'axios';
 import { server } from '@/config/index';
-import { formName } from '@/lib/yup/schema/user.schema';
+import { yupFormName } from '@/lib/yup/schema/user.schema.yup';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { userState } from '@/recoil/atoms/userAtom';

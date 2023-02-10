@@ -53,7 +53,7 @@
 		"lib": ["dom", "dom.iterable", "esnext"],
 		// "lib": ["ES2020"],
 		// "outDir": "dist",
-		"types": ["node"],
+		"types": ["node", "jest"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
@@ -69,7 +69,14 @@
 		"emitDecoratorMetadata": true
 	},
 	// "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"include": ["next-env.d.ts", "types/**/*.ts", "**/*.ts", "**/*.tsx", "database/sequelize/mysql/config/config.js"],
+	"include": [
+		"next-env.d.ts",
+		"types/**/*.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"database/sequelize/mysql/config/config.js",
+		"jest.config.ts"
+	],
 	"exclude": ["node_modules"],
 	"ts-node": {
 		"compilerOptions": {

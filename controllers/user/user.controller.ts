@@ -4,7 +4,7 @@ import { UserFull, UserProfile } from '@/interfaces/index.interface';
 import * as userMapper from './user.mapper';
 import prisma from '@/lib/prismadb';
 import { Prisma } from '@prisma/client';
-import { formName } from '@/lib/yup/schema/user.schema';
+import { yupFormName } from '@/lib/yup/schema/user.schema.yup';
 import { UserCustomReturn, UserCustomSelect } from '@/interfaces/user.interface';
 import { errorReturn } from '@/interfaces/error.interface';
 
@@ -81,7 +81,7 @@ export const getProfileBySessionToken = async (sessionToken: string): Promise<Us
 
 export const updateNameById = async (id: string, displayname: string): Promise<number> => {
 	// console.log('updateNameBySessionToken originalDisplayName', originalDisplayName, 'displayname', displayname);
-	const nameCheck = await formName.isValid({ formDisplayName: displayname });
+	const nameCheck = await yupFormName.isValid({ formDisplayName: displayname });
 
 	if (nameCheck == false) {
 		return 0;
@@ -105,7 +105,7 @@ export const updateNameBySessionToken = async (
 	displayname: string,
 ): Promise<number> => {
 	// console.log('updateNameBySessionToken originalDisplayName', originalDisplayName, 'displayname', displayname);
-	const nameCheck = await formName.isValid({ formDisplayName: displayname });
+	const nameCheck = await yupFormName.isValid({ formDisplayName: displayname });
 
 	if (nameCheck == false || originalDisplayName.toLowerCase() == displayname.toLowerCase()) {
 		return 0;

@@ -1,4 +1,4 @@
-import { getUserById, getRandomUserForPlay, getUserByParams } from '@/controllers/fraud/fraud.controller';
+import { getRandomUserForPlay, getUserByParams } from '@/controllers/fraud/fraud.controller';
 import { FraudSearchParams, PurchaseTrans } from '@/interfaces/fraud.interface';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { yupIpAddress, yupUserIdString } from '@/lib/yup/fraud/fraudgameTests.yup';

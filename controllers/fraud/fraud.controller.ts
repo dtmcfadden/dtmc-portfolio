@@ -10,7 +10,7 @@ import { URL } from 'url';
 import { isDev, fraudAPI } from '@/config/index';
 import * as fraudMapper from './fraud.mapper';
 import { yupSearchForm } from '@/lib/yup/fraud/fraudgameSearch.yup';
-import { yupUserId } from '@/lib/yup/fraud/fraudgameTests.yup';
+// import { yupUserId } from '@/lib/yup/fraud/fraudgameTests.yup';
 import { errorReturn } from '@/interfaces/error.interface';
 import { GaxiosOptions } from 'node_modules/gaxios/build/src/common';
 
@@ -103,26 +103,26 @@ const serviceAPI = async ({ url, options, targetAudience }: IServiceApi) => {
 	}
 };
 
-export const getUserById = async (id: number): Promise<PurchaseTrans | errorReturn | unknown | null> => {
-	const userIdCheck = await yupUserId.isValid(id);
+// export const getUserById = async (id: number): Promise<PurchaseTrans | errorReturn | unknown | null> => {
+// 	const userIdCheck = await yupUserId.isValid(id);
 
-	let returnUser = null;
-	try {
-		if (userIdCheck == false) {
-			returnUser;
-		} else {
-			// console.log('postUserAction bodyData', bodyData);
-			const data = serviceAPI({ url: `${fraudAPI}/fraud/id/${id}` });
-			// const response = await fetch(`${fraudAPI}/fraud/id/${id}`);
-			// const data: PurchaseTrans = await response.json();
+// 	let returnUser = null;
+// 	try {
+// 		if (userIdCheck == false) {
+// 			returnUser;
+// 		} else {
+// 			// console.log('postUserAction bodyData', bodyData);
+// 			const data = serviceAPI({ url: `${fraudAPI}/fraud/id/${id}` });
+// 			// const response = await fetch(`${fraudAPI}/fraud/id/${id}`);
+// 			// const data: PurchaseTrans = await response.json();
 
-			returnUser = data;
-		}
-	} catch (e: any) {
-		returnUser = errorCheck(e);
-	}
-	return returnUser;
-};
+// 			returnUser = data;
+// 		}
+// 	} catch (e: any) {
+// 		returnUser = errorCheck(e);
+// 	}
+// 	return returnUser;
+// };
 
 export const getRandomUserForPlay = async (
 	user_id: string | undefined,

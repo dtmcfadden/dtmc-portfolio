@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { yupCUID, yupDateNotRequired, yupDateRequired } from '../database.yup';
+import { yupCUID, yupDateNotRequired, yupDateRequired } from '../database/database.yup';
 import { yupCategoryName } from './todoTests.yup';
 
 export const yupTodoCategorySchema = yup

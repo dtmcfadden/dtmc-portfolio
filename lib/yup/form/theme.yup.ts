@@ -31,43 +31,43 @@ const yupPageDefaultColor = yup
 	.test('page', 'Invalid page color', (value) => {
 		return validateThemeInterface(value, DefaultColor);
 	})
-	.required()
-	.strict(true);
+	.required();
+// .strict(true);
 const yupBgDefaultColor = yup
 	.string()
 	.test('bg', 'Invalid BG color', (value) => {
 		return validateThemeInterface(value, DefaultColor);
 	})
-	.required()
-	.strict(true);
+	.required();
+// .strict(true);
 const yupTextColor = yup
 	.string()
 	.test('text', 'Invalid Text color', (value) => {
 		return validateThemeInterface(value, TextColor);
 	})
-	.required()
-	.strict(true);
+	.required();
+// .strict(true);
 const yupButtonColor = yup
 	.string()
 	.test('button', 'Invalid Button color', (value) => {
 		return validateThemeInterface(value, ButtonColor);
 	})
-	.required()
-	.strict(true);
+	.required();
+// .strict(true);
 const yupBorderColor = yup
 	.string()
 	.test('border', 'Invalid Border color', (value) => {
 		return validateThemeInterface(value, BorderColor);
 	})
-	.required()
-	.strict(true);
+	.required();
+// .strict(true);
 const yupVariantColor = yup
 	.string()
 	.test('variant', 'Invalid Variant color', (value) => {
 		return validateThemeInterface(value, VariantColor);
 	})
-	.required()
-	.strict(true);
+	.required();
+// .strict(true);
 
 export const yupThemePrefsBlock = yup
 	.object()
