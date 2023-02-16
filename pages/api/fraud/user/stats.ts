@@ -1,4 +1,4 @@
-import { getTransactionStats, getUserById, getUserStats } from '@/controllers/fraud/fraud.controller';
+import { getTransactionStats, getUserStats } from '@/controllers/fraud/fraud.controller';
 // import { toUserClientData } from '@/controllers/fraud/fraud.mapper';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';

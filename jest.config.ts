@@ -3,9 +3,15 @@
  * https://jestjs.io/docs/configuration
  */
 // import type { Config } from '@jest/types';
+import nextJest from 'next/jest';
 import { pathsToModuleNameMapper } from 'ts-jest';
 // import { compilerOptions } from './tsconfig.json';
 import type { JestConfigWithTsJest } from 'ts-jest';
+
+const createJestConfig = nextJest({
+	// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+	dir: './',
+});
 
 const compilerOptions = {
 	baseUrl: '.',
@@ -29,7 +35,7 @@ const compilerOptions = {
 	},
 };
 
-const jestConfig: JestConfigWithTsJest = {
+const customJestConfig: JestConfigWithTsJest = {
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 
@@ -100,6 +106,7 @@ const jestConfig: JestConfigWithTsJest = {
 	// moduleDirectories: [
 	//   "node_modules"
 	// ],
+	moduleDirectories: ['node_modules', '<rootDir>/'],
 
 	// An array of file extensions your modules use
 	// moduleFileExtensions: [
@@ -120,6 +127,7 @@ const jestConfig: JestConfigWithTsJest = {
 
 	// An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
 	// modulePathIgnorePatterns: [],
+	modulePathIgnorePatterns: ['cypress'],
 
 	// Activates notifications for test results
 	// notify: false,
@@ -162,6 +170,7 @@ const jestConfig: JestConfigWithTsJest = {
 
 	// A list of paths to modules that run some code to configure or set up the testing framework before each test
 	// setupFilesAfterEnv: [],
+	setupFilesAfterEnv: ['@testing-library/jest-dom'],
 
 	// The number of seconds after which a test is considered as slow and reported as such in the results.
 	// slowTestThreshold: 5,
@@ -170,7 +179,8 @@ const jestConfig: JestConfigWithTsJest = {
 	// snapshotSerializers: [],
 
 	// The test environment that will be used for testing
-	// testEnvironment: "jest-environment-node",
+	testEnvironment: 'jest-environment-node',
+	// testEnvironment: 'node',
 
 	// Options that will be passed to the testEnvironment
 	// testEnvironmentOptions: {},
@@ -217,4 +227,6 @@ const jestConfig: JestConfigWithTsJest = {
 
 // console.log('jestConfig', jestConfig);
 
-export default jestConfig;
+// export default customJestConfig;
+
+module.exports = createJestConfig(customJestConfig);

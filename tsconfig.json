@@ -53,7 +53,7 @@
 		"lib": ["dom", "dom.iterable", "esnext"],
 		// "lib": ["ES2020"],
 		// "outDir": "dist",
-		"types": ["node", "jest"],
+		"types": ["jest", "node", "@types/testing-library__jest-dom"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
@@ -75,9 +75,10 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"database/sequelize/mysql/config/config.js",
-		"jest.config.ts"
+		"jest.config.ts",
+		"./cypress.d.ts"
 	],
-	"exclude": ["node_modules"],
+	"exclude": ["node_modules", "cypress"],
 	"ts-node": {
 		"compilerOptions": {
 			"module": "commonjs"

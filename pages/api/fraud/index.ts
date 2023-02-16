@@ -1,4 +1,4 @@
-import { getUserById } from '@/controllers/fraud/fraud.controller';
+// import { getUserById } from '@/controllers/fraud/fraud.controller';
 // import { toUserClientData } from '@/controllers/fraud/fraud.mapper';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
