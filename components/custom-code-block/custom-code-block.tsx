@@ -13,7 +13,7 @@ const CustomCodeBlock = ({ codeCodeBlock, languageCodeBlock, showLineNumbersCode
 	const [showLineNumbers, setShowLineNumbers] = useState(showLineNumbersCodeBlock ? showLineNumbersCodeBlock : true);
 
 	return (
-		<Resizable defaultSize={{ width: 'auto', height: '400px' }}>
+		<Resizable defaultSize={{ width: 'auto', height: '400px' }} data-test="codeResizable">
 			<CodeBlock
 				text={codeCodeBlock}
 				customStyle={{
@@ -24,6 +24,7 @@ const CustomCodeBlock = ({ codeCodeBlock, languageCodeBlock, showLineNumbersCode
 				language={language}
 				theme={nord}
 				showLineNumbers={showLineNumbers}
+				data-test="codeBlock"
 			/>
 		</Resizable>
 	);

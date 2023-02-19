@@ -1,16 +1,9 @@
-import { cleanup, fireEvent, render } from '@testing-library/react';
 import ChangeDisplayName from './ChangeDisplayName';
-import { RecoilRoot } from 'recoil';
-import { server } from '@/config/index';
 
 describe('componenets', () => {
 	describe('ChangeDisplayName', () => {
 		it('should render', () => {
-			cy.mount(
-				<RecoilRoot>
-					<ChangeDisplayName />
-				</RecoilRoot>,
-			);
+			cy.recoilMount(<ChangeDisplayName />);
 		});
 
 		beforeEach(() => {
