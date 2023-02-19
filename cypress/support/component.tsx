@@ -1,3 +1,4 @@
+///<reference path="./component.d.ts" />
 // ***********************************************************
 // This example support/component.ts is processed and
 // loaded automatically before your test files.
@@ -14,26 +15,37 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/react18'
+import React from 'react';
+import { MountOptions, MountReturn } from 'cypress/react';
+import { SSRProvider } from '@react-aria/ssr';
+import { SessionProvider } from 'next-auth/react';
+import { RecoilRoot } from 'recoil';
+import { mount } from 'cypress/react18';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts
 // with a <reference path="./component" /> at the top of your spec.
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      mount: typeof mount
-    }
-  }
-}
+// declare global {
+// 	namespace Cypress {
+// 		interface Chainable {
+// 			mount: typeof mount;
+// 			recoilMount(children: React.ReactNode, options?: MountOptions): Cypress.Chainable<MountReturn>;
+// 		}
+// 	}
+// }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('mount', mount);
+
+Cypress.Commands.add('recoilMount', (component, options = {}) => {
+	const wrapped = <RecoilRoot>{component}</RecoilRoot>;
+	return mount(wrapped, options);
+});
 
 // Example use:
 // cy.mount(<MyComponent />)

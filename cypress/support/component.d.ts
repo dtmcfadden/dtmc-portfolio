@@ -1,4 +1,8 @@
 import { mount } from 'cypress/react';
+import { MountOptions, MountReturn } from 'cypress/react';
+import { SSRProvider } from '@react-aria/ssr';
+import { SessionProvider } from 'next-auth/react';
+import { RecoilRoot } from 'recoil';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -8,7 +12,6 @@ declare global {
 	namespace Cypress {
 		interface Chainable {
 			mount: typeof mount;
-			dataTest(value: string): Chainable<JQuery<HTMLElement>>;
 			recoilMount(children: React.ReactNode, options?: MountOptions): Cypress.Chainable<MountReturn>;
 		}
 	}

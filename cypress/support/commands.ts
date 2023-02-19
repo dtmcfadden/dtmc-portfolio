@@ -1,3 +1,10 @@
+// @ts-check
+///<reference path="../cypressGlobal.d.ts" />
+
+Cypress.Commands.add('dataTest', (value) => {
+	return cy.get(`[data-test=${value}]`);
+});
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite

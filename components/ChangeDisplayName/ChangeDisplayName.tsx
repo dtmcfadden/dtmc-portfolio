@@ -10,7 +10,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { userState } from '@/recoil/atoms/userAtom';
 
-export default function ChangeUserName() {
+export default function ChangeDisplayName() {
 	// console.log('ChangeUserName name', name);
 	const [validated, setValidated] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
@@ -83,6 +83,7 @@ export default function ChangeUserName() {
 								required
 								type="text"
 								placeholder="Display Name"
+								id="formDisplayName"
 								name="formDisplayName"
 								className="px-2 py-1 rounded"
 								value={values.formDisplayName}
@@ -91,21 +92,19 @@ export default function ChangeUserName() {
 								onChange={handleChange}
 								isInvalid={!!errors.formDisplayName}
 							/>
-							<Form.Control.Feedback type="invalid">{errors.formDisplayName}</Form.Control.Feedback>
+							<Form.Control.Feedback type="invalid" data-test="errDisplayName">
+								{errors.formDisplayName}
+							</Form.Control.Feedback>
 						</InputGroup>
 						<Form.Text id="nameHelpBlock" className={themeText}>
 							Name displayed on the website.
 						</Form.Text>
-						{errorMessage && (
-							<Form.Text id="errorHelpBlock" className="text-danger">
-								{errorMessage}
-							</Form.Text>
-						)}
 					</Form.Group>
 					<Button
 						variant={themeVariant}
 						type="submit"
 						disabled={!isValid || isSubmitting}
+						data-test="btnDisplayNameSubmit"
 						className={`w-100 submit ${themeButton} border ${
 							errorMessage == '' ? (isSubmitted ? 'border-success' : themeBorder) : 'border-danger'
 						}`}
@@ -113,6 +112,13 @@ export default function ChangeUserName() {
 						Change
 						{isSubmitting && <Spinner animation="border" size="sm" />}
 					</Button>
+					{errorMessage && (
+						<div>
+							<Form.Text id="errorHelpBlock" className="text-danger" data-test="errorMessage">
+								{errorMessage}
+							</Form.Text>
+						</div>
+					)}
 				</Form>
 			)}
 		</Formik>
