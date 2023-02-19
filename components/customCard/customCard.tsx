@@ -19,12 +19,16 @@ export default function CustomCard({ header, title, text, children }: Props) {
 
 	return (
 		<>
-			<Card bg={themeBg} className={`${themeText} ${themeBorder}`}>
-				{header && <Card.Header className={`h5`}>{header}</Card.Header>}
+			<Card bg={themeBg} className={`${themeText} ${themeBorder}`} data-test="testCard">
+				{header && (
+					<Card.Header className={`h5`} data-test="testHeader">
+						{header}
+					</Card.Header>
+				)}
 				{(title || text || children) && (
-					<Card.Body className={`py-2 border ${themeBorder}`}>
-						{title && <Card.Title>{title}</Card.Title>}
-						{text && <Card.Text>{text}</Card.Text>}
+					<Card.Body className={`py-2 border ${themeBorder}`} data-test="testBody">
+						{title && <Card.Title data-test="testTitle">{title}</Card.Title>}
+						{text && <Card.Text data-test="testText">{text}</Card.Text>}
 						{children && <>{children}</>}
 					</Card.Body>
 				)}
