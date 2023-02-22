@@ -24,13 +24,13 @@ export default function Footer() {
 						<Link href="https://github.com/dtmcfadden">GitHub</Link>
 					</ListGroup.Item>
 					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
-						<em>next@{packageJSON.dependencies['next']}</em>
+						<em data-test="packageCheck">next@{packageJSON.dependencies['next']}</em>
 					</ListGroup.Item>
 					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
-						<em>react@{packageJSON.dependencies['react']}</em>
+						<em data-test="packageCheck">react@{packageJSON.dependencies['react']}</em>
 					</ListGroup.Item>
 					<ListGroup.Item variant={themeVariant} className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
-						<em>next-auth@{packageJSON.dependencies['next-auth']}</em>
+						<em data-test="packageCheck">next-auth@{packageJSON.dependencies['next-auth']}</em>
 					</ListGroup.Item>
 				</ListGroup>
 			</Container>
