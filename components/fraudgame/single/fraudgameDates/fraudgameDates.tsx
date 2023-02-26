@@ -44,19 +44,19 @@ export default function FraudGameDates({ signup_time, purchase_time, signup_purc
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Signup_time} text="Signup Date" />
 						</td>
-						<td>{signupDT}</td>
+						<td data-test="signupDT">{signupDT}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Purchase_time} text="Purchase Date" />
 						</td>
-						<td>{purchaseDT}</td>
+						<td data-test="purchaseDT">{purchaseDT}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Signup_purchase_diff_sec} text="Difference" />
 						</td>
-						<td>
+						<td data-test="signup_purchase_diff_sec">
 							{signup_purchase_diff_sec}
 							{signup_purchase_diff_sec && <span title="Second(s)"> Sec</span>}
 						</td>

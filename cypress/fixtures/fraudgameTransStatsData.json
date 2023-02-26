@@ -1,0 +1,10 @@
+[
+	{
+		"trans_is_fraud_count": 0,
+		"trans_total_count": 0
+	},
+	{
+		"trans_is_fraud_count": 20,
+		"trans_total_count": 15
+	}
+]

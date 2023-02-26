@@ -11,8 +11,12 @@ export default function FraudGameDescription({ titleText, text, children }: Prop
 	return (
 		<>
 			<span>
-				<span className={`${styles.cTriang}`} title={titleText}></span>
-				{text && <span className={`${styles.textAdj}`}>{text}</span>}
+				<span className={`${styles.cTriang}`} title={titleText} data-test="span"></span>
+				{text && (
+					<span className={`${styles.textAdj}`} data-test="text">
+						{text}
+					</span>
+				)}
 				{children && <>{children}</>}
 			</span>
 		</>

@@ -19,6 +19,7 @@ export default function FraudPlayTheGame() {
 			<Button
 				variant="success"
 				href="/fraudgame/play"
+				data-test="fraud_play_btn"
 				className={`w-100 submit ${themeButton} border ${themeBorder}`}
 				onClick={handleHrefOnClick}
 			>

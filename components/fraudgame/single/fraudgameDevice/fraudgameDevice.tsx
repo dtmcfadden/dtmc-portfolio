@@ -35,19 +35,19 @@ export default function FraudGameDevice({
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Device_id} text="Device ID" />
 						</td>
-						<td>{device_id}</td>
+						<td data-test="device_id">{device_id}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Browser} text="Browser" />
 						</td>
-						<td>{browser}</td>
+						<td data-test="browser">{browser}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Device_fingerprint} text="Device Fingerprint" />
 						</td>
-						<td>{device_fingerprint}</td>
+						<td data-test="device_fingerprint">{device_fingerprint}</td>
 					</tr>
 					<tr>
 						<td>
@@ -56,7 +56,7 @@ export default function FraudGameDevice({
 								text="Device Fingerprint Velocity"
 							/>
 						</td>
-						<td>{device_fingerprint_velocity}</td>
+						<td data-test="device_fingerprint_velocity">{device_fingerprint_velocity}</td>
 					</tr>
 				</tbody>
 			</Table>

@@ -27,19 +27,21 @@ export default function FraudUserStats({
 				<tbody className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 					<tr>
 						<td>User Action Is Fraud Count</td>
-						<td>{user_action_is_fraud_count}</td>
+						<td data-test="user_action_is_fraud_count">{user_action_is_fraud_count}</td>
 					</tr>
 					<tr>
 						<td>User Action Non Fraud Count</td>
-						<td>{user_action_count && user_action_is_fraud_count && user_action_count - user_action_is_fraud_count}</td>
+						<td data-test="user_action_non_fraud_count">
+							{user_action_count && user_action_is_fraud_count && user_action_count - user_action_is_fraud_count}
+						</td>
 					</tr>
 					<tr>
 						<td>User Action Count</td>
-						<td>{user_action_count}</td>
+						<td data-test="user_action_count">{user_action_count}</td>
 					</tr>
 					<tr>
 						<td>User Correct Match Count</td>
-						<td>{user_correct_match}</td>
+						<td data-test="user_correct_match">{user_correct_match}</td>
 					</tr>
 				</tbody>
 			</Table>

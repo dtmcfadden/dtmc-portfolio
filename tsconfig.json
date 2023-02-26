@@ -75,7 +75,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"database/sequelize/mysql/config/config.js",
-		"jest.config.ts",
+		"./jest.config.ts",
+		"./cypress.config.ts",
 		"./cypress.d.ts"
 	],
 	"exclude": ["node_modules", "cypress"],

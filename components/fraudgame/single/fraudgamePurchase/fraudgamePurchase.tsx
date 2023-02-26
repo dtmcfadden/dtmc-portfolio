@@ -37,19 +37,19 @@ export default function FraudGamePurchase({
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Purchase_value} text="Purchase Amount" />
 						</td>
-						<td>{purchase_value}</td>
+						<td data-test="purchase_value">{purchase_value}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Source} text="Source" />
 						</td>
-						<td>{source}</td>
+						<td data-test="source">{source}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Purchase_fingerprint} text="Purchase Fingerprint" />
 						</td>
-						<td>{purchase_fingerprint}</td>
+						<td data-test="purchase_fingerprint">{purchase_fingerprint}</td>
 					</tr>
 					<tr>
 						<td>
@@ -58,7 +58,7 @@ export default function FraudGamePurchase({
 								text="Purchase Fingerprint Velocity"
 							/>
 						</td>
-						<td>{purchase_fingerprint_velocity}</td>
+						<td data-test="purchase_fingerprint_velocity">{purchase_fingerprint_velocity}</td>
 					</tr>
 				</tbody>
 			</Table>

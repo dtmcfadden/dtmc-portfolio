@@ -22,15 +22,17 @@ export default function FraudTransStats({ trans_is_fraud_count, trans_total_coun
 				<tbody className={`flex-fill bg-${themeBg} ${themeText} ${themeBorder}`}>
 					<tr>
 						<td>Transaction Fraud Count</td>
-						<td>{trans_is_fraud_count}</td>
+						<td data-test="trans_is_fraud_count">{trans_is_fraud_count}</td>
 					</tr>
 					<tr>
 						<td>Transaction Non Fraud Count</td>
-						<td>{trans_total_count && trans_is_fraud_count && trans_total_count - trans_is_fraud_count}</td>
+						<td data-test="trans_non_fraud_count">
+							{trans_total_count && trans_is_fraud_count && trans_total_count - trans_is_fraud_count}
+						</td>
 					</tr>
 					<tr>
 						<td>Transaction Total Count</td>
-						<td>{trans_total_count}</td>
+						<td data-test="trans_total_count">{trans_total_count}</td>
 					</tr>
 				</tbody>
 			</Table>

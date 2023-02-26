@@ -30,19 +30,19 @@ export default function FraudGameUser({ sex, age, user_fingerprint, user_fingerp
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Gender} text="Gender" />
 						</td>
-						<td>{sex}</td>
+						<td data-test="sex">{sex}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.Age} text="Age" />
 						</td>
-						<td>{age}</td>
+						<td data-test="age">{age}</td>
 					</tr>
 					<tr>
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.User_fingerprint} text="User Fingerprint" />
 						</td>
-						<td>{user_fingerprint}</td>
+						<td data-test="user_fingerprint">{user_fingerprint}</td>
 					</tr>
 					<tr>
 						<td>
@@ -51,7 +51,7 @@ export default function FraudGameUser({ sex, age, user_fingerprint, user_fingerp
 								text="User Fingerprint Velocity"
 							/>
 						</td>
-						<td>{user_fingerprint_velocity}</td>
+						<td data-test="user_fingerprint_velocity">{user_fingerprint_velocity}</td>
 					</tr>
 				</tbody>
 			</Table>

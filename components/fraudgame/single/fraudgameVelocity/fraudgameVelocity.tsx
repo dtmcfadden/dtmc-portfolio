@@ -36,7 +36,7 @@ export default function FraudGameVelocity({
 						<td>
 							<FraudGameDescription titleText={TitleConstDesc.IP_address_velocity} text="IP Address Velocity" />
 						</td>
-						<td>{ip_address_velocity}</td>
+						<td data-test="ip_address_velocity">{ip_address_velocity}</td>
 					</tr>
 					<tr>
 						<td>
@@ -45,7 +45,7 @@ export default function FraudGameVelocity({
 								text="Device Fingerprint Velocity"
 							/>
 						</td>
-						<td>{device_fingerprint_velocity}</td>
+						<td data-test="device_fingerprint_velocity">{device_fingerprint_velocity}</td>
 					</tr>
 					<tr>
 						<td>
@@ -54,7 +54,7 @@ export default function FraudGameVelocity({
 								text="Purchase Fingerprint Velocity"
 							/>
 						</td>
-						<td>{purchase_fingerprint_velocity}</td>
+						<td data-test="purchase_fingerprint_velocity">{purchase_fingerprint_velocity}</td>
 					</tr>
 					<tr>
 						<td>
@@ -63,7 +63,7 @@ export default function FraudGameVelocity({
 								text="User Fingerprint Velocity"
 							/>
 						</td>
-						<td>{user_fingerprint_velocity}</td>
+						<td data-test="user_fingerprint_velocity">{user_fingerprint_velocity}</td>
 					</tr>
 				</tbody>
 			</Table>

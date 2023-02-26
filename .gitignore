@@ -38,3 +38,8 @@ next-env.d.ts
 # api tester
 /pages/api/tester.ts
 /pages/tester.tsx
+
+# cypress
+/cypress/videos
+/cypress/screenshots
+/cypress.env.json
