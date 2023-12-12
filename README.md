@@ -22,6 +22,7 @@ Demonstrates:
   - [Themes](https://bootstrap.build/themes)
 - [Google Cloud integration](https://console.cloud.google.com)
 - [Docker](https://www.docker.com/)
+- [Connect to Python API hosted on internal GCP Cloud Run service](https://github.com/dtmcfadden/python-flask-fraud-data-extract)
 
 Working On / Upcoming projects:
 
