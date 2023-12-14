@@ -1,7 +1,8 @@
 import ChangeDisplayName from '@/components/ChangeDisplayName/ChangeDisplayName';
 import LoginProviderList from '@/components/LoginProviderList/LoginProviderList';
 import ThemeCustomize from '@/components/themeCustomize/themeCustomize';
-import UserRoles from '@/components/userRoles/userRoles';
+// import UserRoles from '@/components/userRoles/userRoles';
+import UserRoles from '../components/userRoles/userRoles';
 // import { server } from '@/config/index';
 // import axios from 'axios';
 // import { useEffect, useState } from 'react';
