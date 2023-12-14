@@ -79,7 +79,7 @@
 		"./cypress.config.ts",
 		"./cypress.d.ts"
 	],
-	"exclude": ["node_modules", "cypress", "**/*.cy.tsx"],
+	"exclude": ["node_modules", "cypress"],
 	"ts-node": {
 		"compilerOptions": {
 			"module": "commonjs"
