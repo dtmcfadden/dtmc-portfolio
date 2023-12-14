@@ -82,7 +82,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm cypress:run
+          start: npm run cypress:run
           browser: chrome
 
       - uses: actions/upload-artifact@v3
@@ -110,7 +110,7 @@ jobs:
       #     name: node-app
 
       - name: Jest run
-        run: npm run jest
+        run: npm run test
 
   # after-tests:
   #   needs: ["cypress-run","jest-run"]
