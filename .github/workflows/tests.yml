@@ -30,12 +30,17 @@ jobs:
       #   id: detect-package-manager
       #   run: |
       #     echo "runner=npx --no-install" >> $GITHUB_OUTPUT
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.12.1
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: npm
+          cache: 'pnpm'
+          # cache: 'npm'
 
       - name: Restore cache
         uses: actions/cache@v3
