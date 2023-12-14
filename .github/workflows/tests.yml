@@ -110,7 +110,7 @@ jobs:
       #     name: node-app
 
       - name: Jest run
-        run: npm run test
+        run: npm run test:ci
 
   # after-tests:
   #   needs: ["cypress-run","jest-run"]
