@@ -74,11 +74,11 @@ jobs:
       #     runTests: false
       #     build: npm run build
 
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-app
-          path: .
+      # - name: Save build folder
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: node-app
+      #     path: .
 
   cypress-run:
     runs-on: ubuntu-latest
@@ -87,10 +87,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: node-app
+      # - name: Download the build folder
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: node-app
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -117,10 +117,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: node-app
+      # - name: Download the build folder
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: node-app
 
       - name: Jest run
         run: npm run jest
