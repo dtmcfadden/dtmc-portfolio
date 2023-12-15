@@ -19,17 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build with Next.js
-        run: npm run build
-
-      - name: Cypress run
+      - name: Cypress tests
         uses: cypress-io/github-action@v6
-        with:
-          start: npm run cypress:run
-          browser: chrome
 
   jest-run:
     runs-on: ubuntu-latest
