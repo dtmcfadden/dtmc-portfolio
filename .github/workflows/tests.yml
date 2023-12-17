@@ -43,7 +43,7 @@ jobs:
       # - name: Build with Next.js
       #   run: npm run build
 
-  cypress-run:
+  cypress-e2e-run:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -52,6 +52,18 @@ jobs:
 
       - name: Cypress tests
         uses: cypress-io/github-action@v6
+
+  cypress-component-run:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
 
   jest-run:
     runs-on: ubuntu-latest
