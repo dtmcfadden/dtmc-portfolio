@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import _ from 'lodash';
 import { getToken } from 'next-auth/jwt';

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { getSession, useSession } from 'next-auth/react';
 import _ from 'lodash';
 

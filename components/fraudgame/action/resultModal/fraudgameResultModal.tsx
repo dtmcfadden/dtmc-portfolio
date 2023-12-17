@@ -4,7 +4,7 @@ import styles from './portfolioImageCard.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useOnClickShared } from '@/lib/sharedHooks';
 
 interface IAction {
