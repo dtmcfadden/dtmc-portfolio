@@ -39,9 +39,6 @@ jobs:
       - name: Clean Install dependencies
         run: npm ci
 
-      - name: Install extra dependencies
-        run: npm install -g jest
-
       # - name: Build with Next.js
       #   run: npm run build
 
@@ -61,6 +58,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install jest
+        run: npm install -g jest
 
       - name: Jest Unit Tests
         run: npm run test:ci
