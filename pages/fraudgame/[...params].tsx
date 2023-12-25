@@ -1,36 +1,51 @@
-import { useRouter } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { server } from '@/config/index';
-import { ParsedUrlQuery } from 'querystring';
 import { Container } from 'react-bootstrap';
 import { PurchaseTrans } from '@/interfaces/fraud.interface';
 import FraudGameSingleLayout from '@/components/fraudgame/single/fraudgameSingleLayout';
 import styles from '@/components/fraudgame/fraudgameContainer.module.css';
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 const FraudGame = () => {
-	const router = useRouter();
-	const query = router.query;
+	const urlParams = useParams();
+	const searchParams = useSearchParams();
 	// console.log('query', query);
 	const [transData, setTransData] = useState([]);
 	const [errorMsg, setErrorMsg] = useState();
 
-	const getFraudData = async (query: ParsedUrlQuery) => {
+	const getFraudData = async (urlParams: Params) => {
+		console.log(urlParams);
+		// const paramEntries = searchParams.entries();
 		// console.log('getFraudData query', query);
 		// console.log('getFraudData typeof query.params', typeof query.params);
 		// console.log('getFraudData typeof query.params.length', query.params.length);
-		if (query && query.params && typeof query.params === 'object' && query.params.length > 0) {
-			const params: string[] = query.params;
-			// console.log('params:', params);
+
+		// if (query && query.params && typeof query.params === 'object' && query.params.length > 0) {
+		if (urlParams.length > 0) {
+			// 	// const params: string[] = query.params;
+			// 	// console.log('params:', params);
 			let sendParams = 'play';
-			if (params.length == 1) {
-				if (params[0] != sendParams) {
-					sendParams = 'id/' + params[0];
-				}
-			} else {
-				if (params.length % 2 == 0) {
-					sendParams = params.join('/');
-				}
-			}
+			// 	if(searchParams.entries.length == 1){
+			// 		if(searchParams.entries[0] != sendParams){
+
+			// 		}
+			// 	}else{
+
+			// 	}
+
+			// 	if(searchParams.has(sendParams) != null){
+
+			// 	}
+			// if (params.length == 1) {
+			// 	if (params[0] != sendParams) {
+			// 		sendParams = 'id/' + params[0];
+			// 	}
+			// } else {
+			// 	if (params.length % 2 == 0) {
+			// 		sendParams = params.join('/');
+			// 	}
+			// }
 			// console.log('sendParams', sendParams);
 			// console.log('server', server);
 			const response = await fetch(`${server}/api/fraud/${sendParams}`);
@@ -48,8 +63,8 @@ const FraudGame = () => {
 	};
 
 	useEffect(() => {
-		getFraudData(query);
-	}, [query]);
+		getFraudData(urlParams);
+	}, [urlParams]);
 	// console.log('router.query', router.query);
 
 	// return <p>Test</p>;
