@@ -1,25 +1,15 @@
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { Button } from 'react-bootstrap';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
+import CustomCard from '../customCard/customCard';
 
 export default function AccessDenied() {
 	const { handleHrefOnClick } = useOnClickShared();
 
 	return (
-		<>
-			<h1>Access Denied</h1>
-			<p>
-				<Link
-					href="/"
-					onClick={handleHrefOnClick}
-					// onClick={(e) => {
-					// 	e.preventDefault();
-					// 	signIn();
-					// }}
-				>
-					You must be signed in to view this page
-				</Link>
-			</p>
-		</>
+		<CustomCard header="Access Denied">
+			<Button variant="primary" href="/" onClick={handleHrefOnClick}>
+				You must be signed in to view this page
+			</Button>
+		</CustomCard>
 	);
 }

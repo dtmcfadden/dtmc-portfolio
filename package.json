@@ -7,6 +7,7 @@
 		"test:ci": "jest --ci",
 		"cypress:open": "cypress open",
 		"cypress:run": "cypress run",
+		"cypress:component": "cypress run --component",
 		"db:up": "echo creating && npm run db:create && echo created && npm run db:migrate && echo migrated",
 		"db:reset": "npm run db:drop && npm run db:up",
 		"db:create": "npx sequelize-cli db:create",

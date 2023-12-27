@@ -3,7 +3,8 @@ import styles from './portfolioImageCard.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
 import CustomCard from '@/components/customCard/customCard';
-import { useOnClickShared } from '@/lib/sharedHooks';
+// import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 
 export default function FraudPlayTheGame() {
 	const { handleHrefOnClick } = useOnClickShared();
