@@ -1,9 +1,8 @@
-// import type { NextApiRequest, NextApiResponse } from 'next';
 import { Button, Modal } from 'react-bootstrap';
 import styles from './portfolioImageCard.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 
 interface IAction {
 	resultMsg: string;

@@ -3,20 +3,6 @@ import { useRouter } from 'next/navigation';
 import { getSession, useSession } from 'next-auth/react';
 import _ from 'lodash';
 
-export const useOnClickShared = () => {
-	const router = useRouter();
-
-	const handleHrefOnClick = (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault();
-		const curHref = e.currentTarget.getAttribute('href');
-		if (curHref) {
-			router.push(curHref);
-		}
-	};
-
-	return { handleHrefOnClick };
-};
-
 export const useUrlAuthCheck = async (req: NextApiRequest) => {
 	const router = useRouter();
 	const { data: sessionClient, status } = useSession();

@@ -4,18 +4,43 @@ import _ from 'lodash';
 import { getToken } from 'next-auth/jwt';
 
 export const useOnClickShared = () => {
-	const router = useRouter();
+	try {
+		const router = useRouter();
 
-	const handleHrefOnClick = (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault();
-		const curHref = e.currentTarget.getAttribute('href');
-		if (curHref) {
-			router.push(curHref);
-		}
-	};
+		const handleHrefOnClick = (e: React.MouseEvent<HTMLElement>) => {
+			e.preventDefault();
+			const curHref = e.currentTarget.getAttribute('href');
+			if (curHref) {
+				router.push(curHref);
+			}
+		};
 
-	return { handleHrefOnClick };
+		return { handleHrefOnClick };
+	} catch (error) {
+		const handleHrefOnClick = (e: React.MouseEvent<HTMLElement>) => {
+			e.preventDefault();
+			const curHref = e.currentTarget.getAttribute('href');
+			if (curHref) {
+				// router.push(curHref);
+			}
+		};
+		return { handleHrefOnClick };
+	}
 };
+
+// export const useOnClickShared = () => {
+// 	const router = useRouter();
+
+// 	const handleHrefOnClick = (e: React.MouseEvent<HTMLElement>) => {
+// 		e.preventDefault();
+// 		const curHref = e.currentTarget.getAttribute('href');
+// 		if (curHref) {
+// 			router.push(curHref);
+// 		}
+// 	};
+
+// 	return { handleHrefOnClick };
+// };
 
 // export const useUrlAuthCheck = async (req: NextRequest) => {
 // 	const token = await getToken({ req });
