@@ -6,7 +6,7 @@
 		// to avoid clashing with Jest types
 		"target": "es5",
 		"lib": ["es5", "dom"],
-		"types": ["cypress", "node"]
+		"types": ["cypress"]
 	},
 	"include": [
 		"../node_modules/cypress",
@@ -16,5 +16,5 @@
 		"**/cy.tsx",
 		"../cypress.d.ts"
 	],
-	"exclude": ["./**/test.ts*"]
+	"exclude": ["**/*.test.ts*"]
 }
