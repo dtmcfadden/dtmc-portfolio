@@ -1,3 +1,4 @@
+import { describe, expect, test } from '@jest/globals';
 import { yupThemeBlock, yupThemePrefs, yupThemePrefsBlock, yupThemePrefsForm } from './theme.yup';
 
 describe('yup validation', () => {
@@ -12,7 +13,7 @@ describe('yup validation', () => {
 		};
 		describe('yupThemePrefsBlock', () => {
 			describe('given the yupThemePrefsBlock structure is not valid', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemePrefsBlockObj_alt: any = { ...yupThemePrefsBlockObj, ...{} };
 					delete yupThemePrefsBlockObj_alt.page;
 					// console.log('yupThemePrefsBlockObj_alt1', yupThemePrefsBlockObj_alt);
@@ -23,7 +24,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsBlock property value is not valid', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemePrefsBlockObj_alt: any = { ...yupThemePrefsBlockObj, ...{} };
 					yupThemePrefsBlockObj_alt.variant = 'blah';
 					const themePrefBlockCheck = await yupThemePrefsBlock.isValid(yupThemePrefsBlockObj_alt);
@@ -33,7 +34,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsBlock has an invalid property added', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemePrefsBlockObj_alt: any = { ...yupThemePrefsBlockObj, ...{} };
 					yupThemePrefsBlockObj_alt.extraprop = 'true';
 					const themePrefBlockCheck = await yupThemePrefsBlock.isValid(yupThemePrefsBlockObj_alt);
@@ -43,7 +44,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsBlock is valid', () => {
-				it('should return true', async () => {
+				test('should return true', async () => {
 					const themePrefBlockCheck = await yupThemePrefsBlock.isValid(yupThemePrefsBlockObj);
 					// console.log('themePrefBlockCheck4', themePrefBlockCheck);
 					expect(themePrefBlockCheck).toBe(true);
@@ -58,7 +59,7 @@ describe('yup validation', () => {
 
 		describe('yupThemeBlock', () => {
 			describe('given the yupThemeBlock structure is not valid', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemeBlockObj_alt: any = { ...yupThemeBlockObj, ...{} };
 					delete yupThemeBlockObj_alt[1];
 					// console.log('yupThemeBlockObj_alt1', yupThemeBlockObj_alt);
@@ -69,7 +70,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsBlock has an invalid property added', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemeBlockObj_alt: any = { ...yupThemeBlockObj, ...{} };
 					yupThemeBlockObj_alt[2] = yupThemePrefsBlockObj;
 					const yupThemeBlockObjCheck = await yupThemeBlock.isValid(yupThemeBlockObj_alt);
@@ -79,7 +80,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemeBlock is valid', () => {
-				it('should return true', async () => {
+				test('should return true', async () => {
 					const yupThemeBlockObjCheck = await yupThemeBlock.isValid(yupThemeBlockObj);
 					// console.log('yupThemeBlockObjCheck4', yupThemeBlockObjCheck);
 					expect(yupThemeBlockObjCheck).toBe(true);
@@ -94,7 +95,7 @@ describe('yup validation', () => {
 		};
 		describe('yupThemePrefsObj', () => {
 			describe('given the yupThemePrefsObj structure is not valid', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemePrefsObj_alt: any = { ...yupThemePrefsObj, ...{} };
 					delete yupThemePrefsObj_alt.isDark;
 					// console.log('yupThemePrefsObj_alt1', yupThemePrefsObj_alt);
@@ -105,7 +106,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsObj has an invalid property added', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemePrefsObj_alt: any = { ...yupThemePrefsObj, ...{} };
 					// @ts-ignore
 					yupThemePrefsObj_alt.invalidProp = 'blah';
@@ -116,7 +117,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsObj is valid', () => {
-				it('should return true', async () => {
+				test('should return true', async () => {
 					// console.log('yupThemePrefsObj4', yupThemePrefsObj);
 					const yupThemePrefsObjCheck = await yupThemePrefs.isValid(yupThemePrefsObj);
 					// console.log('yupThemePrefsObjCheck4', yupThemePrefsObjCheck);
@@ -134,7 +135,7 @@ describe('yup validation', () => {
 		};
 		describe('yupThemePrefsFormObj', () => {
 			describe('given the yupThemePrefsFormObj property value is not valid', () => {
-				it('should return false', async () => {
+				test('should return false', async () => {
 					let yupThemePrefsFormObj_alt: any = { ...yupThemePrefsFormObj, ...{} };
 					yupThemePrefsFormObj_alt.formPage = 'blah';
 					const yupThemePrefsFormObjCheck = await yupThemePrefsForm.isValid(yupThemePrefsFormObj_alt);
@@ -144,7 +145,7 @@ describe('yup validation', () => {
 			});
 
 			describe('given the yupThemePrefsFormObj is valid', () => {
-				it('should return true', async () => {
+				test('should return true', async () => {
 					// console.log('yupThemePrefsObj4', yupThemePrefsObj);
 					const yupThemePrefsFormObjCheck = await yupThemePrefsForm.isValid(yupThemePrefsFormObj);
 					console.log('yupThemePrefsFormObjCheck4', yupThemePrefsFormObjCheck);
