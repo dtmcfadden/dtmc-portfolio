@@ -16,7 +16,7 @@ on:
 env:
   # Merge_Into_Branch: main
   Merge_Into_Branch: dev-to-main-test-merge
-  Merge_From_Branch: dev
+  Merge_From_Branch: dev-workflow-on-success
 
 jobs:
   build:
