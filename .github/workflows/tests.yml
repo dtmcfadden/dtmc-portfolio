@@ -13,6 +13,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  # Merge_Into_Branch: main
+  Merge_Into_Branch: dev-to-main-test-merge
+  Merge_From_Branch: dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -79,5 +84,17 @@ jobs:
       - name: Jest Unit Tests
         run: npm run test:ci
 
-  # after-tests:
-  #   needs: ["cypress-run","jest-run"]
+  on-tests-success:
+    runs-on: ubuntu-latest
+    needs: ['cypress-e2e-run', 'cypress-component-run', 'jest-run']
+    steps:
+      - name: create pull request
+        # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+        run: |
+          gh pr create \
+            -B $Merge_Into_Branch \
+            -H $Merge_From_Branch \
+            --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
+            --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes it's tests.'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
