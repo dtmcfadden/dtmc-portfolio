@@ -41,73 +41,46 @@ jobs:
       - name: Clean Install dependencies
         run: npm ci
 
-      # - name: Build with Next.js
-      #   run: npm run build
-
   cypress-e2e-run:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: tempecho
-        run: echo "cypress-e2e-run"
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Cypress tests
-      #   uses: cypress-io/github-action@v6
+      - name: Cypress tests
+        uses: cypress-io/github-action@v6
 
   cypress-component-run:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: tempecho
-        run: echo "cypress-component-run"
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Cypress tests
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     component: true
+      - name: Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
 
   jest-run:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: tempecho
-        run: echo "jest-run"
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Install jest
-      #   run: npm install --save-dev jest
+      - name: Install jest
+        run: npm install --save-dev jest
 
-      # - name: Jest Unit Tests
-      #   run: npm run test:ci
+      - name: Jest Unit Tests
+        run: npm run test:ci
 
   on-tests-success:
     runs-on: ubuntu-latest
     needs: ['cypress-e2e-run', 'cypress-component-run', 'jest-run']
-    # env:
-    #   PR_CREATE_SCRIPT: |
-    #     gh pr create \
-    #       -B $Merge_Into_Branch \
-    #       -H $Merge_From_Branch \
-    #       --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
-    #       --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'
     steps:
-      #   - name: display create pull request script
-      #     run: |
-      #       echo "$PR_CREATE_SCRIPT"
-      #       echo "gh pr create \
-      #       -B $Merge_Into_Branch \
-      #       -H $Merge_From_Branch \
-      #       --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
-      #       --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'"
-
       - name: create pull request
-        # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
-        # run: gh pr create --base "dev-to-main-test-merge" --head "dev-workflow-on-success" --title "Test title" --body "Test body"
         run: |
           gh pr create \
           --base "$Merge_Into_Branch" \
@@ -117,6 +90,6 @@ jobs:
           --body "Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORYURL: ${{ github.repositoryUrl }}
           Merge_Into_Branch: dev-to-main-test-merge
           Merge_From_Branch: dev-workflow-on-success
-          GITHUB_REPOSITORYURL: ${{ github.repositoryUrl }}
