@@ -117,6 +117,7 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   dump-context:
     runs-on: ubuntu-latest
+    needs: ['on-tests-success']
     steps:
       - name: Dump GitHub context
         env:
