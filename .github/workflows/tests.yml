@@ -119,5 +119,5 @@ jobs:
         #   --head "dev-workflow-on-success"
         #   --title "Merge dev-workflow-on-success into dev-to-main-test-merge"
         #   --body "Merge to dev-to-main-test-merge after dev-workflow-on-success successfully passes its tests."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
