@@ -13,10 +13,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  # Merge_Into_Branch: main
-  Merge_Into_Branch: dev-to-main-test-merge
-  Merge_From_Branch: dev-workflow-on-success
+# env:
+#   # Merge_Into_Branch: main
+#   Merge_Into_Branch: dev-to-main-test-merge
+#   Merge_From_Branch: dev-workflow-on-success
 
 jobs:
   build:
@@ -93,65 +93,29 @@ jobs:
   on-tests-success:
     runs-on: ubuntu-latest
     needs: ['cypress-e2e-run', 'cypress-component-run', 'jest-run']
-    env:
-      PR_CREATE_SCRIPT: |
-        gh pr create \
-          -B $Merge_Into_Branch \
-          -H $Merge_From_Branch \
-          --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
-          --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'
+    # env:
+    #   PR_CREATE_SCRIPT: |
+    #     gh pr create \
+    #       -B $Merge_Into_Branch \
+    #       -H $Merge_From_Branch \
+    #       --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
+    #       --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'
     steps:
-      - name: display create pull request script
-        run: |
-          echo "$PR_CREATE_SCRIPT"
-          echo "gh pr create \
-          -B $Merge_Into_Branch \
-          -H $Merge_From_Branch \
-          --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
-          --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'"
+      #   - name: display create pull request script
+      #     run: |
+      #       echo "$PR_CREATE_SCRIPT"
+      #       echo "gh pr create \
+      #       -B $Merge_Into_Branch \
+      #       -H $Merge_From_Branch \
+      #       --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
+      #       --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'"
 
-      # - name: create pull request
-      #   # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
-      #   run: $PR_CREATE_SCRIPT
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  dump-context:
-    runs-on: ubuntu-latest
-    needs: ['on-tests-success']
-    steps:
-      - name: Dump GitHub context
+      - name: create pull request
+        # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+        run: gh pr create \
+          -B dev-to-main-test-merge \
+          -H dev-workflow-on-success \
+          --title "Merge dev-workflow-on-success into dev-to-main-test-merge" \
+          --body "Merge to dev-to-main-test-merge after dev-workflow-on-success successfully passes its tests.""
         env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump env context
-        env:
-          ENV_CONTEXT: ${{ toJson(env) }}
-        run: echo "$ENV_CONTEXT"
-
-      - name: Show default environment variables
-        run: |
-          echo "The job_id is: $GITHUB_JOB"   # reference the default environment variables
-          echo "The id of this action is: $GITHUB_ACTION"   # reference the default environment variables
-          echo "The run id is: $GITHUB_RUN_ID"
-          echo "The GitHub Actor's username is: $GITHUB_ACTOR"
-          echo "GitHub SHA: $GITHUB_SHA"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
