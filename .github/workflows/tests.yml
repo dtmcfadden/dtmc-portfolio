@@ -95,6 +95,6 @@ jobs:
             -B $Merge_Into_Branch \
             -H $Merge_From_Branch \
             --title 'Merge $Merge_From_Branch into $Merge_Into_Branch' \
-            --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes it's tests.'
+            --body 'Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
