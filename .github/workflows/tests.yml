@@ -13,11 +13,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# env:
-#   # Merge_Into_Branch: main
-#   Merge_Into_Branch: dev-to-main-test-merge
-#   Merge_From_Branch: dev-workflow-on-success
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -112,12 +107,15 @@ jobs:
 
       - name: create pull request
         # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
-        run: gh pr create --base "dev-to-main-test-merge" --head "dev-workflow-on-success" --title "Test title" --body "Test body"
-        # run: |
-        #   gh pr create
-        #   --base "dev-to-main-test-merge"
-        #   --head "dev-workflow-on-success"
-        #   --title "Merge dev-workflow-on-success into dev-to-main-test-merge"
-        #   --body "Merge to dev-to-main-test-merge after dev-workflow-on-success successfully passes its tests."
+        # run: gh pr create --base "dev-to-main-test-merge" --head "dev-workflow-on-success" --title "Test title" --body "Test body"
+        run: |
+          gh pr create
+          --base "$Merge_Into_Branch"
+          --head "$Merge_From_Branch"
+          --repo "${{ github.repositoryUrl }}"
+          --title "Merge $Merge_From_Branch into $Merge_Into_Branch"
+          --body "Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          Merge_Into_Branch: dev-to-main-test-merge
+          Merge_From_Branch: dev-workflow-on-success
