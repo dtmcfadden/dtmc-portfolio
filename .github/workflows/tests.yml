@@ -112,7 +112,7 @@ jobs:
 
       - name: create pull request
         # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
-        run: gh pr create --base "dev-to-main-test-merge"
+        run: gh pr create --base "dev-to-main-test-merge" --title "Test title" --body "Test body"
         # run: |
         #   gh pr create
         #   --base "dev-to-main-test-merge"
