@@ -112,10 +112,12 @@ jobs:
 
       - name: create pull request
         # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
-        run: gh pr create
-          -B "dev-to-main-test-merge"
-          -H "dev-workflow-on-success"
-          --title "Merge dev-workflow-on-success into dev-to-main-test-merge"
-          --body "Merge to dev-to-main-test-merge after dev-workflow-on-success successfully passes its tests."
+        run: gh pr create --base "dev-to-main-test-merge"
+        # run: |
+        #   gh pr create
+        #   --base "dev-to-main-test-merge"
+        #   --head "dev-workflow-on-success"
+        #   --title "Merge dev-workflow-on-success into dev-to-main-test-merge"
+        #   --body "Merge to dev-to-main-test-merge after dev-workflow-on-success successfully passes its tests."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
