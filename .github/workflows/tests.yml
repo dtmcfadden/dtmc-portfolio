@@ -109,13 +109,14 @@ jobs:
         # run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
         # run: gh pr create --base "dev-to-main-test-merge" --head "dev-workflow-on-success" --title "Test title" --body "Test body"
         run: |
-          gh pr create
-          --base "$Merge_Into_Branch"
-          --head "$Merge_From_Branch"
-          --repo "${{ github.repositoryUrl }}"
-          --title "Merge $Merge_From_Branch into $Merge_Into_Branch"
+          gh pr create \
+          --base "$Merge_Into_Branch" \
+          --head "$Merge_From_Branch" \
+          --repo "$GITHUB_REPOSITORYURL" \
+          --title "Merge $Merge_From_Branch into $Merge_Into_Branch" \
           --body "Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           Merge_Into_Branch: dev-to-main-test-merge
           Merge_From_Branch: dev-workflow-on-success
+          GITHUB_REPOSITORYURL: ${{ github.repositoryUrl }}
