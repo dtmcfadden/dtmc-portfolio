@@ -1,13 +1,9 @@
 name: Build Tests and Create PR for Merge
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    # branches: ['dev']
-    branches: ['dev-workflow-on-success']
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  push:
+    branches: ['dev']
 
 jobs:
   build:
@@ -87,5 +83,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORYURL: ${{ github.repositoryUrl }}
-          Merge_Into_Branch: dev-to-main-test-merge
-          Merge_From_Branch: dev-workflow-on-success
+          Merge_Into_Branch: main
+          Merge_From_Branch: dev
