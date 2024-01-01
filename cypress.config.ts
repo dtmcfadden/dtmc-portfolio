@@ -12,6 +12,6 @@ export default defineConfig({
 			bundler: 'webpack',
 		},
 		supportFile: 'cypress/support/component.tsx',
-		specPattern: '**/*.cy.{js,jsx,ts,tsx}',
+		specPattern: ['**/*.cy.{js,jsx,ts,tsx}'],
 	},
 });

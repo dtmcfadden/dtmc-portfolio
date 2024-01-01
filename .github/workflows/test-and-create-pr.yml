@@ -1,0 +1,87 @@
+name: Build Tests and Create PR for Merge
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['dev']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+
+      - name: Clean Install dependencies
+        run: npm ci
+
+  cypress-e2e-run:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress tests
+        uses: cypress-io/github-action@v6
+
+  cypress-component-run:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+
+  jest-run:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install jest
+        run: npm install --save-dev jest
+
+      - name: Jest Unit Tests
+        run: npm run test:ci
+
+  on-tests-success:
+    runs-on: ubuntu-latest
+    needs: ['cypress-e2e-run', 'cypress-component-run', 'jest-run']
+    steps:
+      - name: create pull request
+        run: |
+          gh pr create \
+          --base "$Merge_Into_Branch" \
+          --head "$Merge_From_Branch" \
+          --repo "$GITHUB_REPOSITORYURL" \
+          --title "Merge $Merge_From_Branch into $Merge_Into_Branch" \
+          --body "Merge to $Merge_Into_Branch after $Merge_From_Branch successfully passes its tests."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORYURL: ${{ github.repositoryUrl }}
+          Merge_Into_Branch: main
+          Merge_From_Branch: dev

@@ -4,6 +4,7 @@
  */
 // import type { Config } from '@jest/types';
 import nextJest from 'next/jest';
+import type { Config } from '@jest/types';
 import { pathsToModuleNameMapper } from 'ts-jest';
 // import { compilerOptions } from './tsconfig.json';
 import type { JestConfigWithTsJest } from 'ts-jest';
@@ -35,7 +36,7 @@ const compilerOptions = {
 	},
 };
 
-const customJestConfig: JestConfigWithTsJest = {
+const customJestConfig: Config.InitialProjectOptions = {
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 
@@ -63,7 +64,7 @@ const customJestConfig: JestConfigWithTsJest = {
 	// ],
 
 	// Indicates which provider should be used to instrument code for coverage
-	coverageProvider: 'v8',
+	// coverageProvider: 'v8',
 
 	// A list of reporter names that Jest uses when writing coverage reports
 	// coverageReporters: [
@@ -216,7 +217,7 @@ const customJestConfig: JestConfigWithTsJest = {
 	// unmockedModulePathPatterns: undefined,
 
 	// Indicates whether each individual test should be reported during the run
-	verbose: true,
+	// verbose: true,
 
 	// An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
 	// watchPathIgnorePatterns: [],

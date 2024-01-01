@@ -1,11 +1,8 @@
-// import type { NextApiRequest, NextApiResponse } from 'next';
-import { Button, Card, Col, Container, Image, Modal, Row, Stack, Table } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import styles from './portfolioImageCard.module.css';
 import { useRecoilValue } from 'recoil';
 import { selectThemeSiteState } from '@/recoil/selectors/themeSiteSelector';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useOnClickShared } from '@/lib/sharedHooks';
+import { useOnClickShared } from '@/lib/hooks/use-sharedHooks';
 
 interface IAction {
 	resultMsg: string;
@@ -15,14 +12,9 @@ interface IAction {
 }
 
 export default function FraudGameResultModal({ resultMsg, passShown, handleModalShow, getFraudData }: IAction) {
-	const router = useRouter();
 	const { handleHrefOnClick } = useOnClickShared();
-
 	const handleClose = () => handleModalShow(false);
-	const handlePlay = () => {
-		// console.log('Playing Again');
-		getFraudData(router.query);
-	};
+	const handlePlay = () => getFraudData();
 	const {
 		bg: themeBg,
 		border: themeBorder,
