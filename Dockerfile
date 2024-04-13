@@ -1,11 +1,11 @@
-FROM node:20-alpine AS dependencies
+FROM node:18-alpine AS dependencies
 
 WORKDIR /app
-COPY ./prisma package.json package-lock.json ./
+COPY ./prisma package.json yarn.lock ./
 COPY prisma ./prisma/
-RUN npm ci
+RUN yarn
 
-FROM node:20-alpine AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
@@ -13,9 +13,9 @@ COPY . .
 
 # RUN npx prisma migrate deploy
 RUN npx prisma generate
-RUN npm run build
+RUN yarn build
 
-FROM node:20-alpine AS deploy
+FROM node:18-alpine AS deploy
 
 WORKDIR /app
 
@@ -32,5 +32,7 @@ EXPOSE 3000
 ENV PORT 3000
 
 CMD ["node", "server.js"]
+# CMD [  "yarn", "start:migrate:prod" ]
+
 
 # docker compose -f docker-compose.yml build
