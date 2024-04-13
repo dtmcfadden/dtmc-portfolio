@@ -60,12 +60,6 @@ export default async function navLinks(req: NextApiRequest, res: NextApiResponse
 		title: 'Fraud Game',
 	});
 
-	navJSON.push({
-		type: 'link',
-		href: 'https://weather.dtmcportfolio.info/',
-		title: 'Weather',
-	});
-
 	if (token && token?.roles && session && req.method === 'GET') {
 		if (token?.roles.indexOf('guest') != -1) {
 			navJSON.push({
