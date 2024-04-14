@@ -3,7 +3,7 @@ FROM node:18-alpine AS dependencies
 WORKDIR /app
 COPY ./prisma package.json ./
 COPY prisma ./prisma/
-RUN yarn
+RUN npx
 
 FROM node:18-alpine AS build
 
@@ -13,7 +13,7 @@ COPY . .
 
 # RUN npx prisma migrate deploy
 RUN npx prisma generate
-RUN yarn build
+RUN npx build
 
 FROM node:18-alpine AS deploy
 
