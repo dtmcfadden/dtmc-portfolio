@@ -1,7 +1,7 @@
 FROM node:18-alpine AS dependencies
 
 WORKDIR /app
-COPY ./prisma package.json yarn.lock ./
+COPY ./prisma package.json ./
 COPY prisma ./prisma/
 RUN yarn
 
