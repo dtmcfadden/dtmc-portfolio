@@ -1,11 +1,11 @@
-FROM node:18-alpine AS dependencies
+FROM node:20-alpine AS dependencies
 
 WORKDIR /app
-COPY ./prisma package.json ./
+COPY ./prisma package.json package-lock.json ./
 COPY prisma ./prisma/
-RUN npx
+RUN npm ci
 
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
@@ -13,9 +13,9 @@ COPY . .
 
 # RUN npx prisma migrate deploy
 RUN npx prisma generate
-RUN npx build
+RUN npm run build
 
-FROM node:18-alpine AS deploy
+FROM node:20-alpine AS deploy
 
 WORKDIR /app
 
